@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  matlab-runtime:
+    image: matlab-runtime:R2020a_u6
+    build:
+      context: ./apps/matlab-runtime
+      args:
+        MATLAB_RUNTIME_VERSION: R2020a_u6
+  brainstorm:
+    image: brainstorm:210218
+    build: ./apps/brainstorm
+    volumes:
+      - ./apps/brainstorm/run:/app/brainstorm/run
