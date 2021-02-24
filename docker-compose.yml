@@ -1,6 +1,15 @@
 version: '3.4'
 
 services:
+  xpra-server:
+    image: xpra-server
+    build: ./server
+    volumes: 
+      - x11-unix:/tmp/.X11-unix
+    networks:
+      - server
+    ports:
+      - "8080:8080"
   matlab-runtime:
     image: matlab-runtime:R2020a_u6
     build:
@@ -11,4 +20,24 @@ services:
     image: brainstorm:210218
     build: ./apps/brainstorm
     volumes:
-      - ./apps/brainstorm/run:/app/brainstorm/run
+      - x11-unix:/tmp/.X11-unix
+      - ./apps/brainstorm/run:/home/hip-user/apps/brainstorm/run
+    networks:
+      - server
+      - apps
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu, utility]
+
+volumes:
+  x11-unix:
+
+networks:
+  server:
+    driver: bridge
+  apps:
+    internal: true
