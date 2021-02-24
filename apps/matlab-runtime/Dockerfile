@@ -8,7 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install --no-install-recommends -y unzip && \
+    apt-get install --no-install-recommends -y unzip libxt6 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* 
 
