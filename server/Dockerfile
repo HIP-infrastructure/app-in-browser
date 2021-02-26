@@ -42,7 +42,4 @@ COPY install/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
 
 RUN chmod +x ./docker-entrypoint.sh
 
-# pulseaudio lxterminal \
 ENTRYPOINT ["./docker-entrypoint.sh"]
-
-# "--start-on-connect=lxterminal", \
