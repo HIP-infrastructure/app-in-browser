@@ -14,6 +14,7 @@ DRI_RENDER_GID=$(ls -ln /dev/dri/render* | head -1 | awk '{print $4}')
 groupadd -f -g $DRI_RENDER_GID $DRI_RENDER_GROUP_NAME
 usermod --groups $DRI_CARD_GID,$DRI_RENDER_GID --append xpra
 chmod -R 1777 /tmp/.X11-unix/
+rm -rf /tmp/.X80-lock
 
 # start xpra as xpra user with command specified in dockerfile as CMD or passed as parameter to docker run
 #CMD="XPRA_PASSWORD=$XPRA_PASSWORD /usr/bin/xpra start --daemon=no --start-child='$@'"
