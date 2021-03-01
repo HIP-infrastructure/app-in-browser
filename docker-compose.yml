@@ -19,6 +19,7 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all       
+    restart: unless-stopped
   matlab-runtime:
     image: matlab-runtime:R2020a_u6
     build:
@@ -43,6 +44,7 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all       
+    restart: unless-stopped
 
 volumes:
   x11-unix:
