@@ -5,16 +5,14 @@ services:
     image: xpra-server
     build:
       context: ./server
-      args:
-        VIRTUALGL_VERSION: 2.6.80
     volumes: 
       - x11-unix:/tmp/.X11-unix
-    devices:
-      - /dev/dri:/dev/dri
     networks:
       - server
     ports:
       - "8080:8080"
+    devices:
+      - /dev/dri:/dev/dri
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
@@ -40,17 +38,11 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all       
     restart: unless-stopped
   vgl-base:
-    image: vgl-base
+    image: vgl-base:${VIRTUALGL_VERSION}
     build:
       context: ./base-images/vgl-base
       args:
-        VIRTUALGL_VERSION: 2.6.80
-    devices:
-      - /dev/dri:/dev/dri
-    runtime: nvidia
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all       
+        VIRTUALGL_VERSION: ${VIRTUALGL_VERSION}
   matlab-runtime:
     image: matlab-runtime:R2020a_u6
     build:

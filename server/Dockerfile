@@ -1,21 +1,15 @@
-FROM ubuntu:20.04
+FROM vgl-base:2.6.80
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
-
-ARG VIRTUALGL_VERSION
 
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \ 
     software-properties-common wget gnupg \
     xvfb x11-xserver-utils python3-pip \
-    libxtst6 libglu1-mesa libegl1-mesa libxv1 && \
+    python3-xdg menu-xdg && \
     pip3 install pyinotify && \
-    pip3 install xdg && \
-    wget -q https://s3.amazonaws.com/virtualgl-pr/dev/linux/virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
-    dpkg -i virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
-    rm virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
     wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ focal main" && \
     apt-get update && \
@@ -29,8 +23,6 @@ RUN apt-get update && \
 COPY install/xpra.conf /etc/xpra/xpra.conf
 
 COPY install/default.png /usr/share/backgrounds/images/default.png
-
-COPY ./install/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 RUN chmod 644 /etc/xpra/ssl-cert.pem && \
     echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf && \
