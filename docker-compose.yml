@@ -20,12 +20,6 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all       
     restart: unless-stopped
-  matlab-runtime:
-    image: matlab-runtime:R2020a_u6
-    build:
-      context: ./apps/matlab-runtime
-      args:
-        MATLAB_RUNTIME_VERSION: R2020a_u6
   brainstorm:
     image: brainstorm:210218
     build:
@@ -45,6 +39,24 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all       
     restart: unless-stopped
+  vgl-base:
+    image: vgl-base
+    build:
+      context: ./base-images/vgl-base
+      args:
+        VIRTUALGL_VERSION: 2.6.80
+    devices:
+      - /dev/dri:/dev/dri
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all       
+  matlab-runtime:
+    image: matlab-runtime:R2020a_u6
+    build:
+      context: ./base-images/matlab-runtime
+      args:
+        MATLAB_RUNTIME_VERSION: R2020a_u6
 
 volumes:
   x11-unix:
