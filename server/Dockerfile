@@ -12,6 +12,7 @@ RUN apt-get update && \
     xvfb x11-xserver-utils python3-pip \
     libxtst6 libglu1-mesa libegl1-mesa libxv1 && \
     pip3 install pyinotify && \
+    pip3 install xdg && \
     wget -q https://s3.amazonaws.com/virtualgl-pr/dev/linux/virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
     dpkg -i virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
     rm virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
@@ -32,7 +33,7 @@ COPY install/default.png /usr/share/backgrounds/images/default.png
 COPY ./install/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 RUN chmod 644 /etc/xpra/ssl-cert.pem && \
-    echo "\nclass-instance:vglrun=video" >> /usr/share/xpra/content-type/50_class.conf && \
+    echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf && \
     useradd --create-home --shell /bin/bash xpra --gid xpra --uid 1000 && \
     mkdir -p /run/user/1000/xpra && chown -R 1000 /run/user/1000
 
