@@ -3,8 +3,7 @@ version: '3.5'
 services:
   xpra-server:
     image: xpra-server
-    build:
-      context: ./server
+    build: ./server
     volumes: 
       - x11-unix:/tmp/.X11-unix
     networks:
@@ -20,10 +19,7 @@ services:
     restart: unless-stopped
   brainstorm:
     image: brainstorm:210218
-    build:
-      context: ./apps/brainstorm
-      args:
-        VIRTUALGL_VERSION: 2.6.80
+    build: ./apps/brainstorm
     volumes:
       - x11-unix:/tmp/.X11-unix
       - ./apps/brainstorm/run:/home/hip-user/apps/brainstorm/run

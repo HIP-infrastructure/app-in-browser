@@ -3,17 +3,12 @@ LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG VIRTUALGL_VERSION
-
 ENV DISPLAY=":80"
 
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \ 
-    wget default-jre sudo libglu1-mesa libegl1-mesa libxv1 && \
-    wget -q https://s3.amazonaws.com/virtualgl-pr/dev/linux/virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
-    dpkg -i virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
-    rm virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
+    wget default-jre sudo && \
     apt-get remove -y --purge wget && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
@@ -27,16 +22,11 @@ WORKDIR /home/hip-user/apps/brainstorm
 
 #USER hip-user
 
-COPY ./install/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
-
 COPY ./install/*.zip .
 
 RUN mkdir -p ./run/brainstorm_db && \
     unzip -d ./run *.zip && \
     rm -rf *.zip
-
-#CMD sleep 100000000
-#ENTRYPOINT ["/usr/bin/vglrun", "-d", "/dev/dri/card1", "./run/brainstorm3/bin/R2020a/brainstorm3.command", "/usr/local/MATLAB/MATLAB_Runtime/v98"]
 
 COPY install/docker-entrypoint.sh /home/hip-user/docker-entrypoint.sh
 
