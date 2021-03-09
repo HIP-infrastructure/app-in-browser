@@ -28,7 +28,7 @@ RUN mkdir -p ./run/brainstorm_db && \
     unzip -d ./run *.zip && \
     rm -rf *.zip
 
-COPY install/docker-entrypoint.sh /home/hip-user/docker-entrypoint.sh
+COPY config/docker-entrypoint.sh /home/hip-user/docker-entrypoint.sh
 
 RUN chmod +x /home/hip-user/docker-entrypoint.sh
 

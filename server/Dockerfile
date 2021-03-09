@@ -22,7 +22,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
     #mkdir -p /run/user/0/xpra
 
-COPY install/xpra.conf /etc/xpra/xpra.conf
+COPY config/xpra.conf /etc/xpra/xpra.conf
 
 COPY install/default.png /usr/share/backgrounds/images/default.png
 
@@ -33,7 +33,7 @@ RUN chmod 644 /etc/xpra/ssl-cert.pem && \
 
 WORKDIR /home/xpra
 
-COPY install/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
+COPY config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
 
 RUN chmod +x ./docker-entrypoint.sh
 
