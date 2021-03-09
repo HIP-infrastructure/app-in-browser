@@ -40,11 +40,11 @@ services:
       args:
         VIRTUALGL_VERSION: ${VIRTUALGL_VERSION}
   matlab-runtime:
-    image: matlab-runtime:R2020a_u6
+    image: matlab-runtime:${MATLAB_RUNTIME_VERSION}
     build:
       context: ./base-images/matlab-runtime
       args:
-        MATLAB_RUNTIME_VERSION: R2020a_u6
+        MATLAB_RUNTIME_VERSION: ${MATLAB_RUNTIME_VERSION}
 
 volumes:
   x11-unix:
