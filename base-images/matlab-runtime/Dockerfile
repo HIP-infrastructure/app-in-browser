@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM vgl-base:2.6.80
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG MATLAB_RUNTIME_VERSION

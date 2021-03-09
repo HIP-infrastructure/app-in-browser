@@ -13,6 +13,8 @@ RUN apt-get update && \
     wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ focal main" && \
     apt-get update && \
+    #add-apt-repository "deb https://xpra.org/beta/ focal main" && \
+    #apt-get update && \
     apt-get install --no-install-recommends -y xpra xpra-html5 && \
     apt-get remove -y --purge gnupg wget && \
     apt-get autoremove -y --purge && \
