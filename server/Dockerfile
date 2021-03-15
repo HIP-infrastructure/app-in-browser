@@ -26,10 +26,12 @@ COPY config/xpra.conf /etc/xpra/xpra.conf
 
 COPY install/default.png /usr/share/backgrounds/images/default.png
 
-RUN chmod 644 /etc/xpra/ssl-cert.pem && \
-    echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf && \
-    useradd --create-home --shell /bin/bash xpra --gid xpra --uid 1000 && \
-    mkdir -p /run/user/1000/xpra && chown -R 1000 /run/user/1000
+RUN chmod 644 /etc/xpra/ssl-cert.pem \
+    # make all applications started with vglrun use video stream encoding
+    && echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf \
+    # create the xpra user and socket directory
+    && useradd --create-home --shell /bin/bash xpra --gid xpra --uid 1000 \
+    && mkdir -p /run/user/1000/xpra && chown -R 1000 /run/user/1000
 
 WORKDIR /home/xpra
 
