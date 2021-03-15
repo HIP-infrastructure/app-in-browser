@@ -19,7 +19,7 @@ COPY ./${MATLAB_RUNTIME_VERSION}/install/*.zip .
 RUN mkdir files && \
     unzip -d files *.zip && \
     ./files/install -agreeToLicense yes -mode silent && \
-     rm -rf *.zip files
+    rm -rf *.zip files
 
 #ENV LD_LIBRARY_PATH /usr/local/MATLAB/MATLAB_Runtime/v98/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v98/bin/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v98/sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v98/extern/bin/glnxa64:${LD_LIBRARY_PATH}
 
