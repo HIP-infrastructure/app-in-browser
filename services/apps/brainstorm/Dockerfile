@@ -32,6 +32,4 @@ RUN mkdir -p ./run/brainstorm_db && \
 COPY ./apps/brainstorm/config/docker-entrypoint.sh /home/hip-user/docker-entrypoint.sh
 COPY ./scripts/check-dri.sh /home/hip-user/scripts/check-dri.sh
 
-#RUN chmod +x /home/hip-user/docker-entrypoint.sh
-
 ENTRYPOINT ["/home/hip-user/docker-entrypoint.sh"]

@@ -38,6 +38,4 @@ WORKDIR /home/xpra
 COPY server/config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
 COPY scripts/check-dri.sh /home/xpra/scripts/check-dri.sh
 
-#RUN chmod +x ./docker-entrypoint.sh
-
 ENTRYPOINT ["./docker-entrypoint.sh"]
