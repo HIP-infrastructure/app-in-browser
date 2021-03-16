@@ -22,14 +22,16 @@ WORKDIR /home/hip-user/apps/brainstorm
 
 #USER hip-user
 
-COPY ./install/*.zip .
+COPY ./apps/brainstorm/install/*.zip .
 
 RUN mkdir -p ./run/brainstorm_db && \
     unzip -d ./run *.zip && \
     rm -rf *.zip
 
-COPY config/docker-entrypoint.sh /home/hip-user/docker-entrypoint.sh
+# copy entrypoint script and other scripts used in it
+COPY ./apps/brainstorm/config/docker-entrypoint.sh /home/hip-user/docker-entrypoint.sh
+COPY ./scripts/check-dri.sh /home/hip-user/scripts/check-dri.sh
 
-RUN chmod +x /home/hip-user/docker-entrypoint.sh
+#RUN chmod +x /home/hip-user/docker-entrypoint.sh
 
 ENTRYPOINT ["/home/hip-user/docker-entrypoint.sh"]

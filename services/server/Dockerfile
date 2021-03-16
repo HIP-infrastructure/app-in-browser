@@ -22,9 +22,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
     #mkdir -p /run/user/0/xpra
 
-COPY config/xpra.conf /etc/xpra/xpra.conf
-
-COPY install/default.png /usr/share/backgrounds/images/default.png
+COPY server/config/xpra.conf /etc/xpra/xpra.conf
+COPY server/config/default.png /usr/share/backgrounds/images/default.png
 
 RUN chmod 644 /etc/xpra/ssl-cert.pem \
     # make all applications started with vglrun use video stream encoding
@@ -35,8 +34,10 @@ RUN chmod 644 /etc/xpra/ssl-cert.pem \
 
 WORKDIR /home/xpra
 
-COPY config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
+# copy entrypoint script and other scripts used in it
+COPY server/config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
+COPY scripts/check-dri.sh /home/xpra/scripts/check-dri.sh
 
-RUN chmod +x ./docker-entrypoint.sh
+#RUN chmod +x ./docker-entrypoint.sh
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

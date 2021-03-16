@@ -3,7 +3,9 @@ version: '3.5'
 services:
   xpra-server:
     image: xpra-server
-    build: ./server
+    build:
+      context: ./services
+      dockerfile: server/Dockerfile
     volumes: 
       - x11-unix:/tmp/.X11-unix
     networks:
@@ -19,10 +21,12 @@ services:
     restart: unless-stopped
   brainstorm:
     image: brainstorm:210218
-    build: ./apps/brainstorm
+    build:
+      context: ./services
+      dockerfile: apps/brainstorm/Dockerfile
     volumes:
       - x11-unix:/tmp/.X11-unix
-      - ./apps/brainstorm/run:/home/hip-user/apps/brainstorm/run
+      - ./services/apps/brainstorm/run:/home/hip-user/apps/brainstorm/run
     networks:
       - server
       - apps
@@ -36,13 +40,15 @@ services:
   vgl-base:
     image: vgl-base:${VIRTUALGL_VERSION}
     build:
-      context: ./base-images/vgl-base
+      context: ./services
+      dockerfile: base-images/vgl-base/Dockerfile
       args:
         VIRTUALGL_VERSION: ${VIRTUALGL_VERSION}
   matlab-runtime:
     image: matlab-runtime:${MATLAB_RUNTIME_VERSION}
     build:
-      context: ./base-images/matlab-runtime
+      context: ./services
+      dockerfile: base-images/matlab-runtime/Dockerfile
       args:
         MATLAB_RUNTIME_VERSION: ${MATLAB_RUNTIME_VERSION}
 

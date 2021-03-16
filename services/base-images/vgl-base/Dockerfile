@@ -17,6 +17,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* 
 
-COPY ./config/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
+COPY ./base-images/vgl-base/config/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 RUN echo "Done installing VirtualGL version ${VIRTUALGL_VERSION}"
