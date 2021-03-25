@@ -18,6 +18,11 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all       
+    healthcheck:
+      test: ["CMD", "curl", "-fks", "https://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     restart: unless-stopped
   brainstorm:
     image: brainstorm:210218
@@ -36,7 +41,14 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all       
-    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "/home/hip-user/scripts/process_healthcheck.sh", "brainstorm3.jar"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      - xpra-server
+    restart: on-failure
   vgl-base:
     image: vgl-base:${VIRTUALGL_VERSION}
     build:

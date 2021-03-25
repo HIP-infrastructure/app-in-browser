@@ -4,3 +4,4 @@ if [ ! -d "/dev/dri" ];then
   exit 1
 fi
   echo "SUCCESS: Directory /dev/dri exists, likely the GPU is available to container."
+  exit 0

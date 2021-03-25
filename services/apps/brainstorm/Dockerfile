@@ -31,5 +31,7 @@ RUN mkdir -p ./run/brainstorm_db && \
 # copy entrypoint script and other scripts used in it
 COPY ./apps/brainstorm/config/docker-entrypoint.sh /home/hip-user/docker-entrypoint.sh
 COPY ./scripts/check-dri.sh /home/hip-user/scripts/check-dri.sh
+COPY ./scripts/fix-video-groups.sh /home/hip-user/scripts/fix-video-groups.sh
+COPY ./scripts/process_healthcheck.sh /home/hip-user/scripts/process_healthcheck.sh
 
 ENTRYPOINT ["/home/hip-user/docker-entrypoint.sh"]

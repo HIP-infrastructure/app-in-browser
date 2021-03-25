@@ -8,7 +8,7 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \ 
     software-properties-common wget gnupg \
     xvfb x11-xserver-utils python3-pip \
-    python3-xdg menu-xdg && \
+    python3-xdg menu-xdg curl && \
     pip3 install pyinotify && \
     wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ focal main" && \
@@ -37,5 +37,6 @@ WORKDIR /home/xpra
 # copy entrypoint script and other scripts used in it
 COPY server/config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
 COPY scripts/check-dri.sh /home/xpra/scripts/check-dri.sh
+COPY scripts/fix-video-groups.sh /home/xpra/scripts/fix-video-groups.sh
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

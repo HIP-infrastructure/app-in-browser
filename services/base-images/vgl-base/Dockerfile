@@ -1,9 +1,9 @@
 FROM ubuntu:20.04
 LABEL maintainer="nathalie.casati@chuv.ch"
 
-ARG DEBIAN_FRONTEND=noninteractive
-
 ARG VIRTUALGL_VERSION
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get upgrade -y && \

@@ -3,7 +3,6 @@ LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG MATLAB_RUNTIME_VERSION
 
-# Disable Prompt During Packages Installation
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
@@ -12,7 +11,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* 
 
-WORKDIR /app/brainstorm
+WORKDIR /app/base-images/matlab-runtime
 
 COPY ./base-images/matlab-runtime/${MATLAB_RUNTIME_VERSION}/install/*.zip .
 
