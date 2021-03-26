@@ -3,6 +3,8 @@ version: '3.5'
 services:
   xpra-server:
     image: xpra-server
+    container_name: xpra-server-${SERVER_ID}-${NEXTCLOUD_USERNAME}
+    hostname: xpra-server-${SERVER_ID}-${NEXTCLOUD_USERNAME}
     build:
       context: ./services
       dockerfile: server/Dockerfile
@@ -11,7 +13,7 @@ services:
     networks:
       - server
     ports:
-      - "8080:8080"
+      - ${SERVER_PORT}:8080
     devices:
       - /dev/dri:/dev/dri
     runtime: nvidia
@@ -26,6 +28,8 @@ services:
     restart: unless-stopped
   brainstorm:
     image: brainstorm:210218
+    container_name: brainstorm-${SERVER_ID}-${APP_ID}-${NEXTCLOUD_USERNAME}
+    hostname: brainstorm-${SERVER_ID}-${APP_ID}-${NEXTCLOUD_USERNAME}
     build:
       context: ./services
       dockerfile: apps/brainstorm/Dockerfile
