@@ -12,15 +12,9 @@ RUN apt-get update && \
     apt-get remove -y --purge wget && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    useradd --create-home --shell /bin/bash hip-user --uid 1000
+    rm -rf /var/lib/apt/lists/*
 
-WORKDIR /home/hip-user/apps/brainstorm
-
-#RUN useradd -rm -u 1001 hip-user -G sudo -g root -s /bin/bash \
-# && sed -i '/%sudo.*ALL/a %sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
-
-#USER hip-user
+WORKDIR /apps/brainstorm
 
 COPY ./apps/brainstorm/install/*.zip .
 
@@ -29,9 +23,10 @@ RUN mkdir -p ./run/brainstorm_db && \
     rm -rf *.zip
 
 # copy entrypoint script and other scripts used in it
-COPY ./apps/brainstorm/config/docker-entrypoint.sh /home/hip-user/docker-entrypoint.sh
-COPY ./scripts/check-dri.sh /home/hip-user/scripts/check-dri.sh
-COPY ./scripts/fix-video-groups.sh /home/hip-user/scripts/fix-video-groups.sh
-COPY ./scripts/process_healthcheck.sh /home/hip-user/scripts/process_healthcheck.sh
+COPY ./apps/brainstorm/config/docker-entrypoint.sh docker-entrypoint.sh
+COPY ./scripts/check-dri.sh scripts/check-dri.sh
+COPY ./scripts/create-user.sh scripts/create-user.sh
+COPY ./scripts/fix-video-groups.sh scripts/fix-video-groups.sh
+COPY ./scripts/process-healthcheck.sh scripts/process-healthcheck.sh
 
-ENTRYPOINT ["/home/hip-user/docker-entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]

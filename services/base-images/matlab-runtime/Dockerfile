@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* 
 
-WORKDIR /app/base-images/matlab-runtime
+WORKDIR /apps/base-images/matlab-runtime
 
 COPY ./base-images/matlab-runtime/${MATLAB_RUNTIME_VERSION}/install/*.zip .
 

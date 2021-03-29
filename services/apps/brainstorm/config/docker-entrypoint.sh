@@ -1,12 +1,18 @@
 #!/bin/bash
 # based on https://github.com/ffeldhaus/docker-xpra-html5-gpu-minimal/blob/master/docker-entrypoint.sh
 
-HIP_USER=hip-user
-SCRIPT_PATH=/home/$HIP_USER/scripts
+SCRIPT_PATH=/apps/brainstorm/scripts
 
 $SCRIPT_PATH/check-dri.sh
 retVal=$?
 if [ $retVal -ne 0 ]; then
+  exit $retVal
+fi
+
+$SCRIPT_PATH/create-user.sh $HIP_USER brainstorm
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "return value is $retVal"
   exit $retVal
 fi
 
@@ -16,8 +22,13 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
+
+#symlink brainstorm_db in $HIP_USER homedir
+ln -s /apps/brainstorm/run/brainstorm_db /home/$HIP_USER
+chown -R $HIP_USER:1000 /home/$HIP_USER/brainstorm_db
+
 #run brainstorm as $HIP_USER
 #CMD="DISPLAY=:80 vglrun -d /dev/dri/card1 /opt/VirtualGL/bin/glxspheres64"
-CMD="DISPLAY=:80 vglrun -d /dev/dri/card1 /home/$HIP_USER/apps/brainstorm/run/brainstorm3/bin/R2020a/brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98"
+CMD="DISPLAY=:80 vglrun -d /dev/dri/card1 /apps/brainstorm/run/brainstorm3/bin/R2020a/brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98"
 runuser -l $HIP_USER -c "$CMD"
 #runuser -l $HIP_USER -c 'sleep 1000000000000'

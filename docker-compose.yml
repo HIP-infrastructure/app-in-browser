@@ -3,8 +3,8 @@ version: '3.5'
 services:
   xpra-server:
     image: xpra-server
-    container_name: xpra-server-${SERVER_ID}-${NEXTCLOUD_USERNAME}
-    hostname: xpra-server-${SERVER_ID}-${NEXTCLOUD_USERNAME}
+    container_name: xpra-server-${SERVER_ID}-${HIP_USER}
+    hostname: xpra-server-${SERVER_ID}-${HIP_USER}
     build:
       context: ./services
       dockerfile: server/Dockerfile
@@ -28,14 +28,14 @@ services:
     restart: unless-stopped
   brainstorm:
     image: brainstorm:210218
-    container_name: brainstorm-${SERVER_ID}-${APP_ID}-${NEXTCLOUD_USERNAME}
-    hostname: brainstorm-${SERVER_ID}-${APP_ID}-${NEXTCLOUD_USERNAME}
+    container_name: brainstorm-${SERVER_ID}-${APP_ID}-${HIP_USER}
+    hostname: brainstorm-${SERVER_ID}-${APP_ID}-${HIP_USER}
     build:
       context: ./services
       dockerfile: apps/brainstorm/Dockerfile
     volumes:
       - x11-unix:/tmp/.X11-unix
-      - ./services/apps/brainstorm/run:/home/hip-user/apps/brainstorm/run
+      - ./services/apps/brainstorm/run:/apps/brainstorm/run
     networks:
       - server
       - apps
@@ -45,8 +45,9 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all       
+      - HIP_USER=${HIP_USER}
     healthcheck:
-      test: ["CMD", "/home/hip-user/scripts/process_healthcheck.sh", "brainstorm3.jar"]
+      test: ["CMD", "/apps/brainstorm/scripts/process-healthcheck.sh", "brainstorm3.jar"]
       interval: 30s
       timeout: 10s
       retries: 5
