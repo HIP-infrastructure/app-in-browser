@@ -13,7 +13,7 @@ services:
     networks:
       - server
     ports:
-      - ${SERVER_PORT}:8080
+      - 8080
     devices:
       - /dev/dri:/dev/dri
     runtime: nvidia
