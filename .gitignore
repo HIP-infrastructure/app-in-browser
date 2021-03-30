@@ -1,2 +1,4 @@
 **/install
 **/run
+**/*.secret
+**/__pycache__
