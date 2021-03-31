@@ -72,9 +72,9 @@ def index():
     return "Hello, %s!" % auth.username()
 
 
-@app.route('/server', methods=['GET'])
+@app.route('/control/server', methods=['GET'])
 @auth.login_required
-def server():
+def control_server():
     # here we want to get the value of action, server_id and hip_user
     # (i.e. ?action=some-value&sid=some-other-value&hipuser=another-value)
     action = request.args.get('action')
@@ -109,6 +109,54 @@ def server():
                     "location": {
                         "url": get_ip(),
                         "port": port.stdout.rstrip()}}
+        print(response)
+        return jsonify(response)
+    else:
+        raise InvalidUsage('An unknown error has occured', status_code=500)
+
+
+@app.route('/control/app', methods=['GET'])
+@auth.login_required
+def control_app():
+    # here we want to get the value of action, server_id, app_name, app_id and hip_user
+    # (i.e. ?action=some-value&app=...etc.)
+    action = request.args.get('action')
+    app_name = request.args.get('app')
+    server_id = request.args.get('sid')
+    app_id = request.args.get('aid')
+    hip_user = request.args.get('hipuser')
+
+    if action is not None and server_id is not None \
+    and app_name is not None and app_id is not None \
+    and hip_user is not None:
+        if action == "start":
+            script = "launchapp.sh"
+        elif action == "stop":
+            script = "stopapp.sh"
+        elif action == "restart":
+            script = "restartapp.sh"
+        elif action == "logs":
+            script = "viewapplogs.sh"
+        elif action == "status":
+            script = "appstatus.sh"
+        elif action == "destroy":
+            script = "destroyapp.sh"
+        else:
+            raise InvalidUsage('Invalid action', status_code=500)
+
+        cmd = [SCRIPT_DIR + script, app_name, server_id, app_id, hip_user]
+        output = subprocess.run(cmd, cwd=SCRIPT_PATH, text=True, capture_output=True)
+
+        cmd = [SCRIPT_DIR + "getport.sh", server_id, hip_user]
+        port = subprocess.run(cmd, cwd=SCRIPT_PATH, text=True, capture_output=True)
+
+        response = {"output": {
+                        "stdout": output.stdout.rstrip(),
+                        "stderr": output.stderr.rstrip()},
+                    "location": {
+                        "url": get_ip(),
+                        "port": port.stdout.rstrip()}}
+        print(response)
         return jsonify(response)
     else:
         raise InvalidUsage('An unknown error has occured', status_code=500)
