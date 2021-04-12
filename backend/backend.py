@@ -30,8 +30,8 @@ def get_ip():
 
 def get_credentials():
     with open(SECRET_PATH.joinpath("backend.secret"), mode='r') as secret:
-        username, password = secret.read().split(':')
-    return {username: generate_password_hash(password)}
+        username, password = secret.read().split('@')
+    return {username: password}
 
 
 users = get_credentials()
