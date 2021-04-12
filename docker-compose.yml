@@ -77,3 +77,5 @@ networks:
     driver: bridge
   apps:
     internal: true
+#    driver_opts:
+#      com.docker.network.driver.mtu: 1450
