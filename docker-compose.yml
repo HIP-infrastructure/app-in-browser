@@ -62,12 +62,13 @@ services:
       args:
         VIRTUALGL_VERSION: ${VIRTUALGL_VERSION}
   matlab-runtime:
-    image: matlab-runtime:${MATLAB_RUNTIME_VERSION}
+    image: matlab-runtime:${MATLAB_RUNTIME_VERSION}_u${MATLAB_RUNTIME_UPDATE}
     build:
       context: ./services
       dockerfile: base-images/matlab-runtime/Dockerfile
       args:
         MATLAB_RUNTIME_VERSION: ${MATLAB_RUNTIME_VERSION}
+        MATLAB_RUNTIME_UPDATE: ${MATLAB_RUNTIME_UPDATE}
 
 volumes:
   x11-unix:
