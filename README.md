@@ -23,6 +23,9 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
+6. Install the backend with `./scripts/installbackend.sh`.
+7. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+
 ## Building `app-in-browser`
 1. Build the base images:
    * `docker-compose build vgl-base`
