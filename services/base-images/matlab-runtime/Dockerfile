@@ -1,18 +1,20 @@
 FROM vgl-base:2.6.80
 LABEL maintainer="nathalie.casati@chuv.ch"
 
+ARG DEBIAN_FRONTEND=noninteractive
 ARG MATLAB_RUNTIME_VERSION
 ARG MATLAB_RUNTIME_UPDATE
 
-ARG DEBIAN_FRONTEND=noninteractive
+LABEL base_image_version=${MATLAB_RUNTIME_VERSION}_u${MATLAB_RUNTIME_UPDATE}
 
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y unzip libxt6 wget && \
+    apt-get autoremove -y --purge && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* 
 
-WORKDIR /apps/base-images/matlab-runtime
+WORKDIR /base-images/matlab-runtime
 
 RUN mkdir files && \
     wget --no-check-certificate -nv https://ssd.mathworks.com/supportfiles/downloads/${MATLAB_RUNTIME_VERSION}/Release/${MATLAB_RUNTIME_UPDATE}/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_${MATLAB_RUNTIME_VERSION}_Update_${MATLAB_RUNTIME_UPDATE}_glnxa64.zip && \

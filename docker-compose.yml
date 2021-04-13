@@ -27,12 +27,15 @@ services:
       retries: 5
     restart: unless-stopped
   brainstorm:
-    image: brainstorm:210218
+    image: brainstorm
+    #image: brainstorm:${BRAINSTORM_VERSION}
     container_name: brainstorm-${SERVER_ID}-${APP_ID}-${HIP_USER}
     hostname: brainstorm-${SERVER_ID}-${APP_ID}-${HIP_USER}
     build:
       context: ./services
       dockerfile: apps/brainstorm/Dockerfile
+      #args:
+        #BRAINSTORM_VERSION: ${BRAINSTORM_VERSION}
     volumes:
       - x11-unix:/tmp/.X11-unix
       - ./services/apps/brainstorm/run:/apps/brainstorm/run
