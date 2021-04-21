@@ -23,8 +23,9 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-6. Install the backend with `./scripts/installbackend.sh`.
-7. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+6. Install the recommended Nvidia drivers for your system. Check which ones they are using `ubuntu-drivers devices` and then install them using `sudo ubuntu-drivers autoinstall`.
+7. Install the backend with `./scripts/installbackend.sh`.
+8. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
 
 ## Building `app-in-browser`
 1. Build the base images:
