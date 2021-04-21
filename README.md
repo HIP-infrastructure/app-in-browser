@@ -24,8 +24,9 @@ and add the following to `/etc/docker/daemon.json`:
 then restart the docker service with `sudo systemctl restart docker`.
 
 6. Install the recommended Nvidia drivers for your system. Check which ones they are using `ubuntu-drivers devices` and then install them using `sudo ubuntu-drivers autoinstall`.
-7. Install the backend with `./scripts/installbackend.sh`.
-8. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+7. Reboot the system with `sudo reboot` and check that the drivers are functional using `sudo nvidia-smi`. Additionnaly you can check the nvidia module is loaded with `lspci -nnk | grep -i nvidia`.
+8. Install the backend with `./scripts/installbackend.sh`.
+9. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
 
 ## Building `app-in-browser`
 1. Build the base images:
