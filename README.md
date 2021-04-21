@@ -37,8 +37,13 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-4. Install the backend with `./scripts/installbackend.sh`.
-5. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+4. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the variable `CARD` in the file `.env` to match the result of
+```bash
+readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
+```
+
+6. Install the backend with `./scripts/installbackend.sh`.
+7. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
 
 ## Building `app-in-browser`
 1. Build the base images:
