@@ -28,7 +28,7 @@ ln -s /apps/brainstorm/run/brainstorm_db /home/$HIP_USER
 chown -R $HIP_USER:1000 /home/$HIP_USER/brainstorm_db
 
 #run brainstorm as $HIP_USER
-#CMD="DISPLAY=:80 vglrun -d /dev/dri/card1 /opt/VirtualGL/bin/glxspheres64"
-CMD="DISPLAY=:80 vglrun -d /dev/dri/card1 /apps/brainstorm/install/brainstorm3/bin/R2020a/brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98"
+#CMD="DISPLAY=:80 vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"
+CMD="DISPLAY=:80 vglrun -d /dev/dri/$CARD /apps/brainstorm/install/brainstorm3/bin/R2020a/brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98"
 runuser -l $HIP_USER -c "$CMD"
 #runuser -l $HIP_USER -c 'sleep 1000000000000'
