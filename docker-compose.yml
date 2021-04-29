@@ -36,6 +36,10 @@ services:
       dockerfile: apps/brainstorm/Dockerfile
       #args:
         #BRAINSTORM_VERSION: ${BRAINSTORM_VERSION}
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
     volumes:
       - x11-unix:/tmp/.X11-unix
       - ./services/apps/brainstorm/run:/apps/brainstorm/run
@@ -44,11 +48,14 @@ services:
       - apps
     devices:
       - /dev/dri:/dev/dri
+      - /dev/fuse:/dev/fuse
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all       
       - HIP_USER=${HIP_USER}
+      - HIP_PASSWORD=${HIP_PASSWORD}
+      - NEXTCLOUD_DOMAIN=${NEXTCLOUD_DOMAIN}
       - CARD=${CARD}
     healthcheck:
       test: ["CMD", "/apps/brainstorm/scripts/process-healthcheck.sh", "brainstorm3.jar"]
@@ -65,6 +72,11 @@ services:
       dockerfile: base-images/vgl-base/Dockerfile
       args:
         VIRTUALGL_VERSION: ${VIRTUALGL_VERSION}
+  nc-webdav:
+    image: nc-webdav
+    build:
+      context: ./services
+      dockerfile: base-images/nc-webdav/Dockerfile
   matlab-runtime:
     image: matlab-runtime:${MATLAB_RUNTIME_VERSION}_u${MATLAB_RUNTIME_UPDATE}
     build:
@@ -82,5 +94,5 @@ networks:
     driver: bridge
   apps:
     internal: true
-#    driver_opts:
-#      com.docker.network.driver.mtu: 1450
+    driver_opts:
+      com.docker.network.driver.mtu: 1450

@@ -1,4 +1,4 @@
-FROM vgl-base:2.6.80
+FROM nc-webdav
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive

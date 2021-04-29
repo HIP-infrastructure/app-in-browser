@@ -8,6 +8,4 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 echo "$1 is running."
-exit 
-echo "$1 is running."
 exit 0

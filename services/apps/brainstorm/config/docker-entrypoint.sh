@@ -22,6 +22,11 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
+$SCRIPT_PATH/mount-davfs2.sh $HIP_USER $HIP_PASSWORD $NEXTCLOUD_DOMAIN
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit $retVal
+fi
 
 #symlink brainstorm_db in $HIP_USER homedir
 ln -s /apps/brainstorm/run/brainstorm_db /home/$HIP_USER
