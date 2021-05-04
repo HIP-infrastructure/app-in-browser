@@ -29,7 +29,7 @@ if [ $retVal -ne 0 ]; then
 fi
 
 #symlink brainstorm_db in $HIP_USER homedir
-ln -s /apps/brainstorm/run/brainstorm_db /home/$HIP_USER
+ln -sf /apps/brainstorm/run/brainstorm_db /home/$HIP_USER
 chown -R $HIP_USER:1000 /home/$HIP_USER/brainstorm_db
 
 #run brainstorm as $HIP_USER

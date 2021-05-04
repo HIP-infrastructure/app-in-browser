@@ -11,8 +11,9 @@ echo "done."
 
 echo -n "Configuring davfs2... "
 cd /home/$HIP_USER
-mkdir /home/$HIP_USER/nextcloud
-mkdir /home/$HIP_USER/.davfs2
+
+mkdir -p /home/$HIP_USER/nextcloud
+mkdir -p /home/$HIP_USER/.davfs2
 echo "${NEXTCLOUD_URL} ${HIP_USER} \"${HIP_PASSWORD}\"" >> /etc/davfs2/secrets
 unset HIP_PASSWORD
 cp /etc/davfs2/secrets /home/$HIP_USER/.davfs2/secrets
