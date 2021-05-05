@@ -21,7 +21,7 @@ chown -R $HIP_USER:davfs2 /home/$HIP_USER/nextcloud
 chown -R $HIP_USER:davfs2 /home/$HIP_USER/.davfs2
 chmod 600 /home/$HIP_USER/.davfs2/secrets 
 echo "use_locks 0" >> /etc/davfs2/davfs2.conf
-echo "${NEXTCLOUD_URL} /home/${HIP_USER}/nextcloud  davfs  user,rw,auto 0 0" > /etc/fstab
+echo "${NEXTCLOUD_URL} /home/${HIP_USER}/nextcloud  davfs  _netdev,user,uid=${HIP_USER},gid=davfs2,rw,noexec,noauto 0 0" > /etc/fstab
 echo "done."
 
 echo -n "Mounting ${NEXTCLOUD_DOMAIN} for ${HIP_USER} as webdav... "
