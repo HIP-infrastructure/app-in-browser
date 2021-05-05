@@ -1,0 +1,4 @@
+#!/bin/bash
+sudo certbot certonly \
+  --dns-route53 \
+  -d example.com
