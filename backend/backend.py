@@ -125,16 +125,22 @@ def control_app():
     server_id = request.args.get('sid')
     app_id = request.args.get('aid')
     hip_user = request.args.get('hipuser')
+    hip_password = request.args.get('hippass')
+    nextcloud_domain = request.args.get('nc')
+
+    nextcloud_auth = False
 
     if action is not None and server_id is not None \
     and app_name is not None and app_id is not None \
     and hip_user is not None:
         if action == "start":
             script = "launchapp.sh"
+            nextcloud_auth = True
         elif action == "stop":
             script = "stopapp.sh"
         elif action == "restart":
             script = "restartapp.sh"
+            nextcloud_auth = True
         elif action == "logs":
             script = "viewapplogs.sh"
         elif action == "status":
@@ -145,6 +151,11 @@ def control_app():
             raise InvalidUsage('Invalid action', status_code=500)
 
         cmd = [SCRIPT_DIR + script, app_name, server_id, app_id, hip_user]
+        if nextcloud_auth:
+            cmd.extend([hip_password, nextcloud_domain])
+
+        print(cmd)
+
         output = subprocess.run(cmd, cwd=SCRIPT_PATH, text=True, capture_output=True)
 
         cmd = [SCRIPT_DIR + "getport.sh", server_id, hip_user]
