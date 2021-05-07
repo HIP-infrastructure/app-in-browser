@@ -77,7 +77,7 @@ where
    * `aid` is the app id
    * `hipuser` is the username of the `Nextcloud` `HIP` user
    * `hippass` is the password of the `Nextcloud` `HIP` user
-   * `nc` is the complete url of the nextcloud instance to connect to
+   * `nc` is the complete url of the `Nextcloud` instance to connect to
  4. For all other actions to control apps use the following REST API:
 
 http://`url`:8060/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`
