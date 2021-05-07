@@ -1,6 +1,6 @@
 # app-in-browser
 
-`app-in-browser` allows controlling 3D accelerated graphic servers in the browser that will display a set of apps.
+`app-in-browser` allows controlling 3D accelerated graphic servers in the browser that will display a set of apps. Aditionnally, it mounts `Nextcloud` homedirs and group folders into the app containers.
 
 In order to deploy `app-in-browser` on Ubuntu 20.04, follow these steps.
 
@@ -44,16 +44,7 @@ readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-c
 
 5. Install the backend with `./scripts/installbackend.sh`.
 6. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-
-## Building `app-in-browser`
-1. Build the base images:
-   * `docker-compose build vgl-base`
-   * `docker-compose build matlab-runtime`
-2. Build the server:
-   * `docker-compose build xpra-server`
-3. Build the apps:
-   * `docker-compose build brainstorm`
-   * ... more apps to be added ...
+7. Build all docker images with `./scripts/buildall.sh`.
  
 ## Running `app-in-browser`
 1. Launch the backend with `./scripts/launchbackend.sh`
@@ -72,16 +63,29 @@ where
       * `status`: show server status
    * `sid` is the server id
    * `hipuser` is the username of the `Nextcloud` `HIP` user
-3. Control apps using the following REST API:
+3. Start and restart apps use the following REST API:
+
+http://`url`:8060/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`&hippass=`hippass`&nc=`https://example.com`
+
+where
+   * `url`is the url of the server where the backend is running
+   * `action` is one of:
+      * `start`: start app
+      * `restart`: restart app
+   * `app` is the canonical name of the app to control
+   * `sid` is the server id onto which the app is mapped
+   * `aid` is the app id
+   * `hipuser` is the username of the `Nextcloud` `HIP` user
+   * `hippass` is the password of the `Nextcloud` `HIP` user
+   * `nc` is the complete url of the nextcloud instance to connect to
+ 4. For all other actions to control apps use the following REST API:
 
 http://`url`:8060/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`
 
 where
    * `url`is the url of the server where the backend is running
    * `action` is one of:
-      * `start`: start app
       * `stop`: stop app
-      * `restart`: restart app
       * `destroy`: destroy app
       * `logs`: show app log
       * `status`: show app status
