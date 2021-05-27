@@ -21,11 +21,15 @@ chown -R $HIP_USER:davfs2 /home/$HIP_USER/nextcloud
 chown -R $HIP_USER:davfs2 /home/$HIP_USER/.davfs2
 chmod 600 /home/$HIP_USER/.davfs2/secrets 
 echo "use_locks 0
-cache_size 8192
-table_size 8192
-dir_refresh 7200
-file_refresh 3600
-delay_upload 30" >> /etc/davfs2/davfs2.conf
+#debug most
+#debug httpbody
+#one of the options below is causing a sync issue
+#for now we remove them and will optimize sync later on
+#cache_size 8192
+#table_size 8192
+#dir_refresh 7200
+#file_refresh 3600
+#delay_upload 30" >> /etc/davfs2/davfs2.conf
 echo "${NEXTCLOUD_URL} /home/${HIP_USER}/nextcloud  davfs  _netdev,user,uid=${HIP_USER},gid=davfs2,rw,noexec,noauto 0 0" > /etc/fstab
 echo "done."
 
