@@ -23,5 +23,5 @@ rm -rf /tmp/.X80-lock
 
 # start xpra as $XPRA_USER
 #CMD="XPRA_PASSWORD=$XPRA_PASSWORD /usr/bin/xpra start --daemon=no --start-child='$@'"
-runuser -l $XPRA_USER -c 'xpra start :80 --bind-tcp=0.0.0.0:8080 --html=on --no-daemon --start="xhost +"'
+runuser -l $XPRA_USER -c 'xpra start :80 --bind-wss=0.0.0.0:8080 --html=on --no-daemon --start="xhost +" --ssl-cert=/etc/xpra/ssl-cert.pem'
 #runuser -l $XPRA_USER -c 'sleep 1000000000000'
