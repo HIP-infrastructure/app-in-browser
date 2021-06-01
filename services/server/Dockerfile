@@ -11,9 +11,9 @@ RUN apt-get update && \
     python3-xdg menu-xdg curl && \
     pip3 install pyinotify && \
     wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
-    add-apt-repository "deb https://xpra.org/ focal main" && \
+    add-apt-repository "deb https://xpra.org/ groovy main" && \
     apt-get update && \
-    #add-apt-repository "deb https://xpra.org/beta/ focal main" && \
+    #add-apt-repository "deb https://xpra.org/beta/ groovy main" && \
     #apt-get update && \
     apt-get install --no-install-recommends -y xpra xpra-html5 && \
     apt-get remove -y --purge gnupg wget && \
