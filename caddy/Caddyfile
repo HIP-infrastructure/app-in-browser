@@ -1,0 +1,15 @@
+gpu1.thehip.app
+
+encode gzip zstd
+
+#tls /etc/caddy/cert.pem /etc/caddy/key.pem 
+
+route /session/* {
+	@session {
+		path_regexp session ^/session/([0-9]+)(/.*)?
+	}
+	handle @session {
+		rewrite {re.session.2}
+		reverse_proxy localhost:{re.session.1}
+	}
+}
