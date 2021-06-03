@@ -18,8 +18,8 @@ redir /api /api/
 route /api/* {
 	uri strip_prefix /api
 	reverse_proxy localhost:8060 {
-		#health_path  /
-		#health_interval 10s
+		health_uri /ok
+		health_interval 10s
 
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
@@ -27,7 +27,6 @@ route /api/* {
 	}
 }
 
-
 route {
-  respond "404 nothing here" 404
+	respond "404 nothing here" 404
 }
