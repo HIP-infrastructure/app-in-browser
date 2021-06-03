@@ -13,3 +13,21 @@ route /session/* {
 		reverse_proxy localhost:{re.session.1}
 	}
 }
+
+redir /api /api/
+route /api/* {
+	uri strip_prefix /api
+	reverse_proxy localhost:8060 {
+		#health_path  /
+		#health_interval 10s
+
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+	}
+}
+
+
+route {
+  respond "404 nothing here" 404
+}
