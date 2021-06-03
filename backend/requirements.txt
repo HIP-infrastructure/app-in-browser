@@ -12,3 +12,6 @@ werkzeug
 
 #flask
 flask
+
+#python-dotenv
+python-dotenv

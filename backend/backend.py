@@ -7,6 +7,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import json
 import subprocess
 import socket
+import os
+from dotenv import load_dotenv
 
 __author__ = "Nathalie Casati"
 __email__ = "nathalie.casati@chuv.ch"
@@ -14,14 +16,19 @@ __email__ = "nathalie.casati@chuv.ch"
 app = Flask(__name__)
 auth = HTTPBasicAuth()
 
-# get relative path of secret file
-SECRET_PATH = pathlib.Path(__file__).parent
+# get relative path of env files
+ENV_PATH = pathlib.Path(__file__).parent
 
 # get relative path of docker-compose file
-SCRIPT_PATH = pathlib.Path(__file__).parent.parent
+DOCKER_PATH = pathlib.Path(__file__).parent.parent
 
 # script directory
 SCRIPT_DIR = "./scripts/"
+
+load_dotenv(ENV_PATH.joinpath("backend.env"))
+
+def get_domain():
+    return str(os.getenv('BACKEND_DOMAIN'))
 
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -29,7 +36,7 @@ def get_ip():
     return s.getsockname()[0]
 
 def get_credentials():
-    with open(SECRET_PATH.joinpath("backend.secret"), mode='r') as secret:
+    with open(ENV_PATH.joinpath("backend.secret"), mode='r') as secret:
         username, password = secret.read().split('@')
     return {username: password}
 
@@ -71,6 +78,9 @@ def verify_password(username, password):
 def index():
     return "Hello, %s!" % auth.username()
 
+@app.route('/ok')
+def health_check():
+    return "Backend currently running on %s" % get_domain()
 
 @app.route('/control/server', methods=['GET'])
 @auth.login_required
@@ -98,17 +108,19 @@ def control_server():
             raise InvalidUsage('Invalid action', status_code=500)
 
         cmd = [SCRIPT_DIR + script, server_id, hip_user]
-        output = subprocess.run(cmd, cwd=SCRIPT_PATH, text=True, capture_output=True)
+        output = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True)
 
         cmd = [SCRIPT_DIR + "getport.sh", server_id, hip_user]
-        port = subprocess.run(cmd, cwd=SCRIPT_PATH, text=True, capture_output=True)
+        port = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True).stdout.rstrip()
 
         response = {"output": {
                         "stdout": output.stdout.rstrip(),
                         "stderr": output.stderr.rstrip()},
                     "location": {
-                        "url": get_ip(),
-                        "port": port.stdout.rstrip()}}
+                        "domain": get_domain(),
+                        "ip": get_ip(),
+                        "session_id": port,
+                        "url": get_domain() + "/session/" + port + "/"}}
         print(response)
         return jsonify(response)
     else:
@@ -156,17 +168,19 @@ def control_app():
 
         print(cmd)
 
-        output = subprocess.run(cmd, cwd=SCRIPT_PATH, text=True, capture_output=True)
+        output = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True)
 
         cmd = [SCRIPT_DIR + "getport.sh", server_id, hip_user]
-        port = subprocess.run(cmd, cwd=SCRIPT_PATH, text=True, capture_output=True)
+        port = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True).stdout.rstrip()
 
         response = {"output": {
                         "stdout": output.stdout.rstrip(),
                         "stderr": output.stderr.rstrip()},
                     "location": {
-                        "url": get_ip(),
-                        "port": port.stdout.rstrip()}}
+                        "domain": get_domain(),
+                        "ip": get_ip(),
+                        "session_id": port,
+                        "url": get_domain() + "/session/" + port + "/"}}
         print(response)
         return jsonify(response)
     else:

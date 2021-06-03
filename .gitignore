@@ -2,5 +2,5 @@
 **/run
 **/*.secret
 **/__pycache__
-.env
+**/*.env
 scripts/certbot.sh
