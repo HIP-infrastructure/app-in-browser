@@ -46,7 +46,13 @@ then restart the docker service with `sudo systemctl restart docker`.
 
 4. Copy the docker enviroment template file with `cp .env.template .env`.
 
-5. If you don't have a supported Nvidia graphics card, you need to the set the `CARD` variable to `none` in the `.env` file you just copied. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
+5. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file you just copied as follows:
+```bash
+CARD=none
+RUNTIME=runc
+```
+
+If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
