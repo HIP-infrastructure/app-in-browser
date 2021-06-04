@@ -4,3 +4,4 @@
 **/__pycache__
 **/*.env
 scripts/certbot.sh
+caddy/Caddyfile
