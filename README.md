@@ -44,20 +44,20 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-4. Copy the enviroment template file with `cp .env.template .env`.
+4. Copy the docker enviroment template file with `cp .env.template .env`.
 
 5. If you don't have a supported Nvidia graphics card, you need to the set the `CARD` variable to `none` in the `.env` file you just copied. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
-
-6. Install the backend with `./scripts/installbackend.sh`.
-7. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+6. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+7. Copy the Caddyfile template with `cp caddy/Caddyfile.template caddy/Caddyfile` and change the first line to the same domain name as the previous step.
 8. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
+9. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+10. Install and start the backend with `./scripts/installbackend.sh`.
  
-## Running `app-in-browser`
-1. Launch the backend with `./scripts/launchbackend.sh`
-2. Control servers using the following REST API:
+## Using `app-in-browser`
+1. Control servers using the following REST API:
 
 http://`url`:8060/control/server?action=`action`&sid=`sid`&hipuser=`hipuser`
 
@@ -72,7 +72,7 @@ where
       * `status`: show server status
    * `sid` is the server id
    * `hipuser` is the username of the `Nextcloud` `HIP` user
-3. Start and restart apps use the following REST API:
+2. Start and restart apps use the following REST API:
 
 http://`url`:8060/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`&hippass=`hippass`&nc=`https://example.com`
 
@@ -87,7 +87,7 @@ where
    * `hipuser` is the username of the `Nextcloud` `HIP` user
    * `hippass` is the password of the `Nextcloud` `HIP` user
    * `nc` is the complete url of the `Nextcloud` instance to connect to
- 4. For all other actions to control apps use the following REST API:
+ 3. For all other actions to control apps use the following REST API:
 
 http://`url`:8060/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`
 
