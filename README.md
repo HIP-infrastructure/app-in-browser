@@ -51,7 +51,7 @@ then restart the docker service with `sudo systemctl restart docker`.
 CARD=none
 RUNTIME=runc
 ```
-You will also need to comment out the following line in the `docker-compose.yml`:
+You will also need to comment out the following lines in the `docker-compose.yml` (it appears twice):
 ```yaml
 - /dev/dri:/dev/dri
 ```
