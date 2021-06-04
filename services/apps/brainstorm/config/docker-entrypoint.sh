@@ -2,7 +2,7 @@
 
 SCRIPT_PATH=/apps/brainstorm/scripts
 
-$SCRIPT_PATH/check-dri.sh
+$SCRIPT_PATH/check-dri.sh $CARD
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal
@@ -15,7 +15,7 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-$SCRIPT_PATH/fix-video-groups.sh $HIP_USER
+$SCRIPT_PATH/fix-video-groups.sh $CARD $HIP_USER
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal
@@ -63,8 +63,14 @@ echo "done."
 #echo "done."
 
 #run brainstorm as $HIP_USER
-echo "Running brainstorm as $HIP_USER... "
-#CMD="DISPLAY=:80 vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"
-CMD="DISPLAY=:80 vglrun -d /dev/dri/$CARD /apps/brainstorm/install/brainstorm3/bin/R2020a/brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98 && /usr/sbin/umount.davfs /home/$HIP_USER/nextcloud"
+echo -n "Running brainstorm as $HIP_USER "
+if [ $CARD == "none" ]; then
+  echo "on CPU... "
+  CMD="DISPLAY=:80 /apps/brainstorm/install/brainstorm3/bin/R2020a/brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98 && /usr/sbin/umount.davfs /home/$HIP_USER/nextcloud"
+else
+  echo "on GPU... "
+  #CMD="DISPLAY=:80 vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"
+  CMD="DISPLAY=:80 vglrun -d /dev/dri/$CARD /apps/brainstorm/install/brainstorm3/bin/R2020a/brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98 && /usr/sbin/umount.davfs /home/$HIP_USER/nextcloud"
+fi
 runuser -l $HIP_USER -c "$CMD"
 #runuser -l $HIP_USER -c 'sleep 1000000000000'

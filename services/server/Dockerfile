@@ -2,6 +2,7 @@ FROM vgl-base:2.6.80
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG CARD
 
 RUN apt-get update && \
     apt-get upgrade -y && \
