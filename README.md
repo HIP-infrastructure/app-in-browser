@@ -44,16 +44,17 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-4. Copy the enviroment template file with `cp .env.template .env`.
+4. Copy the docker enviroment template file with `cp .env.template .env`.
 
 5. If you don't have a supported Nvidia graphics card, you need to the set the `CARD` variable to `none` in the `.env` file you just copied. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
-
-6. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
-7. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-8. Install and start the backend with `./scripts/installbackend.sh`.
+6. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+7. Copy the Caddyfile template with `cp caddy/Caddyfile.template caddy/Caddyfile` and change the first line to the same domain name as the previous step.
+8. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
+9. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+10. Install and start the backend with `./scripts/installbackend.sh`.
  
 ## Using `app-in-browser`
 1. Control servers using the following REST API:
