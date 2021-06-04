@@ -69,7 +69,7 @@ readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-c
 ## Using `app-in-browser`
 1. Control servers using the following REST API:
 
-http://`url`/api/control/server?action=`action`&sid=`sid`&hipuser=`hipuser`
+https://`url`/api/control/server?action=`action`&sid=`sid`&hipuser=`hipuser`
 
 where
    * `url`is the url of the server where the backend is running
@@ -84,7 +84,7 @@ where
    * `hipuser` is the username of the `Nextcloud` `HIP` user
 2. Start and restart apps use the following REST API:
 
-http://`url`/api/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`&hippass=`hippass`&nc=`https://example.com`
+https://`url`/api/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`&hippass=`hippass`&nc=`https://example.com`
 
 where
    * `url`is the url of the server where the backend is running
@@ -99,7 +99,7 @@ where
    * `nc` is the complete url of the `Nextcloud` instance to connect to
  3. For all other actions to control apps use the following REST API:
 
-http://`url`/api/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`
+https://`url`/api/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`
 
 where
    * `url`is the url of the server where the backend is running
