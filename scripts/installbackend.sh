@@ -13,6 +13,11 @@ then
     sudo npm install pm2 -g
     echo "pm2 installed."
 fi
+sudo pm2 start pm2/ecosystem.config.js
+sudo pm2 save
+sudo pm2 startup
+sudo systemctl start pm2-root
+sudo systemctl enable pm2-root
 
 if ! command -v caddy &> /dev/null
 then
