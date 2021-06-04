@@ -52,9 +52,9 @@ readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-c
 ```
 6. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
 7. Copy the Caddyfile template with `cp caddy/Caddyfile.template caddy/Caddyfile` and change the first line to the same domain name as the previous step.
-8. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-9. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
-10. Install and start the backend with `./scripts/installbackend.sh`.
+8. Install and start the backend with `./scripts/installbackend.sh`.
+9. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+10. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
  
 ## Using `app-in-browser`
 1. Control servers using the following REST API:
