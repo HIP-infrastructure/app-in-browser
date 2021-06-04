@@ -7,6 +7,18 @@ then
 fi
 sudo pip3 install -r backend/requirements.txt
 
+if ! command -v caddy &> /dev/null
+then
+    echo "caddy could not be found, installing..."
+    sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+    sudo apt-get update && sudo apt-get install -y caddy
+    sudo systemctl stop caddy
+    sudo systemctl disable caddy
+    echo "caddy installed."
+fi
+
 if ! command -v pm2 &> /dev/null
 then
     echo "pm2 could not be found, installing..."
@@ -18,12 +30,3 @@ sudo pm2 save
 sudo pm2 startup
 sudo systemctl start pm2-root
 sudo systemctl enable pm2-root
-
-if ! command -v caddy &> /dev/null
-then
-    echo "caddy could not be found, installing..."
-    sudo apt-get update && sudo apt-get install -y caddy
-    sudo systemctl stop caddy
-    sudo systemctl disable caddy
-    echo "caddy installed."
-fi
