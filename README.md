@@ -51,13 +51,12 @@ then restart the docker service with `sudo systemctl restart docker`.
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
 
-6. Install the backend with `./scripts/installbackend.sh`.
+6. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
 7. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-8. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
+8. Install and start the backend with `./scripts/installbackend.sh`.
  
-## Running `app-in-browser`
-1. Launch the backend with `./scripts/launchbackend.sh`
-2. Control servers using the following REST API:
+## Using `app-in-browser`
+1. Control servers using the following REST API:
 
 http://`url`:8060/control/server?action=`action`&sid=`sid`&hipuser=`hipuser`
 
@@ -72,7 +71,7 @@ where
       * `status`: show server status
    * `sid` is the server id
    * `hipuser` is the username of the `Nextcloud` `HIP` user
-3. Start and restart apps use the following REST API:
+2. Start and restart apps use the following REST API:
 
 http://`url`:8060/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`&hippass=`hippass`&nc=`https://example.com`
 
@@ -87,7 +86,7 @@ where
    * `hipuser` is the username of the `Nextcloud` `HIP` user
    * `hippass` is the password of the `Nextcloud` `HIP` user
    * `nc` is the complete url of the `Nextcloud` instance to connect to
- 4. For all other actions to control apps use the following REST API:
+ 3. For all other actions to control apps use the following REST API:
 
 http://`url`:8060/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipuser=`hipuser`
 
