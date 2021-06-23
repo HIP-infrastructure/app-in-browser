@@ -1,4 +1,5 @@
-FROM vgl-base:2.6.80
+ARG VIRTUALGL_VERSION
+FROM vgl-base:${VIRTUALGL_VERSION}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive

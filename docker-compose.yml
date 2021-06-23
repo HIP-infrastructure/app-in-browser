@@ -8,6 +8,8 @@ services:
     build:
       context: ./services
       dockerfile: server/Dockerfile
+      args:
+        VIRTUALGL_VERSION: ${VIRTUALGL_VERSION}
     volumes: 
       - x11-unix:/tmp/.X11-unix
     networks:
@@ -77,6 +79,8 @@ services:
     build:
       context: ./services
       dockerfile: base-images/nc-webdav/Dockerfile
+      args:
+        VIRTUALGL_VERSION: ${VIRTUALGL_VERSION}
   matlab-runtime:
     image: matlab-runtime:${MATLAB_RUNTIME_VERSION}_u${MATLAB_RUNTIME_UPDATE}
     build:
@@ -94,5 +98,5 @@ networks:
     driver: bridge
   apps:
     internal: true
-    #driver_opts:
-      #com.docker.network.driver.mtu: 1450
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
