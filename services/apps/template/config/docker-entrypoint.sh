@@ -2,7 +2,7 @@
 
 SCRIPT_PATH=/apps/template/scripts
 
-$SCRIPT_PATH/check-dri.sh
+$SCRIPT_PATH/check-dri.sh $CARD
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal
@@ -15,7 +15,7 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-$SCRIPT_PATH/fix-video-groups.sh $HIP_USER
+$SCRIPT_PATH/fix-video-groups.sh $CARD $HIP_USER
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal
@@ -39,6 +39,12 @@ chown -R $HIP_USER:davfs2 /home/$HIP_USER/template_dir
 echo "done."
 
 #run template as $HIP_USER
-echo "Running template as $HIP_USER... "
-CMD="DISPLAY=:80 vglrun -d /dev/dri/$CARD /apps/template/install/template.sh && /usr/sbin/umount.davfs /home/$HIP_USER/nextcloud"
+echo -n "Running template as $HIP_USER... "
+if [ $CARD == "none" ]; then
+  echo "on CPU... "
+  CMD="DISPLAY=:80 /apps/template/install/template.sh && /usr/sbin/umount.davfs /home/$HIP_USER/nextcloud"
+else
+  echo "on GPU... "
+  CMD="DISPLAY=:80 vglrun -d /dev/dri/$CARD /apps/template/install/template.sh && /usr/sbin/umount.davfs /home/$HIP_USER/nextcloud"
+fi
 runuser -l $HIP_USER -c "$CMD"

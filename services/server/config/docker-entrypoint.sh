@@ -4,13 +4,13 @@
 XPRA_USER=xpra
 SCRIPT_PATH=./scripts
 
-$SCRIPT_PATH/check-dri.sh
+$SCRIPT_PATH/check-dri.sh $CARD
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-$SCRIPT_PATH/fix-video-groups.sh $XPRA_USER
+$SCRIPT_PATH/fix-video-groups.sh $CARD $XPRA_USER
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal

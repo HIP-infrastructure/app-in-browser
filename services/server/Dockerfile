@@ -3,6 +3,7 @@ FROM vgl-base:${VIRTUALGL_VERSION}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG CARD
 
 RUN apt-get update && \
     apt-get upgrade -y && \
