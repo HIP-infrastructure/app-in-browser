@@ -65,6 +65,7 @@ readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-c
 9. Install and start the backend with `./scripts/installbackend.sh`.
 10. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
 11. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
+12. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 1. Control servers using the following REST API:
