@@ -1,4 +1,4 @@
-https://backend.example.com
+{$BACKEND_DOMAIN}
 
 encode gzip zstd
 

@@ -4,4 +4,4 @@
 **/__pycache__
 **/*.env
 scripts/certbot.sh
-caddy/Caddyfile
+pm2/node_modules
