@@ -61,11 +61,10 @@ You will also need to comment out the following lines in `docker-compose.yml` (i
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
 7. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
-8. Copy the Caddyfile template with `cp caddy/Caddyfile.template caddy/Caddyfile` and change the first line to the same domain name as the previous step.
-9. Install and start the backend with `./scripts/installbackend.sh`.
-10. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-11. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
-12. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
+8. Install and start the backend with `./scripts/installbackend.sh`.
+9. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+10. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
+11. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 1. Control servers using the following REST API:
