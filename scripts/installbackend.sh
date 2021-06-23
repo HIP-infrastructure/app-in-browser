@@ -1,4 +1,12 @@
 #!/bin/bash
+
+if ! command -v jq &> /dev/null
+then
+    echo "jq could not be found, installing..."
+    sudo apt-get update && sudo apt-get install -y jq
+    echo "jq installed."
+fi
+
 if ! command -v pip3 &> /dev/null
 then
     echo "pip3 could not be found, installing..."
