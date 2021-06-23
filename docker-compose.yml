@@ -61,7 +61,7 @@ services:
       - NEXTCLOUD_DOMAIN=${NEXTCLOUD_DOMAIN}
       - CARD=${CARD}
     healthcheck:
-      test: ["CMD", "/apps/brainstorm/scripts/process-healthcheck.sh", "brainstorm3.jar"]
+      test: ["CMD", "sh", "-c", "/apps/brainstorm/scripts/process-healthcheck.sh brainstorm3.jar && /apps/brainstorm/scripts/ls-healthcheck.sh /home/${HIP_USER}/nextcloud/"]
       interval: 30s
       timeout: 10s
       retries: 5
