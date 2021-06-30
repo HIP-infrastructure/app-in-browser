@@ -34,6 +34,7 @@ COPY ./scripts/check-dri.sh scripts/check-dri.sh
 COPY ./scripts/create-user.sh scripts/create-user.sh
 COPY ./scripts/fix-video-groups.sh scripts/fix-video-groups.sh
 COPY ./scripts/mount-davfs2.sh scripts/mount-davfs2.sh
+COPY ./scripts/homedir-symlink.sh scripts/homedir-symlink.sh
 COPY ./scripts/process-healthcheck.sh scripts/process-healthcheck.sh
 COPY ./scripts/ls-healthcheck.sh scripts/ls-healthcheck.sh
 
