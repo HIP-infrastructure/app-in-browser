@@ -42,7 +42,7 @@ fi
 
 #run brainstorm as $HIP_USER
 APP="/apps/brainstorm/install/brainstorm3/bin/R2020a/brainstorm3.command /usr/local/MATLAB/MATLAB_Runtime/v98"
-$SCRIPT_PATH/run-app.sh $CARD $HIP_USER $APP
+$SCRIPT_PATH/run-app.sh $CARD $HIP_USER "$APP"
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal
