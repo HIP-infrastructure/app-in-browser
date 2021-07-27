@@ -28,6 +28,10 @@ RUN wget -nv --content-disposition http://neuroimage.usc.edu/bst/getupdate.php?c
     unzip -q -d ./install brainstorm_*.zip && \
     rm -rf brainstorm_*.zip
 
+HEALTHCHECK --interval=10s --timeout=10s --retries=5 --start-period=30s \
+  CMD sh -c "/apps/brainstorm/scripts/process-healthcheck.sh brainstorm3.jar \
+  && /apps/brainstorm/scripts/ls-healthcheck.sh /home/${HIP_USER}/nextcloud/"
+
 # copy entrypoint script and other scripts used in it
 COPY ./apps/brainstorm/config/docker-entrypoint.sh docker-entrypoint.sh
 COPY ./scripts/check-dri.sh scripts/check-dri.sh

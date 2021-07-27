@@ -2,6 +2,6 @@
 
 SERVER_ID=$1
 HIP_USER=$2
-NAME=${SERVER_ID}-${HIP_USER}
+CONTAINER_NAME=xpra-server-${SERVER_ID}-${HIP_USER}
 
-docker stop xpra-server-${NAME}
+docker stop ${CONTAINER_NAME}
