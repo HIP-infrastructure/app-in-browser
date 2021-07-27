@@ -34,6 +34,9 @@ RUN chmod 644 /etc/xpra/ssl-cert.pem \
     && useradd --create-home --shell /bin/bash xpra --gid xpra --uid 1000 \
     && mkdir -p /run/user/1000/xpra && chown -R 1000 /run/user/1000
 
+HEALTHCHECK --interval=10s --timeout=10s --retries=5 --start-period=30s \
+  CMD curl -fks https://localhost:8080
+
 WORKDIR /home/xpra
 
 # copy entrypoint script and other scripts used in it

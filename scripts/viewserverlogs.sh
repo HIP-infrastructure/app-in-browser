@@ -1,3 +1,7 @@
 #!/bin/bash
 
-SERVER_ID=$1 HIP_USER=$2 COMPOSE_PROJECT_NAME=$1-$2 docker-compose logs --no-color xpra-server
+SERVER_ID=$1
+HIP_USER=$2
+NAME=${SERVER_ID}-${HIP_USER}
+
+docker logs xpra-server-${NAME}
