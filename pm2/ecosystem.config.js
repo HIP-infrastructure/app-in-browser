@@ -15,7 +15,7 @@ module.exports = {
   },
   {
     script: '/usr/local/bin/gunicorn',
-    args: '--workers 2 --timeout 120 --bind 127.0.0.1:8060 --pythonpath backend backend:app',
+    args: '--workers 40 --timeout 120 --bind 127.0.0.1:8060 --pythonpath backend backend:app',
     cwd: relative('..'),
     watch: relative('../backend'),
     interpreter: 'python3'	  
