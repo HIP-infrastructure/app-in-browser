@@ -5,7 +5,7 @@ HIP_USER=$2
 APP=$3
 
 #run $APP as $HIP_USER
-echo -n "Running brainstorm as $HIP_USER "
+echo -n "Running $APP as $HIP_USER "
 if [ $CARD == "none" ]; then
   echo "on CPU... "
   CMD="DISPLAY=:80 $APP && /usr/sbin/umount.davfs /home/$HIP_USER/nextcloud"

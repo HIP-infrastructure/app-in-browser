@@ -13,14 +13,16 @@ else
   useradd --create-home --shell /bin/bash $HIP_USER --uid 1000
   if [ $? -eq 0 ]; then
     echo "done."
-    echo -n "Giving permissions to $HIP_USER... "
-    chown -R $1:1000 /apps/$2/run
-    if [ $? -eq 0 ]; then
-      echo "done."
-      exit 0
-    else
-      echo "failed."
-      exit 1
+    if [ -d "/apps/$2/run" ]; then
+      echo -n "Giving permissions to $HIP_USER... "
+      chown -R $1:1000 /apps/$2/run
+      if [ $? -eq 0 ]; then
+        echo "done."
+        exit 0
+      else
+        echo "failed."
+        exit 1
+      fi
     fi
   else
     echo "failed."

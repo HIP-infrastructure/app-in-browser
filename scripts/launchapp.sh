@@ -11,6 +11,13 @@ HIP_PASSWORD=$5
 NEXTCLOUD_DOMAIN=$6
 CONTAINER_NAME=${APP_NAME}-${SERVER_ID}-${APP_ID}-${HIP_USER}
 SERVER_NAME=${SERVER_ID}-${HIP_USER}
+APP_VERSION=${APP_NAME^^}_VERSION
+
+if [ -z ${!APP_VERSION} ]; then
+  APP_VERSION=latest
+else
+  APP_VERSION=${!APP_VERSION}
+fi
 
 #run container
 docker run \
@@ -31,7 +38,7 @@ docker run \
   --env HIP_USER=${HIP_USER} \
   --env HIP_PASSWORD=${HIP_PASSWORD} \
   --env NEXTCLOUD_DOMAIN=${NEXTCLOUD_DOMAIN} \
-  ${APP_NAME}
+  ${APP_NAME}:${APP_VERSION}
 
 #connect to the server network
 docker network connect ${SERVER_NAME}_apps ${CONTAINER_NAME}
