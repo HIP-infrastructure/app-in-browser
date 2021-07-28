@@ -28,12 +28,12 @@ if [ $retVal -ne 0 ]; then
 fi
 
 #symlink app_data directories in $HIP_USER homedir
-#DIR_ARRAY=( "brainstorm/brainstorm_db" "brainstorm/.brainstorm" )
-#$SCRIPT_PATH/homedir-symlink.sh $HIP_USER ${DIR_ARRAY[@]}
-#retVal=$?
-#if [ $retVal -ne 0 ]; then
-#  exit $retVal
-#fi
+DIR_ARRAY=( "anywave/AnyWave" )
+$SCRIPT_PATH/homedir-symlink.sh $HIP_USER ${DIR_ARRAY[@]}
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit $retVal
+fi
 
 #run anywave as $HIP_USER
 APP="anywave"

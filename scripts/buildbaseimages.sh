@@ -14,7 +14,8 @@ docker build \
 #build nc-webdav
 docker build \
   --build-arg VIRTUALGL_VERSION=${VIRTUALGL_VERSION} \
-  -t nc-webdav:latest \
+  --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
+  -t nc-webdav:${DAVFS2_VERSION} \
   -f ${CONTEXT}/base-images/nc-webdav/Dockerfile ${CONTEXT} &&
 
 #build matlab-runtime
