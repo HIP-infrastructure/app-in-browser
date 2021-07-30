@@ -12,7 +12,6 @@ docker volume create ${CONTAINER_NAME}_x11-unix
 
 #check for MTU
 if [ ! -z ${MTU} ]; then
-  echo $MTU
   OPTS="--opt com.docker.network.driver.mtu=${MTU}"
 fi
 
