@@ -30,10 +30,10 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 ## Getting and configuring `app-in-browser`
 1. Clone the repository with `git clone https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
 2. `cd`into the `app-in-browser` directory.
-3. If you are using `app-in-browser` on `Pollux` or `Pollux-TDS`, you need to configure docker to use a non-standard `MTU` of `1450`. Uncomment the following lines of the `docker-compose.yml` file:
-```yaml
-driver_opts:
-   com.docker.network.driver.mtu: 1450
+3. Copy the docker enviroment template file with `cp .env.template .env`.
+4. If you are using `app-in-browser` on `Pollux` or `Pollux-TDS`, you need to configure docker to use a non-standard `MTU` of `1450`. Uncomment the following line of the `.env` file:
+```bash
+MTU=1450
 ```
 and add the following to `/etc/docker/daemon.json`:
 ```json
@@ -43,18 +43,11 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-4. Copy the docker enviroment template file with `cp .env.template .env`.
-
 5. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file you just copied as follows:
 ```bash
 CARD=none
 RUNTIME=runc
 ```
-You will also need to comment out the following lines in `docker-compose.yml` (it appears twice):
-```yaml
-- /dev/dri:/dev/dri
-```
-
 6. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
