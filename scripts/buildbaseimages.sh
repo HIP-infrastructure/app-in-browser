@@ -26,5 +26,4 @@ for i in "${!MATLAB_RUNTIME_VERSIONS[@]}"; do
     --build-arg MATLAB_RUNTIME_UPDATE=${MATLAB_RUNTIME_UPDATES[i]} \
     -t matlab-runtime:${MATLAB_RUNTIME_VERSIONS[i]}_u${MATLAB_RUNTIME_UPDATES[i]} \
     -f ${CONTEXT}/base-images/matlab-runtime/Dockerfile ${CONTEXT}
-    echo "${MATLAB_RUNTIME_VERSIONS[i]}_u${MATLAB_RUNTIME_UPDATES[i]}"
 done
