@@ -18,10 +18,13 @@ docker build \
   -t nc-webdav:${DAVFS2_VERSION} \
   -f ${CONTEXT}/base-images/nc-webdav/Dockerfile ${CONTEXT} &&
 
-#build matlab-runtime
-docker build \
-  --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
-  --build-arg MATLAB_RUNTIME_VERSION=${MATLAB_RUNTIME_VERSION} \
-  --build-arg MATLAB_RUNTIME_UPDATE=${MATLAB_RUNTIME_UPDATE} \
-  -t matlab-runtime:${MATLAB_RUNTIME_VERSION}_u${MATLAB_RUNTIME_UPDATE} \
-  -f ${CONTEXT}/base-images/matlab-runtime/Dockerfile ${CONTEXT}
+#build each matlab-runtime
+for i in "${!MATLAB_RUNTIME_VERSIONS[@]}"; do
+  docker build \
+    --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
+    --build-arg MATLAB_RUNTIME_VERSION=${MATLAB_RUNTIME_VERSIONS[i]} \
+    --build-arg MATLAB_RUNTIME_UPDATE=${MATLAB_RUNTIME_UPDATES[i]} \
+    -t matlab-runtime:${MATLAB_RUNTIME_VERSIONS[i]}_u${MATLAB_RUNTIME_UPDATES[i]} \
+    -f ${CONTEXT}/base-images/matlab-runtime/Dockerfile ${CONTEXT}
+    echo "${MATLAB_RUNTIME_VERSIONS[i]}_u${MATLAB_RUNTIME_UPDATES[i]}"
+done
