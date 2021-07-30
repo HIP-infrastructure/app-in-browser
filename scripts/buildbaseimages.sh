@@ -20,6 +20,7 @@ docker build \
 
 #build matlab-runtime
 docker build \
+  --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
   --build-arg MATLAB_RUNTIME_VERSION=${MATLAB_RUNTIME_VERSION} \
   --build-arg MATLAB_RUNTIME_UPDATE=${MATLAB_RUNTIME_UPDATE} \
   -t matlab-runtime:${MATLAB_RUNTIME_VERSION}_u${MATLAB_RUNTIME_UPDATE} \

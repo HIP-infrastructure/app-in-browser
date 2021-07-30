@@ -16,5 +16,6 @@ else
   docker build \
   -t ${APP_NAME}:${!APP_VERSION} \
   --build-arg ${APP_VERSION}=${!APP_VERSION} \
+  --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
   -f ${CONTEXT}/apps/${APP_NAME}/Dockerfile ${CONTEXT}
 fi

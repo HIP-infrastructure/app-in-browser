@@ -19,12 +19,17 @@ else
   APP_VERSION=${!APP_VERSION}
 fi
 
+#check for GPU
+if [ ${CARD} != "none" ]; then
+  DEV="--device=/dev/dri:/dev/dri"
+fi
+
 #run container
 docker run \
   -d \
   -v ${SERVER_NAME}_x11-unix:/tmp/.X11-unix \
   --network=${SERVER_NAME}_server \
-  --device=/dev/dri:/dev/dri \
+  ${DEV} \
   --device=/dev/fuse:/dev/fuse \
   --cap-add=SYS_ADMIN \
   --security-opt apparmor=unconfined \

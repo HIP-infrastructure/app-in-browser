@@ -1,4 +1,5 @@
-FROM nc-webdav
+ARG DAVFS2_VERSION
+FROM nc-webdav:${DAVFS2_VERSION}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
