@@ -43,7 +43,7 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-5. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file you just copied as follows:
+5. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
 ```bash
 CARD=none
 RUNTIME=runc
