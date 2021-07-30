@@ -31,7 +31,7 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 1. Clone the repository with `git clone https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
 2. `cd`into the `app-in-browser` directory.
 3. Copy the docker enviroment template file with `cp .env.template .env`.
-4. If you are using `app-in-browser` on `Pollux` or `Pollux-TDS`, you need to configure docker to use a non-standard `MTU` of `1450`. Uncomment the following line of the `.env` file:
+4. If you are using `app-in-browser` on `CSCS`, you need to configure docker to use a non-standard `MTU` of `1450`. Uncomment the following line of the `.env` file:
 ```bash
 MTU=1450
 ```
