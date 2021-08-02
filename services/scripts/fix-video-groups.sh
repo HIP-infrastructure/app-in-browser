@@ -10,11 +10,13 @@ if [ $CARD != "none" ]; then
 
   echo -n "Adding user $HIP_USER into the right video groups... "
 
-  DRI_CARD_GROUP_NAME=$(ls -l /dev/dri/card* | head -1 | awk '{print $4}')
+  #DRI_CARD_GROUP_NAME=$(ls -l /dev/dri/card* | head -1 | awk '{print $4}')
+  DRI_CARD_GROUP_NAME=video
   DRI_CARD_GID=$(ls -ln /dev/dri/card* | head -1 | awk '{print $4}')
   groupadd -f -g $DRI_CARD_GID $DRI_CARD_GROUP_NAME
 
-  DRI_RENDER_GROUP_NAME=$(ls -l /dev/dri/render* | head -1 | awk '{print $4}')
+  #DRI_RENDER_GROUP_NAME=$(ls -l /dev/dri/render* | head -1 | awk '{print $4}')
+  DRI_RENDER_GROUP_NAME=render
   DRI_RENDER_GID=$(ls -ln /dev/dri/render* | head -1 | awk '{print $4}')
   groupadd -f -g $DRI_RENDER_GID $DRI_RENDER_GROUP_NAME
 

@@ -10,7 +10,8 @@ LABEL base_image_version=$DAVFS2_VERSION
 RUN apt-get update && \
     apt-get upgrade -y && \
     #apt-get install --no-install-recommends -y davfs2 && \
-    apt-get install --no-install-recommends -y wget libneon27 && \
+    apt-get install --no-install-recommends -y \
+    wget libneon27 expect && \
     wget -nv http://archive.ubuntu.com/ubuntu/pool/universe/d/davfs2/davfs2_${DAVFS2_VERSION}_amd64.deb && \
     dpkg -i davfs2_${DAVFS2_VERSION}_amd64.deb && \
     rm davfs2_${DAVFS2_VERSION}_amd64.deb && \
