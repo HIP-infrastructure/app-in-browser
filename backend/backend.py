@@ -117,10 +117,10 @@ def control_server():
                         "stdout": output.stdout.rstrip(),
                         "stderr": output.stderr.rstrip()},
                     "location": {
-                        "domain": get_domain(),
-                        "ip": get_ip(),
-                        "session_id": port,
-                        "url": get_domain() + "/session/" + port + "/"}}
+                        "domain": get_domain() if port else "",
+                        "ip": get_ip() if port else "",
+                        "session_id": port if port else "",
+                        "url": get_domain() + "/session/" + port + "/" if port else ""}}
         print(response)
         return jsonify(response)
     else:
@@ -177,10 +177,10 @@ def control_app():
                         "stdout": output.stdout.rstrip(),
                         "stderr": output.stderr.rstrip()},
                     "location": {
-                        "domain": get_domain(),
-                        "ip": get_ip(),
-                        "session_id": port,
-                        "url": get_domain() + "/session/" + port + "/"}}
+                        "domain": get_domain() if port else "",
+                        "ip": get_ip() if port else "",
+                        "session_id": port if port else "",
+                        "url": get_domain() + "/session/" + port + "/" if port else ""}}
         print(response)
         return jsonify(response)
     else:
