@@ -1,5 +1,5 @@
 name: gitlab-sync
-on: push:
+on: push
 jobs:
   git-sync:
     runs-on: ubuntu-latest
