@@ -1,0 +1,7 @@
+stages:
+  - build
+
+build-all-job:
+  stage: build
+  script:
+    ./scripts/buildall.sh
