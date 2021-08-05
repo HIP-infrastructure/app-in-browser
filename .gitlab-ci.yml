@@ -16,6 +16,7 @@ services:
     command: ["--tls=false"]
 before_script:
   - docker info
+  - apk add --no-cache bash
   #  - echo ${REGISTRY_PASSWORD} | docker login ${REGISTRY} -u ${REGISTRY_USER} -- 
   #password-stdin
   #  - *version_info
