@@ -2,6 +2,6 @@
 **/run
 **/*.secret
 **/__pycache__
-**/*.env
+backend/backend.env
 scripts/certbot.sh
 pm2/node_modules
