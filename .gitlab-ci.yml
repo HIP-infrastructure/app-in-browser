@@ -22,6 +22,6 @@ stages:
   - build
 build-all-job:
   stage: build
-   script:
+  script:
     - echo $CI_REGISTRY_IMAGE
 #    - /bin/bash scripts/buildall.sh
