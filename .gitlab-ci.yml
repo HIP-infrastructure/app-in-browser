@@ -13,7 +13,7 @@ services:
     # in our experience although you'd assume this would be sufficient, this did 
     # nothing to prevent connection errors without `DOCKER_TLS_CERTDIR` being set 
     # to an empty string, and I would call that beyond mildly infuriating.
-    command: ["--tls=false --mtu=1450"]
+    command: ["--tls=false", "--mtu=1450"]
 before_script:
   - docker info
   - docker network inspect bridge
