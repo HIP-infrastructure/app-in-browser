@@ -15,18 +15,12 @@ services:
     # to an empty string, and I would call that beyond mildly infuriating.
     command: ["--tls=false", "--mtu=1450"]
 before_script:
-  - docker info
-  - docker network inspect bridge
   - apk add --no-cache bash
-  #  - echo ${REGISTRY_PASSWORD} | docker login ${REGISTRY} -u ${REGISTRY_USER} -- 
-  #password-stdin
-  #  - *version_info
-
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 stages:
   - build
-
 build-all-job:
   stage: build
   script:
     - pwd
-    - . scripts/buildall.sh
+   # - . scripts/buildall.sh
