@@ -26,4 +26,4 @@ stages:
 build-all-job:
   stage: build
   script:
-    ./scripts/buildall.sh
+    scripts/buildall.sh
