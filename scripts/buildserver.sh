@@ -16,3 +16,4 @@ if [ ! -z $CI_REGISTRY ]; then
   REGISTRY_IMAGE=$CI_REGISTRY/$CI_REGISTRY_IMAGE:latest
   docker tag xpra-server:latest $REGISTRY_IMAGE
   docker push $REGISTRY_IMAGE
+fi
