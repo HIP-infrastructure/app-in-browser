@@ -24,4 +24,5 @@ build-all-job:
   stage: build
   script:
     - pwd
+    - . scripts/buildserver.sh
    # - . scripts/buildall.sh
