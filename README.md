@@ -30,8 +30,7 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 ## Getting and configuring `app-in-browser`
 1. Clone the repository with `git clone https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
 2. `cd`into the `app-in-browser` directory.
-3. Copy the docker enviroment template file with `cp .env.template .env`.
-4. If you are using `app-in-browser` on `CSCS`, you need to configure docker to use a non-standard `MTU` of `1450`. Uncomment the following line of the `.env` file:
+3. If you are using `app-in-browser` on `CSCS`, you need to configure docker to use a non-standard `MTU` of `1450`. Uncomment the following line of the `.env` file:
 ```bash
 MTU=1450
 ```
@@ -43,20 +42,20 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-5. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
+4. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
 ```bash
 CARD=none
 RUNTIME=runc
 ```
-6. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
+5. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
-7. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
-8. Install and start the backend with `./scripts/installbackend.sh`.
-9. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-10. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
-11. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
+6. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+7. Install and start the backend with `./scripts/installbackend.sh`.
+8. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+9. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
+10. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 1. Control servers using the following REST API:
