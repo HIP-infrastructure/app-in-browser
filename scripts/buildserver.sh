@@ -7,7 +7,7 @@ CONTEXT="./services"
 IMAGE="xpra-server:latest"
 REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/${IMAGE}
 
-#pull image and cache from registry during CI only
+#pull xpra-server and cache from registry during CI only
 if [ ! -z ${CI_REGISTRY} ]; then
   docker pull ${REGISTRY_IMAGE} || true
   CACHE_OPTS="--cache-from ${REGISTRY_IMAGE}"
