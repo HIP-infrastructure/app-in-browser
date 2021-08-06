@@ -37,6 +37,7 @@ else
   docker build \
   ${CACHE_OPTS} \
   -t ${REGISTRY_IMAGE} \
+  --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
   --build-arg ${APP_VERSION}=${!APP_VERSION} \
   --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
   -f ${CONTEXT}/apps/${APP_NAME}/Dockerfile ${CONTEXT}

@@ -1,4 +1,5 @@
-FROM matlab-runtime:R2020a_u6
+ARG CI_REGISTRY_IMAGE
+FROM ${CI_REGISTRY_IMAGE}/matlab-runtime:R2020a_u6
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
