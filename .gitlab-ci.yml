@@ -24,4 +24,5 @@ build-all-job:
   stage: build
   script:
 #    - /bin/bash scripts/buildall.sh
+    - /bin/bash scripts/buildbaseimages.sh
     - /bin/bash scripts/buildserver.sh

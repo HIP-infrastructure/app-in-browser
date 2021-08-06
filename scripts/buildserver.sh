@@ -5,10 +5,10 @@ set -o allexport; source .env; set +o allexport
 
 CONTEXT="./services"
 IMAGE="xpra-server:latest"
+REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/${IMAGE}
 
 #pull image and cache from registry during CI only
-if [ ! -z ${CI_REGISTRY_IMAGE} ]; then
-  REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/${IMAGE}
+if [ ! -z ${CI_REGISTRY} ]; then
   docker pull ${REGISTRY_IMAGE} || true
   CACHE_OPTS="--cache-from ${REGISTRY_IMAGE}"
 fi
@@ -17,7 +17,7 @@ fi
 docker build \
   --build-arg VIRTUALGL_VERSION=${VIRTUALGL_VERSION} \
   ${CACHE_OPTS} \
-  -t ${IMAGE} \
+  -t ${REGISTRY_IMAGE} \
   -f ${CONTEXT}/server/Dockerfile ${CONTEXT}
 
 retVal=$?
@@ -27,7 +27,5 @@ fi
 
 #push xpra-server to registry during CI only
 if [ ! -z ${CI_REGISTRY_IMAGE} ]; then
-  REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/${IMAGE}
-  docker tag ${IMAGE} ${REGISTRY_IMAGE}
   docker push ${REGISTRY_IMAGE}
 fi
