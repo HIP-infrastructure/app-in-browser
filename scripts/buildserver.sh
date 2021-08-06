@@ -27,6 +27,6 @@ if [ $retVal -ne 0 ]; then
 fi
 
 #push xpra-server to registry during CI only
-if [ ! -z ${CI_REGISTRY_IMAGE} ]; then
+if [ ! -z ${CI_REGISTRY} ]; then
   docker push ${REGISTRY_IMAGE}
 fi
