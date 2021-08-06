@@ -15,6 +15,7 @@ fi
 
 #build xpra-server
 docker build \
+  --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
   --build-arg VIRTUALGL_VERSION=${VIRTUALGL_VERSION} \
   ${CACHE_OPTS} \
   -t ${REGISTRY_IMAGE} \

@@ -1,5 +1,6 @@
+ARG CI_REGISTRY_IMAGE
 ARG VIRTUALGL_VERSION
-FROM vgl-base:${VIRTUALGL_VERSION}
+FROM ${CI_REGISTRY_IMAGE}/vgl-base:${VIRTUALGL_VERSION}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive

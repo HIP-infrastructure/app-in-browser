@@ -42,6 +42,7 @@ fi
 
 #build nc-webdav
 docker build \
+  --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
   --build-arg VIRTUALGL_VERSION=${VIRTUALGL_VERSION} \
   --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
   ${CACHE_OPTS} \
@@ -70,6 +71,7 @@ for i in "${!MATLAB_RUNTIME_VERSIONS[@]}"; do
 
   #build each matlab-runtime
   docker build \
+    --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
     --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
     --build-arg MATLAB_RUNTIME_VERSION=${MATLAB_RUNTIME_VERSIONS[i]} \
     --build-arg MATLAB_RUNTIME_UPDATE=${MATLAB_RUNTIME_UPDATES[i]} \

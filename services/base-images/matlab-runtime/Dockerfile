@@ -1,5 +1,6 @@
+ARG CI_REGISTRY_IMAGE
 ARG DAVFS2_VERSION
-FROM nc-webdav:${DAVFS2_VERSION}
+FROM ${CI_REGISTRY_IMAGE}/nc-webdav:${DAVFS2_VERSION}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
