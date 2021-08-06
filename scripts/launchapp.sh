@@ -43,7 +43,7 @@ docker run \
   --env HIP_USER=${HIP_USER} \
   --env HIP_PASSWORD=${HIP_PASSWORD} \
   --env NEXTCLOUD_DOMAIN=${NEXTCLOUD_DOMAIN} \
-  ${APP_NAME}:${APP_VERSION}
+  ${CI_REGISTRY_IMAGE}/${APP_NAME}:${APP_VERSION}
 
 #connect to the server network
 docker network connect ${SERVER_NAME}_apps ${CONTAINER_NAME}
