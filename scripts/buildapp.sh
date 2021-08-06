@@ -25,6 +25,7 @@ fi
 #build ${APP_NAME}
 if [ -z ${!APP_VERSION} ]; then
   docker build \
+  --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
   ${CACHE_OPTS} \
   -t ${REGISTRY_IMAGE} \
   -f ${CONTEXT}/apps/${APP_NAME}/Dockerfile ${CONTEXT}
@@ -35,11 +36,11 @@ if [ -z ${!APP_VERSION} ]; then
   fi
 else
   docker build \
-  ${CACHE_OPTS} \
-  -t ${REGISTRY_IMAGE} \
   --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
   --build-arg ${APP_VERSION}=${!APP_VERSION} \
   --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
+  ${CACHE_OPTS} \
+  -t ${REGISTRY_IMAGE} \
   -f ${CONTEXT}/apps/${APP_NAME}/Dockerfile ${CONTEXT}
 
   retVal=$?
