@@ -24,3 +24,4 @@ build-all-job:
   stage: build
   script:
     - /bin/bash scripts/buildall.sh
+  interruptible: true
