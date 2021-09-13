@@ -1,6 +1,7 @@
 #!/bin/bash
 
 HIP_USER=$1
+APP_NAME=$2
 
 echo -n "Creating user $HIP_USER... "
 
@@ -13,7 +14,7 @@ else
   useradd --create-home --shell /bin/bash $HIP_USER --uid 1000
   if [ $? -eq 0 ]; then
     echo "done."
-    if [ -d "/apps/$2/run" ]; then
+    if [ -d "/apps/$APP_NAME/run" ]; then
       echo -n "Giving permissions to $HIP_USER... "
       chown -R $1:1000 /apps/$2/run
       if [ $? -eq 0 ]; then

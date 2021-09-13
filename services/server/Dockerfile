@@ -9,17 +9,17 @@ ARG CARD
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \ 
-    software-properties-common wget gnupg \
+    software-properties-common gnupg \
     xvfb x11-xserver-utils python3-pip \
     python3-xdg menu-xdg curl && \
     pip3 install pyinotify && \
-    wget -q https://xpra.org/gpg.asc -O- | apt-key add - && \
+    curl -L https://xpra.org/gpg.asc | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ focal main" && \
     apt-get update && \
     #add-apt-repository "deb https://xpra.org/beta/ focal main" && \
     #apt-get update && \
     apt-get install --no-install-recommends -y xpra xpra-html5 && \
-    apt-get remove -y --purge gnupg wget && \
+    apt-get remove -y --purge gnupg && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*

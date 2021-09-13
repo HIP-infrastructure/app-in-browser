@@ -11,9 +11,11 @@ APP_VERSION=${APP_NAME^^}_VERSION
 if [ -z ${!APP_VERSION} ]; then
   IMAGE=${APP_NAME}:latest
   REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/${IMAGE}
+  APP_VERSION_OPTS="--build-arg APP_VERSION=latest"
 else
   IMAGE=${APP_NAME}:${!APP_VERSION}
   REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/${IMAGE}
+  APP_VERSION_OPTS="--build-arg APP_VERSION=${!APP_VERSION}"
 fi
 
 #pull ${APP_NAME} and cache from registry during CI only
@@ -23,30 +25,18 @@ if [ ! -z ${CI_REGISTRY} ]; then
 fi
 
 #build ${APP_NAME}
-if [ -z ${!APP_VERSION} ]; then
-  docker build \
-  --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
-  ${CACHE_OPTS} \
-  -t ${REGISTRY_IMAGE} \
-  -f ${CONTEXT}/apps/${APP_NAME}/Dockerfile ${CONTEXT}
+docker build \
+--build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
+--build-arg APP_NAME=${APP_NAME} \
+${APP_VERSION_OPTS} \
+--build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
+${CACHE_OPTS} \
+-t ${REGISTRY_IMAGE} \
+-f ${CONTEXT}/apps/${APP_NAME}/Dockerfile ${CONTEXT}
 
-  retVal=$?
-  if [ $retVal -ne 0 ]; then
-    exit $retVal
-  fi
-else
-  docker build \
-  --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
-  --build-arg ${APP_VERSION}=${!APP_VERSION} \
-  --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
-  ${CACHE_OPTS} \
-  -t ${REGISTRY_IMAGE} \
-  -f ${CONTEXT}/apps/${APP_NAME}/Dockerfile ${CONTEXT}
-
-  retVal=$?
-  if [ $retVal -ne 0 ]; then
-    exit $retVal
-  fi
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit $retVal
 fi
 
 #push ${APP_NAME} to registry during CI only

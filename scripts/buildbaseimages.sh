@@ -31,6 +31,33 @@ if [ ! -z ${CI_REGISTRY} ]; then
   docker push ${REGISTRY_IMAGE}
 fi
 
+##### terminal #####
+REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/terminal
+
+#pull terminal and cache from registry during CI only
+if [ ! -z ${CI_REGISTRY} ]; then
+  docker pull ${REGISTRY_IMAGE} || true
+  CACHE_OPTS="--cache-from ${REGISTRY_IMAGE}"
+fi
+
+#build build
+docker build \
+  --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
+  --build-arg VIRTUALGL_VERSION=${VIRTUALGL_VERSION} \
+  ${CACHE_OPTS} \
+  -t ${REGISTRY_IMAGE} \
+  -f ${CONTEXT}/base-images/terminal/Dockerfile ${CONTEXT} &&
+
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit $retVal
+fi
+
+#push terminal to registry during CI only
+if [ ! -z ${CI_REGISTRY} ]; then
+  docker push ${REGISTRY_IMAGE}
+fi
+
 ##### nc-webdav #####
 REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/nc-webdav:${DAVFS2_VERSION}
 
@@ -43,7 +70,6 @@ fi
 #build nc-webdav
 docker build \
   --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
-  --build-arg VIRTUALGL_VERSION=${VIRTUALGL_VERSION} \
   --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
   ${CACHE_OPTS} \
   -t ${REGISTRY_IMAGE} \

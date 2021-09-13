@@ -40,9 +40,13 @@ docker run \
   --env-file .env \
   --env NVIDIA_VISIBLE_DEVICES=all \
   --env NVIDIA_DRIVER_CAPABILITIES=all \
+  --env DISPLAY=:80 \
   --env HIP_USER=${HIP_USER} \
   --env HIP_PASSWORD=${HIP_PASSWORD} \
   --env NEXTCLOUD_DOMAIN=${NEXTCLOUD_DOMAIN} \
+  --env APP_NAME=${APP_NAME} \
+  --add-host releases.hyper.is:127.0.0.1 \
+  --add-host releases-canary.hyper.is:127.0.0.1 \
   ${CI_REGISTRY_IMAGE}/${APP_NAME}:${APP_VERSION}
 
 #connect to the server network
