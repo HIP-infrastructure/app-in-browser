@@ -7,7 +7,7 @@ variables:
   # https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-the-overlayfs-driver
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
-  GIT_SUBMODULE_STRATEGY: recursive
+  #GIT_SUBMODULE_STRATEGY: recursive
 services:
   - name: docker:20-dind
     alias: docker
@@ -17,6 +17,8 @@ services:
     command: ["--tls=false", "--mtu=1450"]
 before_script:
   - apk add --no-cache bash
+  - git submodule sync --recursive
+  - git submodule update --init --recursive
   - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
 stages:
@@ -24,5 +26,6 @@ stages:
 build-all-job:
   stage: build
   script:
+    - 
     - /bin/bash scripts/buildall.sh
   interruptible: true
