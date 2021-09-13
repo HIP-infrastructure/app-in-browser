@@ -1,0 +1,9 @@
+[submodule "services/apps/fsl"]
+	path = services/apps/fsl
+	url = git@github.com:HIP-infrastructure/fsl.git
+[submodule "services/apps/anywave"]
+	path = services/apps/anywave
+	url = git@github.com:HIP-infrastructure/anywave.git
+[submodule "services/apps/brainstorm"]
+	path = services/apps/brainstorm
+	url = git@github.com:HIP-infrastructure/brainstorm.git
