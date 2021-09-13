@@ -15,9 +15,10 @@ services:
     # nothing to prevent connection errors without `DOCKER_TLS_CERTDIR` being set 
     # to an empty string, and I would call that beyond mildly infuriating.
     command: ["--tls=false", "--mtu=1450"]
+pre_clone_script:
+  - apk add --no-cache openssh-client
 before_script:
   - apk add --no-cache bash
-  - apk add --no-cache openssh
   - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
 stages:
