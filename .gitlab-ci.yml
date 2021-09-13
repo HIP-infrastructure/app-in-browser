@@ -21,6 +21,8 @@ before_script:
   - apk add --no-cache git
   - eval $(ssh-agent -s)
   - echo "$GITHUB_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - mkdir -p ~/.ssh
+  - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
   - git submodule sync --recursive
   - git submodule update --init --recursive
   - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
