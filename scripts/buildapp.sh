@@ -27,6 +27,7 @@ fi
 #build ${APP_NAME}
 docker build \
 --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
+--build-arg CI_REGISTRY=${CI_REGISTRY} \
 --build-arg APP_NAME=${APP_NAME} \
 ${APP_VERSION_OPTS} \
 --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
