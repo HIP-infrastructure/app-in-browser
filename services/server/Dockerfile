@@ -11,8 +11,10 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \ 
     software-properties-common gnupg \
     xvfb x11-xserver-utils python3-pip \
+    #build-essential \
     python3-xdg menu-xdg curl && \
     pip3 install pyinotify && \
+    #pip3 install python-uinput && \
     curl -L https://xpra.org/gpg.asc | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ focal main" && \
     apt-get update && \
@@ -22,23 +24,24 @@ RUN apt-get update && \
     apt-get remove -y --purge gnupg && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-    #mkdir -p /run/user/0/xpra
-
-COPY server/config/xpra.conf /etc/xpra/xpra.conf
-COPY server/config/default.png /usr/share/backgrounds/images/default.png
-
-RUN chmod 644 /etc/xpra/ssl-cert.pem \
+    rm -rf /var/lib/apt/lists/* && \
+    chmod 644 /etc/xpra/ssl-cert.pem && \
     # make all applications started with vglrun use video stream encoding
-    && echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf \
+    echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf && \
     # create the xpra user and socket directory
-    && useradd --create-home --shell /bin/bash xpra --gid xpra --uid 1000 \
-    && mkdir -p /run/user/1000/xpra && chown -R 1000 /run/user/1000
+    useradd --create-home --shell /bin/bash xpra --gid xpra --uid 1000 && \
+    mkdir -p /run/user/1000/xpra && \
+    chown -R 1000 /run/user/1000 && \
+    chmod -R 700 /run/user/1000
 
 HEALTHCHECK --interval=10s --timeout=10s --retries=5 --start-period=30s \
   CMD curl -fks https://localhost:8080
 
 WORKDIR /home/xpra
+
+# copy xpra config files
+COPY server/config/xpra.conf /etc/xpra/xpra.conf
+COPY server/config/default.png /usr/share/backgrounds/images/default.png
 
 # copy entrypoint script and other scripts used in it
 COPY server/config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
