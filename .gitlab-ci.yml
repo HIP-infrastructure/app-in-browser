@@ -25,6 +25,7 @@ before_script:
   - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
   - git submodule sync --recursive
   - git submodule update --init --recursive
+  - git submodule update --recursive --remote
   - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
 stages:
