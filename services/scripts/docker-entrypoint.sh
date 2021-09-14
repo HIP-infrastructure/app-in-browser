@@ -21,6 +21,13 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
+#copy configuration files to $HIP_USER account
+$SCRIPT_PATH/copy-config.sh $HIP_USER ${CONFIG_ARRAY[@]}
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit $retVal
+fi
+
 #mount davfs2 share for $HIP_USER
 $SCRIPT_PATH/mount-davfs2.sh $HIP_USER $HIP_PASSWORD $NEXTCLOUD_DOMAIN
 retVal=$?
