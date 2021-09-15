@@ -7,3 +7,6 @@
 [submodule "services/apps/brainstorm"]
 	path = services/apps/brainstorm
 	url = git@github.com:HIP-infrastructure/brainstorm.git
+[submodule "services/apps/mricrogl"]
+	path = services/apps/mricrogl
+	url = git@github.com:HIP-infrastructure/mricrogl.git

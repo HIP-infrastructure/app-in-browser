@@ -22,7 +22,8 @@ runuser -l $HIP_USER -c "$CMD &"
 
 #wait until $APP_NAME has terminated
 sleep 3
-PID=`ps ax | grep $PROCESS_NAME | grep -v $0 | awk '{print $1}' | tr '\n' ' ' | awk '{print $1}'`
+#ps ax
+PID=`ps ax | grep "$PROCESS_NAME" | grep -v $0 | awk '{print $1}' | tr '\n' ' ' | awk '{print $1}'`
 ps -p $PID > /dev/null
 retVal=$?
 if [ $retVal -eq 0 ]; then
