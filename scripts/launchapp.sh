@@ -34,6 +34,7 @@ docker run \
   --cap-add=SYS_ADMIN \
   --security-opt apparmor=unconfined \
   --runtime ${RUNTIME} \
+  --ipc="host" \
   --name ${CONTAINER_NAME} \
   --hostname ${CONTAINER_NAME} \
   --restart on-failure \

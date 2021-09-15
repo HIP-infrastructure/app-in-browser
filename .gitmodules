@@ -10,3 +10,6 @@
 [submodule "services/apps/mricrogl"]
 	path = services/apps/mricrogl
 	url = git@github.com:HIP-infrastructure/mricrogl.git
+[submodule "services/apps/slicer"]
+	path = services/apps/slicer
+	url = git@github.com:HIP-infrastructure/slicer.git

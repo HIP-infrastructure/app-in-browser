@@ -32,6 +32,7 @@ docker run \
   --network=${CONTAINER_NAME}_server \
   ${DEV} \
   --runtime	${RUNTIME} \
+  --ipc="host" \
   --name xpra-server-${CONTAINER_NAME} \
   --hostname xpra-server-${CONTAINER_NAME} \
   --restart on-failure \
