@@ -6,4 +6,5 @@
 ./scripts/buildapp.sh anywave && \
 ./scripts/buildapp.sh fsl && \
 ./scripts/buildapp.sh mricrogl && \
-./scripts/buildapp.sh slicer
+./scripts/buildapp.sh slicer && \
+./scripts/buildapp.sh hibop

@@ -13,3 +13,6 @@
 [submodule "services/apps/slicer"]
 	path = services/apps/slicer
 	url = git@github.com:HIP-infrastructure/slicer.git
+[submodule "services/apps/hibop"]
+	path = services/apps/hibop
+	url = git@github.com:HIP-infrastructure/hibop.git
