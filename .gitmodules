@@ -16,3 +16,6 @@
 [submodule "services/apps/hibop"]
 	path = services/apps/hibop
 	url = git@github.com:HIP-infrastructure/hibop.git
+[submodule "services/apps/localizer"]
+	path = services/apps/localizer
+	url = git@github.com:HIP-infrastructure/localizer.git

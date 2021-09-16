@@ -1,10 +1,31 @@
 #!/bin/bash
 
-./scripts/buildbaseimages.sh && \
-./scripts/buildserver.sh && \
-./scripts/buildapp.sh brainstorm && \
-./scripts/buildapp.sh anywave && \
-./scripts/buildapp.sh fsl && \
-./scripts/buildapp.sh mricrogl && \
-./scripts/buildapp.sh slicer && \
-./scripts/buildapp.sh hibop
+./scripts/buildbaseimages.sh
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit 1
+fi
+
+./scripts/buildserver.sh
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit 1
+fi
+
+APP_LIST=(
+  anywave
+  brainstorm
+  fsl
+  hibop
+  localizer
+  mricrogl
+  slicer
+)
+
+for app in ${APP_LIST[@]}; do
+  ./scripts/buildapp.sh $app
+  retVal=$?
+  if [ $retVal -ne 0 ]; then
+    exit 1
+  fi
+done

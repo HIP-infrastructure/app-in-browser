@@ -15,6 +15,7 @@ if [ $CARD == "none" ]; then
 else
   echo "on GPU... "
   #CMD="vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"
+  #CMD="QT_DEBUG_PLUGINS=1 DISPLAY=$DISPLAY vglrun -d /dev/dri/$CARD $APP_CMD"
   CMD="DISPLAY=$DISPLAY vglrun -d /dev/dri/$CARD $APP_CMD"
 fi
 runuser -l $HIP_USER -c "$CMD &"
