@@ -11,6 +11,8 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \ 
     software-properties-common gnupg \
     xvfb x11-xserver-utils python3-pip \
+    python3-gst-1.0 \
+    dbus-x11 python3-dbus pulseaudio \
     #build-essential \
     python3-xdg menu-xdg curl && \
     pip3 install pyinotify && \
@@ -47,5 +49,6 @@ COPY server/config/default.png /usr/share/backgrounds/images/default.png
 COPY server/config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
 COPY scripts/check-dri.sh /home/xpra/scripts/check-dri.sh
 COPY scripts/fix-video-groups.sh /home/xpra/scripts/fix-video-groups.sh
+COPY scripts/fix-audio-groups.sh /home/xpra/scripts/fix-audio-groups.sh
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

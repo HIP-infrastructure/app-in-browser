@@ -28,14 +28,27 @@ for DIR in "${DIR_ARRAY[@]}"; do
     fi
   fi
 
-  # symlinking
-  echo -n "Symlinking $DIR from davfs2... "
-  ln -sf /home/$HIP_USER/nextcloud/app_data/$APP_NAME/$DIR /home/$HIP_USER/$DIR
+  if [[ ! -L /home/$HIP_USER/$DIR ]]; then
+    # symlinking
+    echo -n "Symlinking $DIR from davfs2... "
+    ln -sf /home/$HIP_USER/nextcloud/app_data/$APP_NAME/$DIR /home/$HIP_USER/$DIR
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+      echo "failed."
+      exit $retVal
+    else
+      echo "done."
+    fi
+  fi
+
+  # applying the right ownership to the symlink
+  echo -n "Applying correct permissions to $DIR... "
+  chown -R $HIP_USER:davfs2 /home/$HIP_USER/$DIR
   retVal=$?
   if [ $retVal -ne 0 ]; then
+    echo "failed."
     exit $retVal
+  else
+    echo "done."
   fi
-  # applying the right ownership to the symlink
-  chown -R $HIP_USER:davfs2 /home/$HIP_USER/$DIR
-  echo "done."
 done

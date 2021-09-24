@@ -29,6 +29,8 @@ docker run \
   -d \
   -p "127.0.0.1::8080" \
   -v ${CONTAINER_NAME}_x11-unix:/tmp/.X11-unix \
+  -v /var/run/dbus:/var/run/dbus \
+  --privileged \
   --network=${CONTAINER_NAME}_server \
   ${DEV} \
   --runtime	${RUNTIME} \

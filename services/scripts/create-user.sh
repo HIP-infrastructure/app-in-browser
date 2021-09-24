@@ -20,12 +20,13 @@ fi
 
 if [[ -d /apps/$APP_NAME/install ]]; then
   echo -n "Giving group r/w access to /apps/$APP_NAME/install for $HIP_USER... "
-  chgrp -R $HIP_USER /apps/$APP_NAME/install
-  if [ $? -ne 0 ]; then
-    echo "failed."
-    exit 1
-  fi
-  chmod -R g+w /apps/$APP_NAME/install
+  #chgrp -R $HIP_USER /apps/$APP_NAME/install
+  #if [ $? -ne 0 ]; then
+  #  echo "failed."
+  #  exit 1
+  #fi
+  #chmod -R g+w /apps/$APP_NAME/install
+  chmod -R o+w /apps/$APP_NAME/install
   if [ $? -ne 0 ]; then
     echo "failed."
     exit 1

@@ -82,6 +82,28 @@ def index():
 def health_check():
     return "Backend currently running on %s" % get_domain()
 
+@app.route('/control/status')
+@auth.login_required
+def control_status():
+    script = "dockerstatus.sh"
+
+    cmd = [SCRIPT_DIR + script]
+    output = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True)
+
+    response = {"output": {
+                    "stdout": output.stdout.rstrip(),
+                    "stderr": output.stderr.rstrip()},
+                "location": {
+                    "domain": get_domain(),
+                    "ip": get_ip()}}
+    print(response)
+    return jsonify(response)
+
+@app.route('/control/app/list')
+@auth.login_required
+def control_app_list():
+    pass
+
 @app.route('/control/server', methods=['GET'])
 @auth.login_required
 def control_server():
