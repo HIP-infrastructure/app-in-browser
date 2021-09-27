@@ -110,18 +110,18 @@ where
 ### Bash scripts
 You can launch servers and apps using the following bash scripts from the `app-in-browser` directory. The parameters are as described above.
 1. Servers:
-   * `start`: `./scripts/launchserver.sh sid hipuser`
-   * `stop`: `./scripts/stopserver.sh sid hipuser`
-   * `restart`: `./scripts/restartserver.sh sid hipuser`
-   * `destroy`: `./scripts/destroyserver.sh sid hipuser`
-   * `healthcheck`: `./scripts/checkserverhealth.sh sid hipuser`
-   * `logs`: `./scripts/viewserverlogs.sh sid hipuser`
-   * `status`: `./scripts/serverstatus.sh sid hipuser`
+   * start: `./scripts/launchserver.sh sid hipuser`
+   * stop: `./scripts/stopserver.sh sid hipuser`
+   * restart: `./scripts/restartserver.sh sid hipuser`
+   * destroy: `./scripts/destroyserver.sh sid hipuser`
+   * healthcheck: `./scripts/checkserverhealth.sh sid hipuser`
+   * logs: `./scripts/viewserverlogs.sh sid hipuser`
+   * status: `./scripts/serverstatus.sh sid hipuser`
 2. Apps:
-   * `start`: `./scripts/launchapp.sh app sid aid hipuser hippass "nc"`
-   * `stop`: `./scripts/stopapp.sh app sid aid hipuser`
-   * `restart`: `./scripts/restartapp.sh app sid aid hipuser hippass "nc"`
-   * `destroy`: `./scripts/destroyapp.sh app sid aid hipuser`
-   * `healthcheck`: `./scripts/checkapphealth.sh app sid aid hipuser`
-   * `logs`: `./scripts/viewapplogs.sh app sid aid hipuser`
-   * `status`: `./scripts/appstatus.sh app sid aid hipuser`
+   * start: `./scripts/launchapp.sh app sid aid hipuser hippass "nc"`
+   * stop: `./scripts/stopapp.sh app sid aid hipuser`
+   * restart: `./scripts/restartapp.sh app sid aid hipuser hippass "nc"`
+   * destroy: `./scripts/destroyapp.sh app sid aid hipuser`
+   * healthcheck: `./scripts/checkapphealth.sh app sid aid hipuser`
+   * logs: `./scripts/viewapplogs.sh app sid aid hipuser`
+   * status: `./scripts/appstatus.sh app sid aid hipuser`
