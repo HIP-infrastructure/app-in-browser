@@ -32,5 +32,5 @@ stages:
 build-all-job:
   stage: build
   script:
-    - /bin/bash scripts/buildall.sh
+    - /bin/bash -c "python3 scripts/buildall.py"
   interruptible: true

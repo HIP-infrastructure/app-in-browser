@@ -4,14 +4,17 @@ gunicorn
 # requests
 requests
 
-#flask-httpauth
+# flask-httpauth
 flask-httpauth
 
-#werkzeug
+# werkzeug
 werkzeug
 
-#flask
+# flask
 flask
 
-#python-dotenv
+# python-dotenv
 python-dotenv
+
+# pyyaml
+pyyaml

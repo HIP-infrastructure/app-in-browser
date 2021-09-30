@@ -1,0 +1,38 @@
+backend:
+  version : dev
+
+apps:
+  anywave:
+    name: "AnyWave"
+    version: 1.0
+    state: ready
+
+  brainstorm:
+    name: "Brainstorm"
+    version: latest
+    state: ready
+
+  fsl:
+    name: "FSL"
+    version: 6.0.5
+    state: ready
+
+  hibop:
+    name: "HiBoP"
+    version: 3.0.0
+    state: ready
+
+  localizer:
+    name: "Localizer"
+    version: latest
+    state: ready
+
+  mricrogl: 
+    name: "MRIcroGL"
+    version: 1.2.20210317
+    state: ready
+
+  slicer:
+    name: "3D Slicer"
+    version: latest
+    state: ready
