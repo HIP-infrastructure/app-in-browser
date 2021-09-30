@@ -58,6 +58,9 @@ readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-c
 10. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
+There are two options to control `app-in-browser`. You can use the REST API, or bash scripts. The former is used for integration and the latter option can be used for debug.
+
+### REST API
 1. Control servers using the following REST API:
 
 https://`url`/api/control/server?action=`action`&sid=`sid`&hipuser=`hipuser`
@@ -103,3 +106,22 @@ where
    * `sid` is the server id onto which the app is mapped
    * `aid` is the app id
    * `hipuser` is the username of the `Nextcloud` `HIP` user
+
+### Bash scripts
+You can launch servers and apps using the following bash scripts from the `app-in-browser` directory. The parameters are as described above.
+1. Servers:
+   * start: `./scripts/launchserver.sh sid hipuser`
+   * stop: `./scripts/stopserver.sh sid hipuser`
+   * restart: `./scripts/restartserver.sh sid hipuser`
+   * destroy: `./scripts/destroyserver.sh sid hipuser`
+   * healthcheck: `./scripts/checkserverhealth.sh sid hipuser`
+   * logs: `./scripts/viewserverlogs.sh sid hipuser`
+   * status: `./scripts/serverstatus.sh sid hipuser`
+2. Apps:
+   * start: `./scripts/launchapp.sh app sid aid hipuser hippass "nc"`
+   * stop: `./scripts/stopapp.sh app sid aid hipuser`
+   * restart: `./scripts/restartapp.sh app sid aid hipuser hippass "nc"`
+   * destroy: `./scripts/destroyapp.sh app sid aid hipuser`
+   * healthcheck: `./scripts/checkapphealth.sh app sid aid hipuser`
+   * logs: `./scripts/viewapplogs.sh app sid aid hipuser`
+   * status: `./scripts/appstatus.sh app sid aid hipuser`
