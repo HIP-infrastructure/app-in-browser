@@ -115,7 +115,11 @@ def control_server():
 
     if action is not None and server_id is not None and hip_user is not None:
         if action == "start":
-            script = "launchserver.sh"
+            script = "startserver.sh"
+        elif action == "pause":
+            script = "pauseserver.sh"
+        elif action == "resume":
+            script = "unpauseserver.sh"
         elif action == "stop":
             script = "stopserver.sh"
         elif action == "restart":
@@ -168,8 +172,12 @@ def control_app():
     and app_name is not None and app_id is not None \
     and hip_user is not None:
         if action == "start":
-            script = "launchapp.sh"
+            script = "startapp.sh"
             nextcloud_auth = True
+        elif action == "pause":
+            script = "pauseapp.sh"
+        elif action == "resume":
+            script = "unpauseapp.sh"
         elif action == "stop":
             script = "stopapp.sh"
         elif action == "restart":
