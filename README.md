@@ -69,6 +69,10 @@ where
    * `url`is the url of the server where the backend is running
    * `action` is one of:
       * `start`: start server
+      * `pause`: pause server
+      * `resume`: resume server
+      * `start`: start server 
+      * `start`: start server
       * `stop`: stop server
       * `restart`: restart server
       * `destroy`: destroy server
@@ -98,6 +102,8 @@ https://`url`/api/control/app?action=`action`&app=`app`&sid=`sid`&aid=`aid`&hipu
 where
    * `url`is the url of the server where the backend is running
    * `action` is one of:
+      * `pause`: pause app
+      * `resume`: resume app
       * `stop`: stop app
       * `destroy`: destroy app
       * `logs`: show app log
@@ -110,7 +116,9 @@ where
 ### Bash scripts
 You can launch servers and apps using the following bash scripts from the `app-in-browser` directory. The parameters are as described above.
 1. Servers:
-   * start: `./scripts/launchserver.sh sid hipuser`
+   * start: `./scripts/startserver.sh sid hipuser`
+   * pause: `./scripts/pauseserver.sh sid hipuser`
+   * resume: `./scripts/unpauseserver.sh sid hipuser`
    * stop: `./scripts/stopserver.sh sid hipuser`
    * restart: `./scripts/restartserver.sh sid hipuser`
    * destroy: `./scripts/destroyserver.sh sid hipuser`
@@ -118,7 +126,9 @@ You can launch servers and apps using the following bash scripts from the `app-i
    * logs: `./scripts/viewserverlogs.sh sid hipuser`
    * status: `./scripts/serverstatus.sh sid hipuser`
 2. Apps:
-   * start: `./scripts/launchapp.sh app sid aid hipuser hippass "nc"`
+   * start: `./scripts/startapp.sh app sid aid hipuser hippass "nc"`
+   * pause: `./scripts/pauseapp.sh app sid aid hipuser`
+   * resume: `./scripts/unpause.sh app sid aid hipuser`
    * stop: `./scripts/stopapp.sh app sid aid hipuser`
    * restart: `./scripts/restartapp.sh app sid aid hipuser hippass "nc"`
    * destroy: `./scripts/destroyapp.sh app sid aid hipuser`
