@@ -4,7 +4,7 @@ backend:
 apps:
   anywave:
     name: "AnyWave"
-    version: 1.0
+    version: 2.1.3
     state: ready
 
   brainstorm:
