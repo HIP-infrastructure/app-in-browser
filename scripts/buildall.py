@@ -19,7 +19,7 @@ assert ret_val == 0, "Failed building server."
 app_list = hip['apps']
 for app, params in app_list.items():
   if params['state'] == 'ready':
-    ret_val = subprocess.check_call(["./scripts/buildapp.sh", app])
+    ret_val = subprocess.check_call(["./scripts/buildapp.sh", app, str(params['version'])])
     assert ret_val == 0, "Failed building " + "params['name']" + "."
   else:
     print('Skipping ' + params['name'] + ' because it is ' + params['state'] + '.')

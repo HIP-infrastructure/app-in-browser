@@ -5,17 +5,17 @@ set -o allexport; source .env; set +o allexport
 
 CONTEXT="./services"
 APP_NAME=$1
-APP_VERSION=${APP_NAME^^}_VERSION
+APP_VERSION=$2
 
 #check if ${APP_NAME} has a version number
-if [ -z ${!APP_VERSION} ]; then
+if [ -z ${APP_VERSION} ]; then
   IMAGE=${APP_NAME}:latest
   REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/${IMAGE}
   APP_VERSION_OPTS="--build-arg APP_VERSION=latest"
 else
-  IMAGE=${APP_NAME}:${!APP_VERSION}
+  IMAGE=${APP_NAME}:${APP_VERSION}
   REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/${IMAGE}
-  APP_VERSION_OPTS="--build-arg APP_VERSION=${!APP_VERSION}"
+  APP_VERSION_OPTS="--build-arg APP_VERSION=${APP_VERSION}"
 fi
 
 #pull ${APP_NAME} and cache from registry during CI only

@@ -24,7 +24,7 @@ apps:
 
   localizer:
     name: "Localizer"
-    version: latest
+    version: 4.1.0
     state: ready
 
   mricrogl: 
