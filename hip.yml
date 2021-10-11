@@ -13,7 +13,7 @@ apps:
     state: ready
 
   freesurfer:
-    name: "Freesurfer"
+    name: "FreeSurfer"
     version: 7.2.0
     state: ready
 
