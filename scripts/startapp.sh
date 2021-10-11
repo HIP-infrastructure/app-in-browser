@@ -12,6 +12,7 @@ NEXTCLOUD_DOMAIN=$6
 CONTAINER_NAME=${APP_NAME}-${SERVER_ID}-${APP_ID}-${HIP_USER}
 SERVER_NAME=${SERVER_ID}-${HIP_USER}
 APP_VERSION=${APP_NAME^^}_VERSION
+CONTEXT="./services"
 
 if [ -z ${!APP_VERSION} ]; then
   APP_VERSION=latest
@@ -22,6 +23,11 @@ fi
 #check for GPU
 if [ ${CARD} != "none" ]; then
   DEV="--device=/dev/dri:/dev/dri"
+fi
+
+#if app specific .env exists load it
+if [ -s ${CONTEXT}/apps/${APP_NAME}/.env ]; then
+  APP_ENV_OPTS="--env-file ${CONTEXT}/apps/${APP_NAME}/.env"
 fi
 
 #run container
@@ -39,6 +45,7 @@ docker run \
   --hostname ${CONTAINER_NAME} \
   --restart on-failure \
   --env-file .env \
+  ${APP_ENV_OPTS} \
   --env NVIDIA_VISIBLE_DEVICES=all \
   --env NVIDIA_DRIVER_CAPABILITIES=all \
   --env DISPLAY=:80 \

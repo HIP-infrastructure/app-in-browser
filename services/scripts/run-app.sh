@@ -1,5 +1,15 @@
 #!/bin/bash
 
+#export $APP_NAME specific environment variables to $HIP_USER .env file
+while IFS='=' read -r -d '' k v; do
+  if [[ "${k,,}" == ${APP_NAME}* ]]; then
+    echo -n "Exporting ${k} for ${HIP_USER}... "
+    echo "export ${k}=${v}" > /home/$HIP_USER/.env
+    chown $HIP_USER:$HIP_USER /home/$HIP_USER/.env
+    echo "done."
+  fi
+done < <(env -0)
+
 if [ $APP_SHELL == "yes" ]; then
   PROCESS_NAME="/opt/Hyper/hyper"
   APP_NAME="hyper"
