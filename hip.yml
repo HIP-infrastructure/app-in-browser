@@ -12,6 +12,11 @@ apps:
     version: latest
     state: ready
 
+  freesurfer:
+    name: "Freesurfer"
+    version: 7.2.0
+    state: ready
+
   fsl:
     name: "FSL"
     version: 6.0.5
