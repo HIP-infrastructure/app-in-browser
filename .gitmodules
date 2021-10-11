@@ -19,3 +19,6 @@
 [submodule "services/apps/localizer"]
 	path = services/apps/localizer
 	url = git@github.com:HIP-infrastructure/localizer.git
+[submodule "services/apps/freesurfer"]
+	path = services/apps/freesurfer
+	url = git@github.com:HIP-infrastructure/freesurfer.git
