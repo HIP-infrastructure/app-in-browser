@@ -25,8 +25,9 @@ echo "use_locks 0
 #debug httpbody
 #one of the options below is causing a sync issue
 #for now we remove them and will optimize sync later on
-#cache_size 8192
-#table_size 8192
+cache_size 8192
+table_size 8192
+gui_optimize 1
 #dir_refresh 7200
 #file_refresh 3600
 #delay_upload 30" >> /etc/davfs2/davfs2.conf
