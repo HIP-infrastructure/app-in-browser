@@ -31,6 +31,8 @@ docker build \
 --build-arg APP_NAME=${APP_NAME} \
 ${APP_VERSION_OPTS} \
 --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
+--build-arg DCM2NIIX_VERSION=${DCM2NIIX_VERSION} \
+--build-arg ANYWAVE_VERSION=${ANYWAVE_VERSION} \
 ${CACHE_OPTS} \
 -t ${REGISTRY_IMAGE} \
 -f ${CONTEXT}/apps/${APP_NAME}/Dockerfile ${CONTEXT}
