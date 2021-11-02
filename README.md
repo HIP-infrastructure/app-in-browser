@@ -30,7 +30,7 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 ## Getting and configuring `app-in-browser`
 1. Clone the repository with `git clone https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
 2. `cd`into the `app-in-browser` directory.
-3. If you are using `app-in-browser` on a system that uses a non-standard `MTU` value, you need to configure docker for this purpose. Uncomment the following lines of the `docker-compose.yml` file:
+3. If you are using `app-in-browser` on a system that uses a non-standard `MTU` value, you need to configure docker for this purpose. Uncomment the following line of the `.env` file:
 ```bash
 MTU=1450
 ```
