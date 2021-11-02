@@ -28,7 +28,7 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 6. You can test your installation is working by running the following image `sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` and getting the same output as in step 2 above.
 
 ## Getting and configuring `app-in-browser`
-1. Clone the repository with `git clone https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
+1. Clone the repository with `git clone --recurse-submodules https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
 2. `cd` into the `app-in-browser` directory.
 3. Run `cp .env.template .env` to copy the .env file from its template.
 4. If you are using `app-in-browser` on a system that uses a non-standard `MTU` value, you need to configure docker for this purpose. Uncomment the following line of the `.env` file:
