@@ -54,7 +54,7 @@ readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-c
 6. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
 7. Install and start the backend with `./scripts/installbackend.sh`.
 8. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-9. Build all docker images with `./scripts/buildall.sh`. Sit back as this will likely take some time :)
+9. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
 10. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
