@@ -1,11 +1,17 @@
 #!/usr/bin/python3
 
-import yaml
+import os
 import subprocess
+import yaml
+from shutil import copy2
 
 with open('hip.yml') as f:
   hip = yaml.load(f, Loader=yaml.FullLoader)
   #print(hip)
+
+# copy .env.template to .env if .env does not exist
+if not os.path.isfile('.env'):
+  copy2('.env.template', '.env')
 
 # build base images
 ret_val = subprocess.call("./scripts/buildbaseimages.sh")
