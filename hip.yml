@@ -7,6 +7,11 @@ apps:
     version: 2.1.3
     state: ready
 
+  dcm2niix:
+    name: "dcm2niix"
+    version: 1.0.20211006
+    state: ready
+
   bidsmanager:
     name: "BIDS-Manager"
     version: latest
@@ -15,11 +20,6 @@ apps:
   brainstorm:
     name: "Brainstorm"
     version: latest
-    state: ready
-
-  dcm2niix:
-    name: "dcm2niix"
-    version: 1.0.20211006
     state: ready
 
   freesurfer:
