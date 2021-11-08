@@ -1,5 +1,5 @@
 # pyyaml
 pyyaml
 
-# dotenv
-dotenv
+# python-dotenv
+python-dotenv
