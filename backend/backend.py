@@ -28,9 +28,18 @@ SCRIPT_DIR = "./scripts/"
 
 load_dotenv(ENV_PATH.joinpath("backend.env"))
 
-with open('hip.yml') as f:
-  hip = yaml.load(f, Loader=yaml.FullLoader)
-  #print(hip)
+#get hip.yaml and filter apps that have their state set to alpha or off
+def get_hip():
+    with open('hip.yml') as f:
+        hip = yaml.load(f, Loader=yaml.FullLoader)
+
+    for app, params in dict(hip['apps']).items():
+        if params['state'] == 'alpha' or params['state'] == 'down':
+            del hip['apps'][app]
+
+    return hip
+
+hip = get_hip()
 
 def get_domain():
     return str(os.getenv('BACKEND_DOMAIN'))
