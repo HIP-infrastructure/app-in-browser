@@ -3,6 +3,7 @@ from flask import request
 from flask import jsonify
 from flask_httpauth import HTTPBasicAuth
 import pathlib
+import yaml
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
 import subprocess
@@ -26,6 +27,10 @@ DOCKER_PATH = pathlib.Path(__file__).parent.parent
 SCRIPT_DIR = "./scripts/"
 
 load_dotenv(ENV_PATH.joinpath("backend.env"))
+
+with open('hip.yml') as f:
+  hip = yaml.load(f, Loader=yaml.FullLoader)
+  #print(hip)
 
 def get_domain():
     return str(os.getenv('BACKEND_DOMAIN'))
@@ -102,7 +107,7 @@ def control_status():
 @app.route('/control/app/list')
 @auth.login_required
 def control_app_list():
-    pass
+    return jsonify(hip['apps'])
 
 @app.route('/control/server', methods=['GET'])
 @auth.login_required
