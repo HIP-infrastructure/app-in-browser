@@ -36,7 +36,14 @@ if [ $retVal -ne 0 ]; then
 fi
 
 #symlink app_data directories in $HIP_USER homedir
-$SCRIPT_PATH/homedir-symlink.sh $HIP_USER ${DIR_ARRAY[@]}
+$SCRIPT_PATH/homedir-symlink.sh $HIP_USER app_data ${APP_DATA_DIR_ARRAY[@]}
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit $retVal
+fi
+
+#symlink data directories in $HIP_USER homedir
+$SCRIPT_PATH/homedir-symlink.sh $HIP_USER data ${DATA_DIR_ARRAY[@]}
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal

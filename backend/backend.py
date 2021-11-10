@@ -186,7 +186,7 @@ def control_app():
   and app_name is not None and app_id is not None \
   and hip_user is not None:
     if action == "start":
-      script = "startapp.sh"
+      script = "startapp.py"
       nextcloud_auth = True
     elif action == "pause":
       script = "pauseapp.sh"

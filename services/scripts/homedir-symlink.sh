@@ -1,16 +1,17 @@
 #!/bin/bash
 
-HIP_USER=$1; shift
+HIP_USER=$1
+TARGET_DIR=$2; shift; shift
 DIR_ARRAY=( "$@" )
 
 #symlink all directories of $DIR_ARRAY in $HIP_USER homedir
 
 for DIR in "${DIR_ARRAY[@]}"; do
-  if [[ ! -d /home/$HIP_USER/nextcloud/app_data/$APP_NAME/$DIR ]]; then
-    echo -n "Creating distant directory $DIR... "
+  if [[ ! -d /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR ]]; then
+    echo -n "Creating distant directory $DIR as $TARGET_DIR... "
     # creating distant directory and applying the right ownership since it does not exist
-    mkdir -p /home/$HIP_USER/nextcloud/app_data/$APP_NAME/$DIR
-    chown -R $HIP_USER:davfs2 /home/$HIP_USER/nextcloud/app_data/$APP_NAME/$DIR
+    mkdir -p /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
+    chown -R $HIP_USER:davfs2 /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
     echo "done."
   fi
 
@@ -30,8 +31,8 @@ for DIR in "${DIR_ARRAY[@]}"; do
 
   if [[ ! -L /home/$HIP_USER/$DIR ]]; then
     # symlinking
-    echo -n "Symlinking $DIR from davfs2... "
-    ln -sf /home/$HIP_USER/nextcloud/app_data/$APP_NAME/$DIR /home/$HIP_USER/$DIR
+    echo -n "Symlinking $DIR as $TARGET_DIR via davfs2... "
+    ln -sf /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR /home/$HIP_USER/$DIR
     retVal=$?
     if [ $retVal -ne 0 ]; then
       echo "failed."
