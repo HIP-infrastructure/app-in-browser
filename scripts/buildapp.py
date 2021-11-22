@@ -41,7 +41,7 @@ ret_val = subprocess.check_call(["docker", "build", "--build-arg", "CI_REGISTRY_
                                                     "--build-arg", "DAVFS2_VERSION=" + os.getenv('DAVFS2_VERSION'), \
                                                     "--build-arg", "DCM2NIIX_VERSION=" + dcm2niix_version, \
                                                     "--build-arg", "ANYWAVE_VERSION=" + anywave_version, \
-                                                    *(["--cache-from", registry_image] if os.getenv("CI_REGISTRY") else []),    
+                                                    *(["--cache-from", registry_image] if os.getenv("CI_REGISTRY") else []),
                                                     "-t", registry_image, \
                                                     "-f", context + "/apps/" + args.name + "/Dockerfile", \
                                                     context])

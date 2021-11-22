@@ -50,7 +50,7 @@ if [ $retVal -ne 0 ]; then
 fi
 
 #run $APP_NAME as $HIP_USER
-$SCRIPT_PATH/run-app.sh 
+$SCRIPT_PATH/run-app.sh
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal

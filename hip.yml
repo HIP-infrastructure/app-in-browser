@@ -58,7 +58,7 @@ apps:
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
     state: ready
 
-  mricrogl: 
+  mricrogl:
     name: "MRIcroGL"
     version: 1.2.20210317
     url: "https://github.com/rordenlab/MRIcroGL"
