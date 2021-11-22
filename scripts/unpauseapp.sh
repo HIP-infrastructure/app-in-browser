@@ -6,4 +6,4 @@ APP_ID=$3
 HIP_USER=$4
 CONTAINER_NAME=${APP_NAME}-${SERVER_ID}-${APP_ID}-${HIP_USER}
 
-docker ps -a --no-trunc --filter name=${CONTAINER_NAME}
+docker unpause ${CONTAINER_NAME}

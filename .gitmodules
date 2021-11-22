@@ -1,0 +1,30 @@
+[submodule "services/apps/fsl"]
+	path = services/apps/fsl
+	url = git@github.com:HIP-infrastructure/fsl.git
+[submodule "services/apps/anywave"]
+	path = services/apps/anywave
+	url = git@github.com:HIP-infrastructure/anywave.git
+[submodule "services/apps/brainstorm"]
+	path = services/apps/brainstorm
+	url = git@github.com:HIP-infrastructure/brainstorm.git
+[submodule "services/apps/mricrogl"]
+	path = services/apps/mricrogl
+	url = git@github.com:HIP-infrastructure/mricrogl.git
+[submodule "services/apps/slicer"]
+	path = services/apps/slicer
+	url = git@github.com:HIP-infrastructure/slicer.git
+[submodule "services/apps/hibop"]
+	path = services/apps/hibop
+	url = git@github.com:HIP-infrastructure/hibop.git
+[submodule "services/apps/localizer"]
+	path = services/apps/localizer
+	url = git@github.com:HIP-infrastructure/localizer.git
+[submodule "services/apps/freesurfer"]
+	path = services/apps/freesurfer
+	url = git@github.com:HIP-infrastructure/freesurfer.git
+[submodule "services/apps/dcm2niix"]
+	path = services/apps/dcm2niix
+	url = git@github.com:HIP-infrastructure/dcm2niix.git
+[submodule "services/apps/bidsmanager"]
+	path = services/apps/bidsmanager
+	url = git@github.com:HIP-infrastructure/bidsmanager.git

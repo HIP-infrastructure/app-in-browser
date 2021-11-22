@@ -1,20 +1,55 @@
 #!/bin/bash
 
-HIP_USER=$1; shift
+HIP_USER=$1
+TARGET_DIR=$2; shift; shift
 DIR_ARRAY=( "$@" )
 
 #symlink all directories of $DIR_ARRAY in $HIP_USER homedir
-#directory paths must be relative to app_data within the nextcloud dir
 
 for DIR in "${DIR_ARRAY[@]}"; do
-  echo -n "Symlinking $DIR from davfs2... "
-  mkdir -p /home/$HIP_USER/nextcloud/app_data/$DIR
-  chown -R $HIP_USER:davfs2 /home/$HIP_USER/nextcloud/app_data/$DIR
-  ln -sf /home/$HIP_USER/nextcloud/app_data/$DIR /home/$HIP_USER
+  if [[ ! -d /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR ]]; then
+    echo -n "Creating distant directory $DIR as $TARGET_DIR... "
+    # creating distant directory and applying the right ownership since it does not exist
+    mkdir -p /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
+    chown -R $HIP_USER:davfs2 /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
+    echo "done."
+  fi
+
+  LOCAL_PATH=$(dirname $DIR)
+  if [[ "$LOCAL_PATH" == "." ]]; then
+    # we can use $DIR directly since it's not a subdirectory
+    LOCAL_PATH=$DIR
+  else
+    if [[ ! -d /home/$HIP_USER/$LOCAL_PATH ]]; then
+    echo -n "Creating local directory $LOCAL_PATH... "
+    # creating local directory and applying the right ownsership since it does not exist
+    mkdir -p /home/$HIP_USER/$LOCAL_PATH
+    chown -R $HIP_USER:davfs2 /home/$HIP_USER/$LOCAL_PATH
+    echo "done."
+    fi
+  fi
+
+  if [[ ! -L /home/$HIP_USER/$DIR ]]; then
+    # symlinking
+    echo -n "Symlinking $DIR as $TARGET_DIR via davfs2... "
+    ln -sf /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR /home/$HIP_USER/$DIR
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+      echo "failed."
+      exit $retVal
+    else
+      echo "done."
+    fi
+  fi
+
+  # applying the right ownership to the symlink
+  echo -n "Applying correct permissions to $DIR... "
+  chown -R $HIP_USER:davfs2 /home/$HIP_USER/$DIR
   retVal=$?
   if [ $retVal -ne 0 ]; then
+    echo "failed."
     exit $retVal
+  else
+    echo "done."
   fi
-  chown -R $HIP_USER:davfs2 /home/$HIP_USER/$(basename $DIR)
-  echo "done."
 done

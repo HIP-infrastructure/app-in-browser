@@ -13,20 +13,21 @@ echo -n "Configuring davfs2... "
 cd /home/$HIP_USER
 
 mkdir -p /home/$HIP_USER/nextcloud
-mkdir -p /home/$HIP_USER/.davfs2
-echo "${NEXTCLOUD_URL} ${HIP_USER} \"${HIP_PASSWORD}\"" >> /etc/davfs2/secrets
-unset HIP_PASSWORD
-cp /etc/davfs2/secrets /home/$HIP_USER/.davfs2/secrets
+#mkdir -p /home/$HIP_USER/.davfs2
+#echo "${NEXTCLOUD_URL} ${HIP_USER} \"${HIP_PASSWORD}\"" >> /etc/davfs2/secrets
+#unset HIP_PASSWORD
+#cp /etc/davfs2/secrets /home/$HIP_USER/.davfs2/secrets
 chown -R $HIP_USER:davfs2 /home/$HIP_USER/nextcloud
-chown -R $HIP_USER:davfs2 /home/$HIP_USER/.davfs2
-chmod 600 /home/$HIP_USER/.davfs2/secrets 
+#chown -R $HIP_USER:davfs2 /home/$HIP_USER/.davfs2
+#chmod 600 /home/$HIP_USER/.davfs2/secrets
 echo "use_locks 0
 #debug most
 #debug httpbody
 #one of the options below is causing a sync issue
 #for now we remove them and will optimize sync later on
-#cache_size 8192
-#table_size 8192
+cache_size 8192
+table_size 8192
+gui_optimize 1
 #dir_refresh 7200
 #file_refresh 3600
 #delay_upload 30" >> /etc/davfs2/davfs2.conf
@@ -35,7 +36,23 @@ echo "done."
 
 echo -n "Mounting ${NEXTCLOUD_DOMAIN} for ${HIP_USER} as webdav... "
 rm -f /var/run/mount.davfs/home-hipuser-nextcloud.pid
-mount /home/$HIP_USER/nextcloud
+#mount /home/$HIP_USER/nextcloud
+/usr/bin/expect -c "log_user 0
+set timeout -1
+spawn mount nextcloud/
+match_max 100000
+
+expect \"*Username: \"
+send -- \"$HIP_USER\\r\"
+
+expect \"*Password:  \"
+send -- \"$HIP_PASSWORD\\r\"
+
+expect {
+	eof { exit }
+	\"*is already mounted on*\" { exit }
+	\"*Mounting failed.*\"; { exit 1 }
+}"
 retVal=$?
 if [ $retVal -ne 0 ]; then
     echo "failed."

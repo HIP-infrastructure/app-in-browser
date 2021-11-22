@@ -2,5 +2,6 @@
 
 SERVER_ID=$1
 HIP_USER=$2
+CONTAINER_NAME=xpra-server-${SERVER_ID}-${HIP_USER}
 
-docker inspect --format "{{json .State.Health }}" xpra-server-$SERVER_ID-${HIP_USER} | jq '.Log[].Output' | tail -1
+docker inspect --format "{{json .State.Health }}" ${CONTAINER_NAME} | jq '.Log[].Output' | tail -1

@@ -16,6 +16,12 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
+$SCRIPT_PATH/fix-audio-groups.sh $XPRA_USER
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit $retVal
+fi
+
 # make the socket accessible to HIP apps
 chmod -R 1777 /tmp/.X11-unix/
 # remove a previous lock, if it exists
@@ -23,5 +29,5 @@ rm -rf /tmp/.X80-lock
 
 # start xpra as $XPRA_USER
 #CMD="XPRA_PASSWORD=$XPRA_PASSWORD /usr/bin/xpra start --daemon=no --start-child='$@'"
-runuser -l $XPRA_USER -c 'xpra start :80 --bind-tcp=0.0.0.0:8080 --html=on --no-daemon --start="xhost +"'
+runuser -l $XPRA_USER -c 'pulseaudio --start; pulseaudio --kill; xpra start :80 --bind-tcp=0.0.0.0:8080 --html=on --no-daemon --start="xhost +"'
 #runuser -l $XPRA_USER -c 'sleep 1000000000000'
