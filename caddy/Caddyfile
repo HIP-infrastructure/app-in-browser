@@ -8,12 +8,12 @@ route /session/* {
 	@session {
 		path_regexp session ^/session/([0-9]+)(/.*)?
 	}
-    @root {
-        path_regexp root ^/session/([0-9]+)$
-    }
-    handle @root {
-        redir {path}/?{query}
-    }
+	@root {
+		path_regexp root ^/session/([0-9]+)$
+	}
+	handle @root {
+		redir {path}/?{query}
+	}
 	handle @session {
 		rewrite {re.session.2}
 		reverse_proxy localhost:{re.session.1}
@@ -38,9 +38,9 @@ route {
 }
 
 handle_errors {
-    @502 {
-        path /session/*
-        expression `{http.error.status_code} == 502`
-    }
-    respond @502 "404 nothing here" 404
+	@502 {
+		path /session/*
+		expression `{http.error.status_code} == 502`
+	}
+	respond @502 "404 nothing here" 404
 }
