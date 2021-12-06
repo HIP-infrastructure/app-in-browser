@@ -12,7 +12,7 @@ RUN apt-get update && \
     #apt-get install --no-install-recommends -y davfs2 && \
     apt-get install --no-install-recommends -y \
     curl libneon27 expect && \
-    curl -O http://archive.ubuntu.com/ubuntu/pool/universe/d/davfs2/davfs2_${DAVFS2_VERSION}_amd64.deb && \
+    curl -O# http://archive.ubuntu.com/ubuntu/pool/universe/d/davfs2/davfs2_${DAVFS2_VERSION}_amd64.deb && \
     dpkg -i davfs2_${DAVFS2_VERSION}_amd64.deb && \
     rm davfs2_${DAVFS2_VERSION}_amd64.deb && \
     apt-get remove -y --purge curl && \

@@ -14,7 +14,7 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     curl unzip libxt6 && \
     mkdir files && \
-    curl -O https://ssd.mathworks.com/supportfiles/downloads/${MATLAB_RUNTIME_VERSION}/Release/${MATLAB_RUNTIME_UPDATE}/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_${MATLAB_RUNTIME_VERSION}_Update_${MATLAB_RUNTIME_UPDATE}_glnxa64.zip && \
+    curl -O# https://ssd.mathworks.com/supportfiles/downloads/${MATLAB_RUNTIME_VERSION}/Release/${MATLAB_RUNTIME_UPDATE}/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_${MATLAB_RUNTIME_VERSION}_Update_${MATLAB_RUNTIME_UPDATE}_glnxa64.zip && \
     unzip -q -d files MATLAB_Runtime_${MATLAB_RUNTIME_VERSION}_Update_${MATLAB_RUNTIME_UPDATE}_glnxa64.zip && \
     ./files/install -agreeToLicense yes -mode silent && \
     rm -rf MATLAB_Runtime_${MATLAB_RUNTIME_VERSION}_Update_${MATLAB_RUNTIME_UPDATE}_glnxa64.zip files && \
