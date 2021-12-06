@@ -16,10 +16,10 @@ parser.add_argument("hip_password", help="nextcloud password of the hip user to 
 parser.add_argument("nextcloud_domain", help="url of the nextcloud instance where the user data is located")
 args = parser.parse_args()
 
-container_name = args.app_name + '-' + args.server_id + '-' + args.app_id + '-' + args.hip_user
-server_name = args.server_id + '-' + args.hip_user
+container_name = f"{args.app_name}-{args.server_id}-{args.app_id}-{args.hip_user}"
+server_name = f"{args.server_id}-{args.hip_user}"
 context="./services"
-app_env_path=context + '/apps/' + args.app_name + '/.env'
+app_env_path=f"{context}/apps/{args.app_name}/.env"
 
 #getting the app version from hip.yaml
 with open('hip.yml') as f:
@@ -27,15 +27,15 @@ with open('hip.yml') as f:
 if hip['apps'][args.app_name]:
   app_version=hip['apps'][args.app_name]['version']
 else:
-  print("Failed to run " + args.app_name + " because it wasn't found in hip.yml")
+  print(f"Failed to run {args.app_name} because it wasn't found in hip.yml")
 
 # load variables from .env
 load_dotenv()
 
 #run app container
 ret_val = subprocess.check_call(["docker", "run", "-d", \
-                                                  "-v", server_name + "_x11-unix:/tmp/.X11-unix", \
-                                                  "--network=" + server_name + "_server", \
+                                                  "-v", f"{server_name}_x11-unix:/tmp/.X11-unix", \
+                                                  f"--network={server_name}_server", \
                                                   *(["--device=/dev/dri:/dev/dri"] if os.getenv("CARD") != 'none' else []),
                                                   "--device=/dev/fuse:/dev/fuse", \
                                                   "--cap-add=SYS_ADMIN", \
@@ -50,15 +50,15 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", "NVIDIA_VISIBLE_DEVICES=all", \
                                                   "--env", "NVIDIA_DRIVER_CAPABILITIES=all", \
                                                   "--env", "DISPLAY=:80", \
-                                                  "--env", "HIP_USER=" + args.hip_user, \
-                                                  "--env", "HIP_PASSWORD=" + args.hip_password, \
-                                                  "--env", "NEXTCLOUD_DOMAIN=" + args.nextcloud_domain, \
-                                                  "--env", "APP_NAME=" + args.app_name, \
+                                                  "--env", f"HIP_USER={args.hip_user}", \
+                                                  "--env", f"HIP_PASSWORD={args.hip_password}", \
+                                                  "--env", f"NEXTCLOUD_DOMAIN={args.nextcloud_domain}", \
+                                                  "--env", f"APP_NAME={args.app_name}", \
                                                   "--add-host", "releases.hyper.is:127.0.0.1", \
                                                   "--add-host", "releases-canary.hyper.is:127.0.0.1", \
-                                                  os.getenv("CI_REGISTRY_IMAGE") + "/" + args.app_name + ":" + app_version])
-assert ret_val == 0, "Failed running " + args.app_name + "."
+                                                  f"{os.getenv('CI_REGISTRY_IMAGE')}/{args.app_name}:{app_version}"])
+assert ret_val == 0, f"Failed running {args.app_name}."
 
 #connect to the server network
-ret_val = subprocess.check_call(["docker", "network", "connect", server_name + "_apps", container_name])
-assert ret_val == 0, "Failed to connect to network " + server_name + "_apps " + container_name + "."
+ret_val = subprocess.check_call(["docker", "network", "connect", f"{server_name}_apps", container_name])
+assert ret_val == 0, f"Failed to connect to network {server_name}_apps {container_name}."
