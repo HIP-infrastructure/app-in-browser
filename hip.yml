@@ -35,7 +35,7 @@ apps:
     version: 7.2.0
     url: "https://surfer.nmr.mgh.harvard.edu"
     description: "An open source software suite for processing and analyzing (human) brain MRI images."
-    state: beta
+    state: ready
 
   fsl:
     name: "FSL"
