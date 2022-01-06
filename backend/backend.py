@@ -160,7 +160,7 @@ def control_server():
                   "domain": get_domain() if port else "",
                   "ip": get_ip() if port else "",
                   "session_id": port if port else "",
-                  "url": get_domain() + "/session/" + port + "/" if port else ""}}
+                  "url": f"{get_domain()}/session/{port}/" if port else ""}}
     print(response)
     return jsonify(response)
   else:
@@ -224,7 +224,7 @@ def control_app():
                   "domain": get_domain() if port else "",
                   "ip": get_ip() if port else "",
                   "session_id": port if port else "",
-                  "url": get_domain() + "/session/" + port + "/" if port else ""}}
+                  "url": "f{get_domain()}/session/{port}/" if port else ""}}
     print(response)
     return jsonify(response)
   else:

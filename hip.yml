@@ -28,14 +28,14 @@ apps:
     version: latest
     url: "https: //neuroimage.usc.edu/brainstorm/Introduction"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
-    state: faulty
+    state: ready
 
   freesurfer:
     name: "FreeSurfer"
     version: 7.2.0
     url: "https://surfer.nmr.mgh.harvard.edu"
     description: "An open source software suite for processing and analyzing (human) brain MRI images."
-    state: beta
+    state: ready
 
   fsl:
     name: "FSL"
