@@ -43,6 +43,7 @@ WORKDIR /home/xpra
 
 # copy xpra config files
 COPY server/config/xpra.conf /etc/xpra/xpra.conf
+COPY server/config/10_content_security_policy.txt /etc/xpra/http-headers/10_content_security_policy.txt
 COPY server/config/default.png /usr/share/backgrounds/images/default.png
 
 # copy entrypoint script and other scripts used in it
