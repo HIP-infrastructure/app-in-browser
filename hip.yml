@@ -67,7 +67,7 @@ apps:
 
   slicer:
     name: "3D Slicer"
-    version: latest
+    version: 4.13.0-2022-01-24
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
     state: beta
