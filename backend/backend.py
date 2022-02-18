@@ -28,13 +28,13 @@ SCRIPT_DIR = "./scripts/"
 
 load_dotenv(ENV_PATH.joinpath("backend.env"))
 
-#get hip.yaml and filter apps that have their state set to alpha or off
+#get hip.yaml and filter apps that have their state set to alpha or off (False)
 def get_hip():
   with open('hip.yml') as f:
     hip = yaml.load(f, Loader=yaml.FullLoader)
 
   for app, params in dict(hip['apps']).items():
-    if params['state'] == 'alpha' or params['state'] == 'down':
+    if params['state'] == 'alpha' or not params['state']:
       del hip['apps'][app]
 
   return hip
