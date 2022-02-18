@@ -28,3 +28,6 @@
 [submodule "services/apps/bidsmanager"]
 	path = services/apps/bidsmanager
 	url = git@github.com:HIP-infrastructure/bidsmanager.git
+[submodule "services/apps/tvb"]
+	path = services/apps/tvb
+	url = git@github.com:HIP-infrastructure/tvb.git

@@ -21,7 +21,7 @@ apps:
     version: latest
     url: "https://github.com/Dynamap/BIDS_Manager"
     description: "Package to collect, organise and manage neuroscience data in Brain Imaging Data Structure (BIDS) format."
-    state: ready
+    state: off
 
   brainstorm:
     name: "Brainstorm"
@@ -70,4 +70,11 @@ apps:
     version: latest
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
+    state: beta
+
+  tvb:
+    name: "TVB"
+    version: 0.4
+    url: "https://www.thevirtualbrain.org"
+    description: "Simulate a human brain, right on your PC!"
     state: beta

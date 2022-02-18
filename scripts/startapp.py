@@ -19,7 +19,7 @@ args = parser.parse_args()
 container_name = f"{args.app_name}-{args.server_id}-{args.app_id}-{args.hip_user}"
 server_name = f"{args.server_id}-{args.hip_user}"
 context="./services"
-app_env_path=f"{context}/apps/{args.app_name}/.env"
+app_env_path=f"{context}/apps/{args.app_name}/run.env"
 
 #getting the app version from hip.yaml
 with open('hip.yml') as f:

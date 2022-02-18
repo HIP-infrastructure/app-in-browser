@@ -4,7 +4,8 @@ import os
 import subprocess
 import argparse
 import yaml
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
+from functools import reduce
 
 # parse arguments
 parser = argparse.ArgumentParser()
@@ -21,6 +22,14 @@ CI_REGISTRY = os.getenv("CI_REGISTRY", "")
 context = './services'
 image = f"{args.name}:{args.version}"
 registry_image = f"{CI_REGISTRY_IMAGE}/{image}"
+
+# get app specific build-args
+context="./services"
+app_env_path=f"{context}/apps/{args.name}/build.env"
+app_env=[]
+if os.path.exists(app_env_path):
+  config = dotenv_values(app_env_path)
+  app_env = [i for k, v in config.items() for i in ["--build-arg", f"{k}={v}"]]
 
 # get version of dependencies
 with open('hip.yml') as f:
@@ -41,6 +50,7 @@ ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY
                                                     "--build-arg", f"DAVFS2_VERSION={os.getenv('DAVFS2_VERSION')}", \
                                                     "--build-arg", f"DCM2NIIX_VERSION={dcm2niix_version}", \
                                                     "--build-arg", f"ANYWAVE_VERSION={anywave_version}", \
+                                                    *app_env,
                                                     *(["--cache-from", registry_image] if os.getenv("CI_REGISTRY") else []),
                                                     "-t", registry_image, \
                                                     "-f", f"{context}/apps/{args.name}/Dockerfile", \

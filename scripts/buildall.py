@@ -24,7 +24,7 @@ assert ret_val == 0, "Failed building server."
 # build apps
 app_list = hip['apps']
 for app, params in app_list.items():
-  if params['state'] != 'off':
+  if params['state']:
     ret_val = subprocess.check_call(["./scripts/buildapp.py", app, str(params['version'])])
     assert ret_val == 0, f"Failed building {params['name']}."
   else:
