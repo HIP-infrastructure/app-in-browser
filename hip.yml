@@ -21,7 +21,7 @@ apps:
     version: latest
     url: "https://github.com/Dynamap/BIDS_Manager"
     description: "Package to collect, organise and manage neuroscience data in Brain Imaging Data Structure (BIDS) format."
-    state: off
+    state: ready
 
   brainstorm:
     name: "Brainstorm"
