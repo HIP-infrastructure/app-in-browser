@@ -41,4 +41,4 @@ docker run \
   --env-file .env \
   --env NVIDIA_VISIBLE_DEVICES=all \
   --env NVIDIA_DRIVER_CAPABILITIES=all \
-  ${CI_REGISTRY_IMAGE}/xpra-server
+  ${CI_REGISTRY_IMAGE}/xpra-server:${XPRA_VERSION}

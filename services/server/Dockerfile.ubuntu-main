@@ -5,6 +5,9 @@ LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG CARD
+ARG XPRA_VERSION
+
+LABEL server_version=$XPRA_VERSION
 
 RUN apt-get update && \
     apt-get upgrade -y && \
