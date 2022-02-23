@@ -1,0 +1,86 @@
+ARG CI_REGISTRY_IMAGE
+ARG VIRTUALGL_VERSION
+FROM ${CI_REGISTRY_IMAGE}/vgl-base:${VIRTUALGL_VERSION}
+LABEL maintainer="nathalie.casati@chuv.ch"
+
+ARG DEBIAN_FRONTEND=noninteractive
+ARG CARD
+ARG XPRA_VERSION
+
+LABEL server_version=$XPRA_VERSION
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install --no-install-recommends -y \
+    libx11-dev libxtst-dev libxcomposite-dev \
+    libxdamage-dev libxres-dev libxkbfile-dev \
+    python-all-dev pandoc libsystemd-dev \
+    libgtk-3-dev python3-dev python3-cairo-dev \
+    python-gi-dev cython3 xauth x11-xkb-utils \
+    xvfb python3-cairo python3-gi-cairo \
+    python3-opengl python3-lz4 python3-rencode python3-pil \
+    devscripts build-essential lintian debhelper git \
+    lsb-release libnvidia-fbc1-470 libvpx-dev libx264-dev \
+    libwebp-dev libturbojpeg-dev libavcodec-dev \
+    libavformat-dev libavutil-dev libswscale-dev \
+    dh-python libpam-dev python3-numpy python3-brotli \
+    keyboard-configuration curl brotli libjs-jquery \ 
+    libjs-jquery-ui \ 
+    software-properties-common gnupg \
+    x11-xserver-utils python3-pip \
+    python3-gst-1.0 \
+    dbus-x11 python3-dbus pulseaudio \
+    python3-xdg menu-xdg curl && \
+    pip3 install pyinotify
+#    #pip3 install python-uinput
+
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
+    apt-get install -y nodejs && \
+    npm i uglify-js -g
+
+RUN git clone https://github.com/HIP-infrastructure/xpra.git && \
+    cd xpra && \
+    ln -sf ./packaging/debian/xpra ./debian && \
+    debuild -us -uc -b && \
+    cd ..
+
+RUN git clone https://github.com/Xpra-org/xpra-html5 && \
+    cd xpra-html5 && \
+    ./setup.py deb && \
+    cd ..
+
+RUN dpkg -i /xpra_4.4-1_amd64.deb && \
+    dpkg -i /xpra-html5/dist/xpra-html5-5.0-r1237-1.deb
+
+    #apt-get remove -y --purge gnupg && \
+    #apt-get autoremove -y --purge && \
+    #apt-get clean && \
+    #rm -rf /var/lib/apt/lists/* && \
+
+
+RUN chmod 644 /etc/xpra/ssl-cert.pem && \
+    # make all applications started with vglrun use video stream encoding
+    echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf && \
+    # create the xpra user and socket directory
+    useradd --create-home --shell /bin/bash xpra --gid xpra --uid 1000 && \
+    mkdir -p /run/user/1000/xpra && \
+    chown -R 1000 /run/user/1000 && \
+    chmod -R 700 /run/user/1000
+
+HEALTHCHECK --interval=10s --timeout=10s --retries=5 --start-period=30s \
+  CMD curl -fks https://localhost:8080
+
+WORKDIR /home/xpra
+
+# copy xpra config files
+COPY server/config/xpra.conf /etc/xpra/xpra.conf
+COPY server/config/10_content_security_policy.txt /etc/xpra/http-headers/10_content_security_policy.txt
+COPY server/config/default.png /usr/share/backgrounds/images/default.png
+
+# copy entrypoint script and other scripts used in it
+COPY server/config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
+COPY scripts/check-dri.sh /home/xpra/scripts/check-dri.sh
+COPY scripts/fix-video-groups.sh /home/xpra/scripts/fix-video-groups.sh
+COPY scripts/fix-audio-groups.sh /home/xpra/scripts/fix-audio-groups.sh
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
