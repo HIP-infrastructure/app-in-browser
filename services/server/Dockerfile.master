@@ -6,6 +6,13 @@ LABEL maintainer="nathalie.casati@chuv.ch"
 ARG DEBIAN_FRONTEND=noninteractive
 ARG CARD
 ARG XPRA_VERSION
+ARG XPRA_KEYCLOAK_SERVER_URL
+ARG XPRA_KEYCLOAK_REALM_NAME
+ARG XPRA_KEYCLOAK_CLIENT_ID
+ARG XPRA_KEYCLOAK_CLIENT_SECRET_KEY
+ARG XPRA_KEYCLOAK_REDIRECT_URI
+ARG XPRA_KEYCLOAK_SCOPE
+ARG XPRA_KEYCLOAK_GRANT_TYPE
 
 LABEL server_version=$XPRA_VERSION
 
@@ -31,21 +38,28 @@ RUN apt-get update && \
     python3-gst-1.0 \
     dbus-x11 python3-dbus pulseaudio \
     python3-xdg menu-xdg curl && \
-    pip3 install pyinotify
+    pip3 install requests==2.25.1 urllib3==1.26.5 \
+    pyinotify netifaces oauthlib python-keycloak
 #    #pip3 install python-uinput
 
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     apt-get install -y nodejs && \
     npm i uglify-js -g
 
-RUN git clone https://github.com/HIP-infrastructure/xpra.git && \
-    cd xpra && \
+RUN git clone https://github.com/HIP-infrastructure/xpra.git
+ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak&per_page=1" xpra_latest_commit
+RUN cd xpra && \
+    git pull && \
+    git checkout keycloak && \
     ln -sf ./packaging/debian/xpra ./debian && \
     debuild -us -uc -b && \
     cd ..
 
-RUN git clone https://github.com/Xpra-org/xpra-html5 && \
-    cd xpra-html5 && \
+RUN git clone https://github.com/HIP-infrastructure/xpra-html5
+ADD "https://api.github.com/repos/HIP-infrastructure/xpra-html5/commits?sha=keycloak&per_page=1" xpra_html5_latest_commit
+RUN cd xpra-html5 && \
+    git pull && \
+    git checkout keycloak && \
     ./setup.py deb && \
     cd ..
 
