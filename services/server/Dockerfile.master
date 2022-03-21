@@ -47,10 +47,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     npm i uglify-js -g
 
 RUN git clone https://github.com/HIP-infrastructure/xpra.git
-ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak&per_page=1" xpra_latest_commit
+ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak-fixes&per_page=1" xpra_latest_commit
 RUN cd xpra && \
     git pull && \
-    git checkout keycloak && \
+    git checkout keycloak-fixes && \
     ln -sf ./packaging/debian/xpra ./debian && \
     debuild -us -uc -b && \
     cd ..
