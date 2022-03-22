@@ -1,4 +1,0 @@
-SUCCESS: Directory /dev/dri exists, likely the GPU is available to container.
-Adding user xpra into the right video groups... done.
-Adding user xpra into the right audio groups... done.
-access control disabled, clients can connect from any host
