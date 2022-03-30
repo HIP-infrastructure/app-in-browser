@@ -65,6 +65,13 @@ apps:
     description: "MRIcroGL is a cross-platform tool for viewing DICOM and NIfTI format images. It provides a drag-and-drop user interface as well as a scripting language."
     state: ready
 
+  mrideface:
+    name: "MRI Deface"
+    version: latest
+    url: "https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface"
+    description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
+    state: beta
+
   slicer:
     name: "3D Slicer"
     version: latest
