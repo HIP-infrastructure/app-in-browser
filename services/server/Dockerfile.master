@@ -32,7 +32,7 @@ RUN apt-get update && \
     libavformat-dev libavutil-dev libswscale-dev \
     dh-python libpam-dev python3-numpy python3-brotli \
     keyboard-configuration curl brotli libjs-jquery \ 
-    libjs-jquery-ui \ 
+    libjs-jquery-ui xserver-xorg-video-dummy \
     software-properties-common gnupg \
     x11-xserver-utils python3-pip \
     python3-gst-1.0 \
