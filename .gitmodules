@@ -34,3 +34,6 @@
 [submodule "services/apps/mrideface"]
 	path = services/apps/mrideface
 	url = git@github.com:HIP-infrastructure/mrideface.git
+[submodule "services/apps/mne"]
+	path = services/apps/mne
+	url = git@github.com:HIP-infrastructure/mne.git
