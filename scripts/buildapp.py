@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os
 import subprocess
@@ -48,6 +48,7 @@ ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY
                                                     "--build-arg", f"APP_NAME={args.name}", \
                                                     "--build-arg", f"APP_VERSION={args.version}", \
                                                     "--build-arg", f"DAVFS2_VERSION={os.getenv('DAVFS2_VERSION')}", \
+                                                    "--build-arg", f"JUPYTERLAB_DESKTOP_VERSION={os.getenv('JUPYTERLAB_DESKTOP_VERSION')}", \
                                                     "--build-arg", f"DCM2NIIX_VERSION={dcm2niix_version}", \
                                                     "--build-arg", f"ANYWAVE_VERSION={anywave_version}", \
                                                     *app_env,
