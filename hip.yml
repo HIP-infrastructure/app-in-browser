@@ -58,6 +58,13 @@ apps:
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
     state: ready
 
+  mne:
+    name: "MNE-Python"
+    version: 1.0.2
+    url: "https://mne.tools"
+    description: "Open-source Python package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, NIRS, and more."
+    state: alpha
+
   mricrogl:
     name: "MRIcroGL"
     version: 1.2.20210317
