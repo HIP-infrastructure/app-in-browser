@@ -67,8 +67,8 @@ RUN cd xpra-html5 && \
     ./setup.py deb && \
     cd ..
 
-RUN dpkg -i /xpra_4.4-1_amd64.deb && \
-    dpkg -i /xpra-html5/dist/xpra-html5-5.0-r1237-1.deb
+RUN dpkg -i /xpra_*_amd64.deb && \
+    dpkg -i /xpra-html5/dist/xpra-html5-*.deb
 
     #apt-get remove -y --purge gnupg && \
     #apt-get autoremove -y --purge && \
