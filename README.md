@@ -45,20 +45,37 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-7. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
+7. By default, docker only allows to create 32 bridge networks. As each server uses two of them, you'll only be able to start 16 servers with the default configuration. To bump this number to 256 servers, add the following to `/etc/docker/daemon.json`:
+```json
+{
+   "default-address-pools":[
+      {
+         "base":"172.17.0.0/12",
+         "size":20
+      },
+      {
+         "base":"192.168.0.0/16",
+         "size":24
+      }
+   ]
+}
+```
+then restart the docker service with `sudo systemctl restart docker`.
+
+8. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
 ```bash
 CARD=none
 RUNTIME=runc
 ```
-8. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
+9. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
-9. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
-10. Install and start the backend with `./scripts/installbackend.sh`.
-11. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-12. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
-13. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
+10. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+11. Install and start the backend with `./scripts/installbackend.sh`.
+12. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+13. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
+14. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 There are two options to control `app-in-browser`. You can use the REST API, or bash scripts. The former is used for integration and the latter option can be used for debug.
