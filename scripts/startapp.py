@@ -35,7 +35,7 @@ load_dotenv()
 #run app container
 ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "-v", f"{server_name}_x11-unix:/tmp/.X11-unix", \
-                                                  f"--network={server_name}_server", \
+                                                  f"--network={server_name}_apps", \
                                                   *(["--device=/dev/dri:/dev/dri"] if os.getenv("CARD") != 'none' else []),
                                                   "--device=/dev/fuse:/dev/fuse", \
                                                   "--cap-add=SYS_ADMIN", \
@@ -58,7 +58,3 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--add-host", "releases-canary.hyper.is:127.0.0.1", \
                                                   f"{os.getenv('CI_REGISTRY_IMAGE')}/{args.app_name}:{app_version}"])
 assert ret_val == 0, f"Failed running {args.app_name}."
-
-#connect to the server network
-ret_val = subprocess.check_call(["docker", "network", "connect", f"{server_name}_apps", container_name])
-assert ret_val == 0, f"Failed to connect to network {server_name}_apps {container_name}."

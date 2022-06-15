@@ -17,7 +17,7 @@ fi
 
 #create network
 docker network create -d bridge ${CONTAINER_NAME}_server
-docker network create --internal ${OPTS} ${CONTAINER_NAME}_apps
+docker network create -d bridge ${CONTAINER_NAME}_apps
 
 #check for GPU
 if [ ${CARD} != "none" ]; then
