@@ -3,5 +3,5 @@
 for i in services/apps/*/; do
   cd $i;
   git checkout $1
-  cd -
+  cd - > /dev/null
 done
