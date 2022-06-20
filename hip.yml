@@ -91,4 +91,4 @@ apps:
     version: 0.7
     url: "https://www.thevirtualbrain.org"
     description: "Simulate a human brain, right on your PC!"
-    state: beta
+    state: off
