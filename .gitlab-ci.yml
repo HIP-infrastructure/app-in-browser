@@ -28,6 +28,7 @@ before_script:
   - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
   - git submodule init
   - git submodule update 
+  - ./build/submodule_branch.sh $CI_COMMIT_BRANCH
   - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
 stages:
