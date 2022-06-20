@@ -40,7 +40,8 @@ anywave_version = hip['apps']['anywave']['version']
 #pull app and cache from registry during CI only
 if CI_REGISTRY:
   ret_val = subprocess.check_call(["docker", "pull", registry_image])
-  assert ret_val == 0, f"Failed pulling {registry_image} from registry."
+  if ret_val != 0:
+    print(f"Failed pulling {registry_image} from registry.")
 
 #build app with cache from registry during CI only
 ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY_IMAGE={CI_REGISTRY_IMAGE}", \

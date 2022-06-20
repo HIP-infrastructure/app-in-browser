@@ -37,22 +37,22 @@ echo "done."
 echo -n "Mounting ${NEXTCLOUD_DOMAIN} for ${HIP_USER} as webdav... "
 rm -f /var/run/mount.davfs/home-hipuser-nextcloud.pid
 #mount /home/$HIP_USER/nextcloud
-/usr/bin/expect -c "log_user 0
+/usr/bin/expect -c 'log_user 0
 set timeout -1
 spawn mount nextcloud/
 match_max 100000
 
-expect \"*Username: \"
-send -- \"$HIP_USER\\r\"
+expect "*Username: "
+send -- $env(HIP_USER)\r
 
-expect \"*Password:  \"
-send -- \"$HIP_PASSWORD\\r\"
+expect "*Password:  "
+send -- $env(HIP_PASSWORD)\r
 
 expect {
 	eof { exit }
-	\"*is already mounted on*\" { exit }
-	\"*Mounting failed.*\"; { exit 1 }
-}"
+	"*is already mounted on*" { exit }
+	"*Mounting failed.*"; { exit 1 }
+}'
 retVal=$?
 if [ $retVal -ne 0 ]; then
     echo "failed."
