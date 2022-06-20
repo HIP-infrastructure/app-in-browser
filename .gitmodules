@@ -28,3 +28,12 @@
 [submodule "services/apps/bidsmanager"]
 	path = services/apps/bidsmanager
 	url = git@github.com:HIP-infrastructure/bidsmanager.git
+[submodule "services/apps/mne"]
+	path = services/apps/mne
+	url = git@github.com:HIP-infrastructure/mne.git
+[submodule "services/apps/mrideface"]
+	path = services/apps/mrideface
+	url = git@github.com:HIP-infrastructure/mrideface.git
+[submodule "services/apps/tvb"]
+	path = services/apps/tvb
+	url = git@github.com:HIP-infrastructure/tvb.git

@@ -30,8 +30,10 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 ## Getting and configuring `app-in-browser`
 1. Clone the repository with `git clone --recurse-submodules https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
 2. `cd` into the `app-in-browser` directory.
-3. Run `cp .env.template .env` to copy the .env file from its template.
-4. If you are using `app-in-browser` on a system that uses a non-standard `MTU` value, you need to configure docker for this purpose. Uncomment the following line of the `.env` file:
+3. Change to the branch of your liking. If unsure use the `master` branch.
+4. Run `git submodule update --init` to get the right version of the submodules.
+5. Run `cp .env.template .env` to copy the .env file from its template.
+6. If you are using `app-in-browser` on a system that uses a non-standard `MTU` value, you need to configure docker for this purpose. Uncomment the following line of the `.env` file:
 ```bash
 MTU=1450
 ```
@@ -43,20 +45,37 @@ and add the following to `/etc/docker/daemon.json`:
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-5. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
+7. By default, docker only allows to create 32 bridge networks. As each server uses two of them, you'll only be able to start 16 servers with the default configuration. To bump this number to 256 servers, add the following to `/etc/docker/daemon.json`:
+```json
+{
+   "default-address-pools":[
+      {
+         "base":"172.17.0.0/12",
+         "size":20
+      },
+      {
+         "base":"192.168.0.0/16",
+         "size":24
+      }
+   ]
+}
+```
+then restart the docker service with `sudo systemctl restart docker`.
+
+8. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
 ```bash
 CARD=none
 RUNTIME=runc
 ```
-6. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
+9. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
-7. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
-8. Install and start the backend with `./scripts/installbackend.sh`.
-9. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-10. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
-11. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
+10. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+11. Install and start the backend with `./scripts/installbackend.sh`.
+12. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+13. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
+14. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 There are two options to control `app-in-browser`. You can use the REST API, or bash scripts. The former is used for integration and the latter option can be used for debug.

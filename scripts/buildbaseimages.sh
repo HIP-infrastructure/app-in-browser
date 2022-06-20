@@ -115,3 +115,31 @@ for i in "${!MATLAB_RUNTIME_VERSIONS[@]}"; do
     docker push ${REGISTRY_IMAGE}
   fi
 done
+
+##### jupyterlab-desktop #####
+REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/jupyterlab-desktop:${JUPYTERLAB_DESKTOP_VERSION}
+
+#pull jupyterlab-desktop and cache from registry during CI only
+if [ ! -z ${CI_REGISTRY} ]; then
+  docker pull ${REGISTRY_IMAGE} || true
+  CACHE_OPTS="--cache-from ${REGISTRY_IMAGE}"
+fi
+
+#build jupyterlab-desktop
+docker build \
+  --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
+  --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
+  --build-arg JUPYTERLAB_DESKTOP_VERSION=${JUPYTERLAB_DESKTOP_VERSION} \
+  ${CACHE_OPTS} \
+  -t ${REGISTRY_IMAGE} \
+  -f ${CONTEXT}/base-images/jupyterlab-desktop/Dockerfile ${CONTEXT} &&
+
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  exit $retVal
+fi
+
+#push jupyterlab-desktop to registry during CI only
+if [ ! -z ${CI_REGISTRY} ]; then
+  docker push ${REGISTRY_IMAGE}
+fi

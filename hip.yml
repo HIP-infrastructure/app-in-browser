@@ -26,7 +26,7 @@ apps:
   brainstorm:
     name: "Brainstorm"
     version: latest
-    url: "https: //neuroimage.usc.edu/brainstorm/Introduction"
+    url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: ready
 
@@ -39,7 +39,7 @@ apps:
 
   fsl:
     name: "FSL"
-    version: 6.0.5
+    version: 6.0.5.2
     url: "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data."
     state: ready
@@ -58,6 +58,13 @@ apps:
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
     state: ready
 
+  mne:
+    name: "MNE-Python"
+    version: 1.0.2
+    url: "https://mne.tools"
+    description: "Open-source Python package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, NIRS, and more."
+    state: off
+
   mricrogl:
     name: "MRIcroGL"
     version: 1.2.20210317
@@ -65,9 +72,23 @@ apps:
     description: "MRIcroGL is a cross-platform tool for viewing DICOM and NIfTI format images. It provides a drag-and-drop user interface as well as a scripting language."
     state: ready
 
+  mrideface:
+    name: "MRI Deface"
+    version: latest
+    url: "https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface"
+    description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
+    state: beta
+
   slicer:
     name: "3D Slicer"
     version: latest
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
+    state: beta
+
+  tvb:
+    name: "TVB"
+    version: 0.7
+    url: "https://www.thevirtualbrain.org"
+    description: "Simulate a human brain, right on your PC!"
     state: beta

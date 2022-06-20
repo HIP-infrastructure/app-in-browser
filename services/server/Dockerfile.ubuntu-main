@@ -5,6 +5,16 @@ LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG CARD
+ARG XPRA_VERSION
+ARG XPRA_KEYCLOAK_SERVER_URL
+ARG XPRA_KEYCLOAK_REALM_NAME
+ARG XPRA_KEYCLOAK_CLIENT_ID
+ARG XPRA_KEYCLOAK_CLIENT_SECRET_KEY
+ARG XPRA_KEYCLOAK_REDIRECT_URI
+ARG XPRA_KEYCLOAK_SCOPE
+ARG XPRA_KEYCLOAK_GRANT_TYPE
+
+LABEL server_version=$XPRA_VERSION
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -15,13 +25,12 @@ RUN apt-get update && \
     dbus-x11 python3-dbus pulseaudio \
     #build-essential \
     python3-xdg menu-xdg curl && \
-    pip3 install pyinotify && \
+    pip3 install requests==2.25.1 urllib3==1.26.5 \
+    pyinotify netifaces oauthlib python-keycloak && \
     #pip3 install python-uinput && \
-    curl -L https://xpra.org/gpg.asc | apt-key add - && \
+    curl -L# https://xpra.org/gpg.asc | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ focal main" && \
     apt-get update && \
-    #add-apt-repository "deb https://xpra.org/beta/ focal main" && \
-    #apt-get update && \
     apt-get install --no-install-recommends -y xpra xpra-html5 && \
     apt-get remove -y --purge gnupg && \
     apt-get autoremove -y --purge && \
