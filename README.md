@@ -71,11 +71,12 @@ RUNTIME=runc
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
-10. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
-11. Install and start the backend with `./scripts/installbackend.sh`.
-12. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-13. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
-14. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
+10. Set `vm.overcommit_memory = 2` in `/etc/sysctl.conf` to avoid memory overcommitting.
+11. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+12. Install and start the backend with `./scripts/installbackend.sh`.
+13. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+14. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
+15. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 There are two options to control `app-in-browser`. You can use the REST API, or bash scripts. The former is used for integration and the latter option can be used for debug.
