@@ -32,7 +32,7 @@ if [ ! -z ${CI_REGISTRY} ]; then
 fi
 
 ##### terminal #####
-REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/terminal
+REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/terminal:${WEZTERM_VERSION}
 
 #pull terminal and cache from registry during CI only
 if [ ! -z ${CI_REGISTRY} ]; then
@@ -44,9 +44,10 @@ fi
 docker build \
   --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
   --build-arg VIRTUALGL_VERSION=${VIRTUALGL_VERSION} \
+  --build-arg WEZTERM_VERSION=${WEZTERM_VERSION} \
   ${CACHE_OPTS} \
   -t ${REGISTRY_IMAGE} \
-  -f ${CONTEXT}/base-images/terminal/Dockerfile ${CONTEXT} &&
+  -f ${CONTEXT}/base-images/terminal/Dockerfile.wezterm ${CONTEXT} &&
 
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -70,6 +71,7 @@ fi
 #build nc-webdav
 docker build \
   --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
+  --build-arg WEZTERM_VERSION=${WEZTERM_VERSION} \
   --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
   ${CACHE_OPTS} \
   -t ${REGISTRY_IMAGE} \

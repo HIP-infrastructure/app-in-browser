@@ -1,5 +1,6 @@
 ARG CI_REGISTRY_IMAGE
-FROM ${CI_REGISTRY_IMAGE}/terminal
+ARG WEZTERM_VERSION
+FROM ${CI_REGISTRY_IMAGE}/terminal:${WEZTERM_VERSION}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
