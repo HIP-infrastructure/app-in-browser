@@ -179,6 +179,7 @@ def control_app():
   hip_user = request.args.get('hipuser')
   hip_password = request.args.get('hippass')
   nextcloud_domain = request.args.get('nc')
+  auth_backend_domain = request.args.get('ab')
 
   nextcloud_auth = False
 
@@ -208,7 +209,7 @@ def control_app():
 
     cmd = [SCRIPT_DIR + script, app_name, server_id, app_id, hip_user]
     if nextcloud_auth:
-      cmd.extend([hip_password, nextcloud_domain])
+      cmd.extend([hip_password, nextcloud_domain, auth_backend_domain])
 
     print(cmd)
 
@@ -224,7 +225,7 @@ def control_app():
                   "domain": get_domain() if port else "",
                   "ip": get_ip() if port else "",
                   "session_id": port if port else "",
-                  "url": "f{get_domain()}/session/{port}/" if port else ""}}
+                  "url": f"{get_domain()}/session/{port}/" if port else ""}}
     print(response)
     return jsonify(response)
   else:
