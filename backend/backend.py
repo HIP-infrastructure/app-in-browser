@@ -180,6 +180,7 @@ def control_app():
   hip_password = request.args.get('hippass')
   nextcloud_domain = request.args.get('nc')
   auth_backend_domain = request.args.get('ab')
+  group_folders = request.args.get('gf')
 
   nextcloud_auth = False
 
@@ -209,7 +210,7 @@ def control_app():
 
     cmd = [SCRIPT_DIR + script, app_name, server_id, app_id, hip_user]
     if nextcloud_auth:
-      cmd.extend([hip_password, nextcloud_domain, auth_backend_domain])
+      cmd.extend([hip_password or '', nextcloud_domain, auth_backend_domain, group_folders])
 
     print(cmd)
 

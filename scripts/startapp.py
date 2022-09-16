@@ -16,6 +16,7 @@ parser.add_argument("hip_user", help="nextcloud username of the hip user to run 
 parser.add_argument("hip_password", help="nextcloud password of the hip user to run the app as")
 parser.add_argument("nextcloud_domain", help="url of the nextcloud instance where the user data is located")
 parser.add_argument("auth_backend_domain", help="url of the ghostfs authentication backend")
+parser.add_argument("group_folders", help="list of group folders to mount")
 args = parser.parse_args()
 
 container_name = f"{args.app_name}-{args.server_id}-{args.app_id}-{args.hip_user}"
@@ -38,7 +39,7 @@ load_dotenv()
 # get the user token or password
 hip_password=None
 if os.getenv("DOCKERFS_TYPE") == "ghostfs":
-  r = requests.get(args.auth_backend_domain + '/fs/token?hipuser=' + args.hip_user, auth=(os.getenv("AUTH_BACKEND_USERNAME"), os.getenv("AUTH_BACKEND_PASSWORD")))
+  r = requests.get(args.auth_backend_domain + '/fs/token?hipuser=' + args.hip_user + '&gf=' + args.group_folders, auth=(os.getenv("AUTH_BACKEND_USERNAME"), os.getenv("AUTH_BACKEND_PASSWORD")))
   if r.status_code != 200:
       print(f"Received invalid token for user {args.hip_user}: {r}")
       exit(1)
