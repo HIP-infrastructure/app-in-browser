@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import subprocess
 import os
 import requests
+import urllib.parse
 
 # parse arguments
 parser = argparse.ArgumentParser()
@@ -39,7 +40,11 @@ load_dotenv()
 # get the user token or password
 hip_password=None
 if os.getenv("DOCKERFS_TYPE") == "ghostfs":
-  r = requests.get(args.auth_backend_domain + '/fs/token?hipuser=' + args.hip_user + '&gf=' + args.group_folders, auth=(os.getenv("AUTH_BACKEND_USERNAME"), os.getenv("AUTH_BACKEND_PASSWORD")))
+  query_params = urllib.parse.urlencode({
+    "hipuser": args.hip_user,
+    "gf": args.group_folders
+  })
+  r = requests.get(args.auth_backend_domain + '/fs/token?' + query_params, auth=(os.getenv("AUTH_BACKEND_USERNAME"), os.getenv("AUTH_BACKEND_PASSWORD")))
   if r.status_code != 200:
       print(f"Received invalid token for user {args.hip_user}: {r}")
       exit(1)
