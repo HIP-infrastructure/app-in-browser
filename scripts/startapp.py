@@ -44,7 +44,7 @@ if os.getenv("DOCKERFS_TYPE") == "ghostfs":
     "hipuser": args.hip_user,
     "gf": args.group_folders
   })
-  r = requests.get(args.auth_backend_domain + '/fs/token?' + query_params, auth=(os.getenv("AUTH_BACKEND_USERNAME"), os.getenv("AUTH_BACKEND_PASSWORD")))
+  r = requests.get(args.auth_backend_domain + '/token?' + query_params, auth=(os.getenv("AUTH_BACKEND_USERNAME"), os.getenv("AUTH_BACKEND_PASSWORD")))
   if r.status_code != 200:
       print(f"Received invalid token for user {args.hip_user}: {r}")
       exit(1)
