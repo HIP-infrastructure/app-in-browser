@@ -110,7 +110,7 @@ def control_status():
               "location": {
                 "domain": get_domain(),
                 "ip": get_ip()}}
-  print(response)
+
   return jsonify(response)
 
 @app.route('/control/app/list')
@@ -161,7 +161,10 @@ def control_server():
                   "ip": get_ip() if port else "",
                   "session_id": port if port else "",
                   "url": f"{get_domain()}/session/{port}/" if port else ""}}
-    print(response)
+
+    if action != "status":
+      print(response)
+
     return jsonify(response)
   else:
     raise InvalidUsage('An unknown error has occured', status_code=500)
@@ -212,7 +215,8 @@ def control_app():
     if nextcloud_auth:
       cmd.extend([hip_password or '', nextcloud_domain, auth_backend_domain, group_folders])
 
-    print(cmd)
+    if action !="status":
+      print(cmd)
 
     output = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True)
 
@@ -227,7 +231,7 @@ def control_app():
                   "ip": get_ip() if port else "",
                   "session_id": port if port else "",
                   "url": f"{get_domain()}/session/{port}/" if port else ""}}
-    print(response)
+
     return jsonify(response)
   else:
     raise InvalidUsage('An unknown error has occured', status_code=500)
