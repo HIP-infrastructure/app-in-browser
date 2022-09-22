@@ -150,6 +150,9 @@ def control_server():
     cmd = [SCRIPT_DIR + script, server_id, hip_user]
     output = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True)
 
+    if action != "status":
+      print(cmd)
+
     cmd = [SCRIPT_DIR + "getport.sh", server_id, hip_user]
     port = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True).stdout.rstrip()
 
@@ -231,6 +234,9 @@ def control_app():
                   "ip": get_ip() if port else "",
                   "session_id": port if port else "",
                   "url": f"{get_domain()}/session/{port}/" if port else ""}}
+
+    if action !="status":
+      print(response)
 
     return jsonify(response)
   else:
