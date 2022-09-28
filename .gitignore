@@ -2,6 +2,7 @@
 **/run
 **/*.env
 **/*.secret
+**/*.pem
 **/__pycache__
 scripts/certbot.sh
 pm2/node_modules
