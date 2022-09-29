@@ -110,7 +110,7 @@ def control_status():
               "location": {
                 "domain": get_domain(),
                 "ip": get_ip()}}
-  print(response)
+
   return jsonify(response)
 
 @app.route('/control/app/list')
@@ -150,6 +150,9 @@ def control_server():
     cmd = [SCRIPT_DIR + script, server_id, hip_user]
     output = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True)
 
+    if action != "status":
+      print(cmd)
+
     cmd = [SCRIPT_DIR + "getport.sh", server_id, hip_user]
     port = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True).stdout.rstrip()
 
@@ -161,7 +164,10 @@ def control_server():
                   "ip": get_ip() if port else "",
                   "session_id": port if port else "",
                   "url": f"{get_domain()}/session/{port}/" if port else ""}}
-    print(response)
+
+    if action != "status":
+      print(response)
+
     return jsonify(response)
   else:
     raise InvalidUsage('An unknown error has occured', status_code=500)
@@ -179,6 +185,8 @@ def control_app():
   hip_user = request.args.get('hipuser')
   hip_password = request.args.get('hippass')
   nextcloud_domain = request.args.get('nc')
+  auth_backend_domain = request.args.get('ab')
+  group_folders = request.args.get('gf')
 
   nextcloud_auth = False
 
@@ -208,9 +216,10 @@ def control_app():
 
     cmd = [SCRIPT_DIR + script, app_name, server_id, app_id, hip_user]
     if nextcloud_auth:
-      cmd.extend([hip_password, nextcloud_domain])
+      cmd.extend([hip_password or '', nextcloud_domain, auth_backend_domain, group_folders])
 
-    print(cmd)
+    if action !="status":
+      print(cmd)
 
     output = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True)
 
@@ -224,8 +233,11 @@ def control_app():
                   "domain": get_domain() if port else "",
                   "ip": get_ip() if port else "",
                   "session_id": port if port else "",
-                  "url": "f{get_domain()}/session/{port}/" if port else ""}}
-    print(response)
+                  "url": f"{get_domain()}/session/{port}/" if port else ""}}
+
+    if action !="status":
+      print(response)
+
     return jsonify(response)
   else:
     raise InvalidUsage('An unknown error has occured', status_code=500)

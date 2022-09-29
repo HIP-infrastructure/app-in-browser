@@ -13,6 +13,7 @@ const gunicorn = which("gunicorn");
 module.exports = {
   apps : [{
     script: caddy,
+    name: 'caddy_backend',
     args: 'run',
     cwd: relative('../caddy'),
     watch: relative('../caddy'),
@@ -20,6 +21,7 @@ module.exports = {
   },
   {
     script: gunicorn,
+    name: 'gunicorn_app_backend',
     args: '--workers 40 --timeout 120 --bind 127.0.0.1:8060 --pythonpath backend backend:app',
     cwd: relative('..'),
     watch: relative('../backend'),

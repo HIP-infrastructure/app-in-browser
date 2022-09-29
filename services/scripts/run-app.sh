@@ -11,10 +11,10 @@ while IFS='=' read -r -d '' k v; do
 done < <(env -0)
 
 if [ $APP_SPECIAL == "terminal" ]; then
-  PROCESS_NAME="/opt/Hyper/hyper"
-  APP_NAME="hyper"
-  APP_CMD="hyper"
-  CARD=none
+  PROCESS_NAME="/usr/bin/wezterm"
+  APP_NAME="wezterm"
+  APP_CMD="/usr/bin/wezterm"
+  #CARD=none
 elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
   PROCESS_NAME="electron"
   APP_NAME="jupyterlab-desktop"

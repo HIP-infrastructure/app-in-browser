@@ -28,22 +28,35 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-#mount davfs2 share for $HIP_USER
-$SCRIPT_PATH/mount-davfs2.sh $HIP_USER $HIP_PASSWORD $NEXTCLOUD_DOMAIN
-retVal=$?
+#mount docker-fs share for $HIP_USER
+if [ "$DOCKERFS_TYPE" = "davfs2" ]; then
+  $SCRIPT_PATH/mount-davfs2.sh $HIP_USER $HIP_PASSWORD $NEXTCLOUD_DOMAIN
+  retVal=$?
+elif [ "$DOCKERFS_TYPE" = "ghostfs" ]; then
+  $SCRIPT_PATH/mount-ghostfs.sh $HIP_USER $HIP_PASSWORD $NEXTCLOUD_DOMAIN
+  retVal=$?
+else
+  exit 1
+fi
 if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
+if [ "$DOCKERFS_TYPE" = "davfs2" ]; then
+  HIP_GROUP="davfs2"
+else
+  HIP_GROUP=$HIP_USER
+fi
+
 #symlink app_data directories in $HIP_USER homedir
-$SCRIPT_PATH/homedir-symlink.sh $HIP_USER app_data ${APP_DATA_DIR_ARRAY[@]}
+$SCRIPT_PATH/homedir-symlink.sh $HIP_USER $HIP_GROUP app_data ${APP_DATA_DIR_ARRAY[@]}
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
 #symlink data directories in $HIP_USER homedir
-$SCRIPT_PATH/homedir-symlink.sh $HIP_USER data ${DATA_DIR_ARRAY[@]}
+$SCRIPT_PATH/homedir-symlink.sh $HIP_USER $HIP_GROUP data ${DATA_DIR_ARRAY[@]}
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal
@@ -56,9 +69,16 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-#umount davfs2 share for $HIP_USER
-$SCRIPT_PATH/umount-davfs2.sh $HIP_USER
-retVal=$?
+#umount docker-fs share for $HIP_USER
+if [ "$DOCKERFS_TYPE" = "davfs2" ]; then
+  $SCRIPT_PATH/umount-davfs2.sh $HIP_USER
+  retVal=$?
+elif [ "$DOCKERFS_TYPE" = "ghostfs" ]; then
+  $SCRIPT_PATH/umount-ghostfs.sh $HIP_USER
+  retVal=$?
+else
+  exit 1
+fi
 if [ $retVal -ne 0 ]; then
   exit $retVal
 fi

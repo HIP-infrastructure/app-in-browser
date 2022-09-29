@@ -46,14 +46,14 @@ apps:
 
   hibop:
     name: "HiBoP"
-    version: 3.0.1
+    version: 4.0.0
     url: "https://github.com/hbp-HiBoP/HiBoP"
     description: "HiBoP illustrates the possibility to render group-level activity dynamically at the cortical level, for several experimental conditions (columns) of the same cognitive paradigm."
     state: ready
 
   localizer:
     name: "Localizer"
-    version: 4.1.0
+    version: 4.3.2
     url: "https://github.com/CRNL-Eduwell/Localizer"
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
     state: ready
@@ -77,7 +77,7 @@ apps:
     version: latest
     url: "https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface"
     description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
-    state: beta
+    state: ready
 
   slicer:
     name: "3D Slicer"

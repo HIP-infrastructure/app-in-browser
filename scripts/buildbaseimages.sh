@@ -32,7 +32,7 @@ if [ ! -z ${CI_REGISTRY} ]; then
 fi
 
 ##### terminal #####
-REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/terminal
+REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/terminal:${WEZTERM_VERSION}
 
 #pull terminal and cache from registry during CI only
 if [ ! -z ${CI_REGISTRY} ]; then
@@ -44,9 +44,10 @@ fi
 docker build \
   --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
   --build-arg VIRTUALGL_VERSION=${VIRTUALGL_VERSION} \
+  --build-arg WEZTERM_VERSION=${WEZTERM_VERSION} \
   ${CACHE_OPTS} \
   -t ${REGISTRY_IMAGE} \
-  -f ${CONTEXT}/base-images/terminal/Dockerfile ${CONTEXT} &&
+  -f ${CONTEXT}/base-images/terminal/Dockerfile.wezterm ${CONTEXT} &&
 
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -58,29 +59,31 @@ if [ ! -z ${CI_REGISTRY} ]; then
   docker push ${REGISTRY_IMAGE}
 fi
 
-##### nc-webdav #####
-REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/nc-webdav:${DAVFS2_VERSION}
+##### docker-fs #####
+REGISTRY_IMAGE=${CI_REGISTRY_IMAGE}/${DOCKERFS_TYPE}:${DOCKERFS_VERSION}
 
-#pull nc-webdav and cache from registry during CI only
+#pull docker-fs and cache from registry during CI only
 if [ ! -z ${CI_REGISTRY} ]; then
   docker pull ${REGISTRY_IMAGE} || true
   CACHE_OPTS="--cache-from ${REGISTRY_IMAGE}"
 fi
 
-#build nc-webdav
+#build docker-fs
 docker build \
   --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
-  --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
+  --build-arg WEZTERM_VERSION=${WEZTERM_VERSION} \
+  --build-arg DOCKERFS_TYPE=${DOCKERFS_TYPE} \
+  --build-arg DOCKERFS_VERSION=${DOCKERFS_VERSION} \
   ${CACHE_OPTS} \
   -t ${REGISTRY_IMAGE} \
-  -f ${CONTEXT}/base-images/nc-webdav/Dockerfile ${CONTEXT} &&
+  -f ${CONTEXT}/base-images/docker-fs/Dockerfile.${DOCKERFS_TYPE} ${CONTEXT} &&
 
 retVal=$?
 if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-#push nc-webdav to registry during CI only
+#push docker-fs to registry during CI only
 if [ ! -z ${CI_REGISTRY} ]; then
   docker push ${REGISTRY_IMAGE}
 fi
@@ -98,7 +101,8 @@ for i in "${!MATLAB_RUNTIME_VERSIONS[@]}"; do
   #build each matlab-runtime
   docker build \
     --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
-    --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
+    --build-arg DOCKERFS_TYPE=${DOCKERFS_TYPE} \
+    --build-arg DOCKERFS_VERSION=${DOCKERFS_VERSION} \
     --build-arg MATLAB_RUNTIME_VERSION=${MATLAB_RUNTIME_VERSIONS[i]} \
     --build-arg MATLAB_RUNTIME_UPDATE=${MATLAB_RUNTIME_UPDATES[i]} \
     ${CACHE_OPTS} \
@@ -128,7 +132,8 @@ fi
 #build jupyterlab-desktop
 docker build \
   --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
-  --build-arg DAVFS2_VERSION=${DAVFS2_VERSION} \
+  --build-arg DOCKERFS_TYPE=${DOCKERFS_TYPE} \
+  --build-arg DOCKERFS_VERSION=${DOCKERFS_VERSION} \
   --build-arg JUPYTERLAB_DESKTOP_VERSION=${JUPYTERLAB_DESKTOP_VERSION} \
   ${CACHE_OPTS} \
   -t ${REGISTRY_IMAGE} \

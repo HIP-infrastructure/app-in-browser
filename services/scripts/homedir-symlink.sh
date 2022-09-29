@@ -1,7 +1,8 @@
 #!/bin/bash
 
 HIP_USER=$1
-TARGET_DIR=$2; shift; shift
+HIP_GROUP=$2
+TARGET_DIR=$3; shift; shift; shift
 DIR_ARRAY=( "$@" )
 
 #symlink all directories of $DIR_ARRAY in $HIP_USER homedir
@@ -11,7 +12,7 @@ for DIR in "${DIR_ARRAY[@]}"; do
     echo -n "Creating distant directory $DIR as $TARGET_DIR... "
     # creating distant directory and applying the right ownership since it does not exist
     mkdir -p /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
-    chown -R $HIP_USER:davfs2 /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
+    chown -R $HIP_USER:$HIP_GROUP /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
     echo "done."
   fi
 
@@ -24,14 +25,14 @@ for DIR in "${DIR_ARRAY[@]}"; do
     echo -n "Creating local directory $LOCAL_PATH... "
     # creating local directory and applying the right ownsership since it does not exist
     mkdir -p /home/$HIP_USER/$LOCAL_PATH
-    chown -R $HIP_USER:davfs2 /home/$HIP_USER/$LOCAL_PATH
+    chown -R $HIP_USER:$HIP_GROUP /home/$HIP_USER/$LOCAL_PATH
     echo "done."
     fi
   fi
 
   if [[ ! -L /home/$HIP_USER/$DIR ]]; then
     # symlinking
-    echo -n "Symlinking $DIR as $TARGET_DIR via davfs2... "
+    echo -n "Symlinking $DIR as $TARGET_DIR via $DOCKERFS... "
     ln -sf /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR /home/$HIP_USER/$DIR
     retVal=$?
     if [ $retVal -ne 0 ]; then
@@ -44,7 +45,7 @@ for DIR in "${DIR_ARRAY[@]}"; do
 
   # applying the right ownership to the symlink
   echo -n "Applying correct permissions to $DIR... "
-  chown -R $HIP_USER:davfs2 /home/$HIP_USER/$DIR
+  chown -R $HIP_USER:$HIP_GROUP /home/$HIP_USER/$DIR
   retVal=$?
   if [ $retVal -ne 0 ]; then
     echo "failed."
