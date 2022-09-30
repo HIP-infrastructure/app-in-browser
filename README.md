@@ -72,11 +72,14 @@ RUNTIME=runc
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
 10. Set `vm.overcommit_memory = 2` in `/etc/sysctl.conf` to avoid memory overcommitting.
-11. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
-12. Install and start the backend with `./scripts/installbackend.sh`.
-13. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-14. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
-15. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
+11. In the `.env` file, enter the `auth_backend` credentials generated on the frontend.
+12. In the `.env` file, if you'd like to use `keycloak`, enter the `keycloak` client information and set to `XPRA_KEYCLOAK_AUTH` to `yes`.
+13. Put the `tls` certificate generated on the frontend in `services/secrets/cert.pem`.
+14. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+15. Install and start the backend with `./scripts/installbackend.sh`.
+16. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
+17. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
+18. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 There are two options to control `app-in-browser`. You can use the REST API, or bash scripts. The former is used for integration and the latter option can be used for debug.
