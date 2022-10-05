@@ -13,11 +13,13 @@ if [ $CARD != "none" ]; then
   #DRI_CARD_GROUP_NAME=$(ls -l /dev/dri/card* | head -1 | awk '{print $4}')
   DRI_CARD_GROUP_NAME=video
   DRI_CARD_GID=$(ls -ln /dev/dri/card* | head -1 | awk '{print $4}')
+  groupdel -f $DRI_CARD_GROUP_NAME
   groupadd -f -g $DRI_CARD_GID $DRI_CARD_GROUP_NAME
 
   #DRI_RENDER_GROUP_NAME=$(ls -l /dev/dri/render* | head -1 | awk '{print $4}')
   DRI_RENDER_GROUP_NAME=render
   DRI_RENDER_GID=$(ls -ln /dev/dri/render* | head -1 | awk '{print $4}')
+  groupdel -f $DRI_RENDER_GROUP_NAME
   groupadd -f -g $DRI_RENDER_GID $DRI_RENDER_GROUP_NAME
 
   usermod --groups $DRI_CARD_GID,$DRI_RENDER_GID --append $HIP_USER
