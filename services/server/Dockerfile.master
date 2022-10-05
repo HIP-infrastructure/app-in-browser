@@ -30,9 +30,10 @@ RUN apt-get update && \
     lsb-release libnvidia-fbc1-470 libvpx-dev libx264-dev \
     libwebp-dev libturbojpeg-dev libavcodec-dev \
     libavformat-dev libavutil-dev libswscale-dev \
-    dh-python libpam-dev python3-numpy python3-brotli \
-    keyboard-configuration curl brotli libjs-jquery \ 
-    libjs-jquery-ui xserver-xorg-video-dummy \
+    libdrm-dev libprocps-dev liblz4-dev libbrotli-dev \
+    libqrencode-dev dh-python libpam-dev python3-numpy \
+    python3-brotli keyboard-configuration curl brotli \
+    libjs-jquery libjs-jquery-ui xserver-xorg-video-dummy \
     software-properties-common gnupg \
     x11-xserver-utils python3-pip \
     python3-gst-1.0 \
@@ -53,7 +54,8 @@ ADD "https://api.github.com/repos/Xpra-org/xpra/commits?sha=master&per_page=1" x
 RUN cd xpra && \
 #   git checkout keycloak-fixes && \
     git pull && \
-    git checkout 0f22c8e && \
+#   git checkout 0f22c8e && \
+    git checkout v4.4 && \
     ln -sf ./packaging/debian/xpra ./debian && \
     debuild -us -uc -b && \
     cd ..
