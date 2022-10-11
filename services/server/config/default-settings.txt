@@ -1,0 +1,17 @@
+# Xpra HTML5 default settings
+#
+# ie:
+# port = 10000
+# keyboard_layout = gb
+# encoding = auto
+# bandwidth_limit = 10000000
+# debug_keyboard = true
+
+blocked-hosts = xpra.org,www.xpra.org
+sharing = true
+clipboard = true
+file_transfer = false
+keyboard = false
+sound = false
+# swap keys swaps also on windows and creates trouble, so we can't use it
+#swap_keys = true

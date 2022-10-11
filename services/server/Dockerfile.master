@@ -100,6 +100,7 @@ WORKDIR /home/xpra
 COPY server/config/xpra.conf /etc/xpra/xpra.conf
 COPY server/config/10_content_security_policy.txt /etc/xpra/http-headers/10_content_security_policy.txt
 COPY server/config/default.png /usr/share/backgrounds/images/default.png
+COPY server/config/default-settings.txt /etc/xpra/html5-client/default-settings.txt
 
 # copy entrypoint script and other scripts used in it
 COPY server/config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
