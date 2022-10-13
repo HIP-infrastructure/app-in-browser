@@ -26,6 +26,11 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
 4. Run `sudo apt-get update` and then install the runtime with `sudo apt-get install -y nvidia-docker2`.
 5. Finally restart the docker service with `sudo systemctl restart docker`.
 6. You can test your installation is working by running the following image `sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` and getting the same output as in step 2 above.
+7. You might want to deactivate kernel automatic upgrades:
+```bash
+sudo apt-get remove linux-image-virtual
+sudo apt-get autoremove
+```
 
 ## Getting and configuring `app-in-browser`
 1. Clone the repository with `git clone --recurse-submodules https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.

@@ -14,6 +14,10 @@ if [ $APP_SPECIAL == "terminal" ]; then
   PROCESS_NAME="/usr/bin/wezterm"
   APP_NAME="wezterm"
   APP_CMD="/usr/bin/wezterm"
+  mkdir -p /home/$HIP_USER/.config/wezterm
+  cp /apps/$APP_SPECIAL/wezterm.lua /home/$HIP_USER/.config/wezterm
+  chown $HIP_USER:$HIP_USER /home/$HIP_USER/.config
+  chown -R $HIP_USER:$HIP_USER /home/$HIP_USER/.config/wezterm
   #CARD=none
 elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
   PROCESS_NAME="electron"

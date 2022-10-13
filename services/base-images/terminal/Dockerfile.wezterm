@@ -8,6 +8,8 @@ ARG WEZTERM_VERSION
 
 LABEL app_version=$WEZTERM_VERSION
 
+WORKDIR /apps/terminal
+
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \ 
@@ -21,5 +23,7 @@ RUN apt-get update && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+COPY base-images/terminal/config/wezterm.lua wezterm.lua
 
 RUN echo "Done installing Terminal"
