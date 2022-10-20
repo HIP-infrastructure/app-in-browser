@@ -46,7 +46,7 @@ apps:
 
   hibop:
     name: "HiBoP"
-    version: 4.0.1
+    version: 4.0.0
     url: "https://github.com/hbp-HiBoP/HiBoP"
     description: "HiBoP illustrates the possibility to render group-level activity dynamically at the cortical level, for several experimental conditions (columns) of the same cognitive paradigm."
     state: ready
