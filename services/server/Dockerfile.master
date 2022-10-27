@@ -55,7 +55,7 @@ RUN cd xpra && \
 #   git checkout keycloak-fixes && \
     git pull && \
 #   git checkout 0f22c8e && \
-    git checkout v4.4 && \
+    git checkout v4.4.1 && \
     ln -sf ./packaging/debian/xpra ./debian && \
     debuild -us -uc -b && \
     cd ..
@@ -69,7 +69,7 @@ RUN cd xpra-html5 && \
     git pull && \
 #   git checkout ecc3a08 && \ #good
 #   git checkout ced316f && \ #bad
-    git checkout v5.0 && \
+    git checkout v6.0 && \
     ./setup.py deb && \
     cd ..
 

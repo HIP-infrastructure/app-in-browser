@@ -18,12 +18,11 @@ LABEL server_version=$XPRA_VERSION
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install --no-install-recommends -y \ 
+    apt-get install --no-install-recommends -y \
     software-properties-common gnupg \
     xvfb x11-xserver-utils python3-pip \
     python3-gst-1.0 \
     dbus-x11 python3-dbus pulseaudio \
-    #build-essential \
     python3-xdg menu-xdg curl && \
     pip3 install requests==2.25.1 urllib3==1.26.5 \
     pyinotify netifaces oauthlib python-keycloak && \
