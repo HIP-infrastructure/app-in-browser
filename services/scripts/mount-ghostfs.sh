@@ -14,6 +14,10 @@ mkdir -p /home/$HIP_USER/nextcloud
 chown -R $HIP_USER:$HIP_USER /home/$HIP_USER/nextcloud
 echo "user_allow_other" >> /etc/fuse.conf
 
+#putting cert into file
+mkdir -p /apps/ghostfs/secrets/
+echo -e $DOCKERFS_CERT | sed -e 's/^"//' -e 's/"$//' > /apps/ghostfs/secrets/cert.pem
+
 echo "done."
 
 echo -n "Mounting ${NEXTCLOUD_DOMAIN} for ${HIP_USER} as ghostfs... "
