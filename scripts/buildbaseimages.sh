@@ -40,7 +40,7 @@ if [ ! -z ${CI_REGISTRY} ]; then
   CACHE_OPTS="--cache-from ${REGISTRY_IMAGE}"
 fi
 
-#build build
+#build terminal
 docker build \
   --build-arg CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE} \
   --build-arg VIRTUALGL_VERSION=${VIRTUALGL_VERSION} \
