@@ -24,6 +24,7 @@ virtualgl_version = hip['base']['virtualgl']['version']
 # load variables from env
 ci_registry_image = os.getenv('CI_REGISTRY_IMAGE')
 ci_registry = os.getenv("CI_REGISTRY", "")
+ci_commit_branch = os.getenv('CI_COMMIT_BRANCH')
 
 # get ci_registry_image from hip.config.yml in case it is not defined in env
 if not ci_registry_image:
@@ -33,9 +34,23 @@ if not ci_registry_image:
     print(f"Failed to build xpra-server because CI registry image wasn't found in hip.config.yml")
     exit(1)
 
+# get ci_commit_branch from hip.config.yml in case it is not defined in env
+if not ci_commit_branch:
+  if hip_config['backend']['CI']['commit_branch']:
+    ci_commit_branch=hip_config['backend']['CI']['commit_branch']
+  else:
+    print(f"Failed to build {name} because CI registry image wasn't found in hip.config.yml")
+    exit(1)
+
+# create a tag
+if ci_commit_branch == "dev":
+  tag = f"-{ci_commit_branch}"
+else:
+  tag = ''
+
 # define some needed variables
 context = './services'
-image = f"xpra-server:{xpra_version}"
+image = f"xpra-server:{xpra_version}{tag}"
 registry_image = f"{ci_registry_image}/{image}"
 
 #pull xpra-server and cache from registry during CI only

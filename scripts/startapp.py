@@ -42,6 +42,16 @@ if hip_config['backend']['CI']['registry_image']:
 else:
   print(f"Failed to run {args.app_name} because CI registry image wasn't found in hip.config.yml")
   exit(1)
+#getting the tag
+if hip_config['backend']['ci']['commit_branch']:
+  ci_commit_branch=hip['backend']['ci']['commit_branch']
+  if ci_commit_branch == "dev":
+    tag = f"-{ci_commit_branch}"
+  else:
+    tag = ''
+else:
+  print(f"Failed to load tag it wasn't found in hip.config.yml")
+  exit(1)
 #getting the card
 if hip_config['backend']['dri']['card']:
   card=hip_config['backend']['dri']['card']
@@ -122,5 +132,5 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", f"DOCKERFS_CERT={dockerfs_cert}", \
                                                   "--env", f"CARD={card}", \
                                                   "--env", f"APP_NAME={args.app_name}", \
-                                                  f"{ci_registry_image}/{args.app_name}:{app_version}"])
+                                                  f"{ci_registry_image}/{args.app_name}:{app_version}{tag}"])
 assert ret_val == 0, f"Failed running {args.app_name}."

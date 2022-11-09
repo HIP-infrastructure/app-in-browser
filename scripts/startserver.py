@@ -21,10 +21,20 @@ with open('hip.yml') as f:
 with open('hip.config.yml') as f:
   hip_config = yaml.load(f, Loader=yaml.FullLoader)
 #getting the server version
-if hip['server']['xpra']:
+if hip['server']['xpra']['version']:
   xpra_version=hip['server']['xpra']['version']
 else:
   print(f"Failed to run the server because it wasn't found in hip.yml")
+  exit(1)
+#getting the tag
+if hip_config['backend']['ci']['commit_branch']:
+  ci_commit_branch=hip['backend']['ci']['commit_branch']
+  if ci_commit_branch == "dev":
+    tag = f"-{ci_commit_branch}"
+  else:
+    tag = ''
+else:
+  print(f"Failed to load tag it wasn't found in hip.config.yml")
   exit(1)
 #getting the card
 if hip_config['backend']['dri']['card']:
@@ -102,5 +112,5 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", f"XPRA_KEYCLOAK_REDIRECT_URI={redirect_uri_base}{port}", \
                                                   "--env", f"XPRA_KEYCLOAK_SCOPE=\"{scope}\"", \
                                                   "--env", f"XPRA_KEYCLOAK_GRANT_TYPE={grant_type}", \
-                                                  f"{ci_registry_image}/xpra-server:{xpra_version}"])
+                                                  f"{ci_registry_image}/xpra-server:{xpra_version}{tag}"])
 assert ret_val == 0, f"Failed running xpra-server-${container_name}."

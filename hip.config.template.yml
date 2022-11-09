@@ -1,6 +1,7 @@
 backend:
   CI:
     registry_image: registry.hbp.link/hip/app-in-browser
+    commit_branch: master
   dri:
     card: card0
     runtime: nvidia
