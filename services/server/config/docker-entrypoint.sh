@@ -31,7 +31,7 @@ rm -rf /tmp/.X80-lock
 #CMD="XPRA_PASSWORD=$XPRA_PASSWORD /usr/bin/xpra start --daemon=no --start-child='$@'"
 #runuser -l $XPRA_USER -c "pulseaudio --start; pulseaudio --kill; xpra start :80 --bind-tcp=0.0.0.0:8080,auth=password:value=mysecret --html=on --no-daemon --start='xhost +' -d auth"
 #runuser -l $XPRA_USER -c 'sleep 1000000000000'
-if [ $XPRA_KEYCLOAK_AUTH = "yes" ]; then
+if [ $XPRA_KEYCLOAK_AUTH = "True" ]; then
   AUTH=",auth=keycloak"
 fi
 

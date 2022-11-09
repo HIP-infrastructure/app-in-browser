@@ -1,6 +1,3 @@
-backend:
-  version : dev
-
 apps:
   anywave:
     name: "AnyWave"
@@ -92,3 +89,41 @@ apps:
     url: "https://www.thevirtualbrain.org"
     description: "Simulate a human brain, right on your PC!"
     state: off
+
+base:
+  virtualgl:
+    name: "VirtualGL"
+    version: 3.0.2
+    state: ready
+
+  terminal:
+    name: "Wezterm"
+    version: 20220905-102802-7d4b8249
+    state: ready
+
+  ghostfs:
+    name: "GhostFS"
+    version: linux-b97dd75
+    state: ready
+
+  davfs2:
+    name: "DavFS2"
+    version: 1.6.0-1
+    state: off
+
+  matlab-runtime:
+    name: "Matlab Runtime"
+    version: [R2020a,R2020b]
+    update: [7,6]
+    state: ready
+
+  jupyterlab-desktop:
+    name: "JupyterLab Destop"
+    version: 3.2.3-1
+    state: ready
+
+server:
+  xpra:
+    name: "Xpra"
+    version: ubuntu-main
+    state: ready

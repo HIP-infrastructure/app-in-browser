@@ -1,12 +1,12 @@
 ARG CI_REGISTRY_IMAGE
 ARG VIRTUALGL_VERSION
-FROM ${CI_REGISTRY_IMAGE}/vgl-base:${VIRTUALGL_VERSION}
+FROM ${CI_REGISTRY_IMAGE}/virtualgl:${VIRTUALGL_VERSION}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
-#ARG HYPER_VERSION
+#ARG VERSION
 
-#LABEL app_version=$HYPER_VERSION
+#LABEL app_version=$VERSION
 
 RUN apt-get update && \
     apt-get upgrade -y && \

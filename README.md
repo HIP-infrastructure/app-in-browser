@@ -38,19 +38,7 @@ sudo apt-get autoremove
 3. Change to the branch of your liking. If unsure use the `master` branch.
 4. Run `git submodule update --init` to get the right version of the submodules.
 5. Run `cp .env.template .env` to copy the .env file from its template.
-6. If you are using `app-in-browser` on a system that uses a non-standard `MTU` value, you need to configure docker for this purpose. Uncomment the following line of the `.env` file:
-```bash
-MTU=1450
-```
-and add the following to `/etc/docker/daemon.json`:
-```json
-{
-  "mtu": 1450,
-}
-```
-then restart the docker service with `sudo systemctl restart docker`.
-
-7. By default, docker only allows to create 32 bridge networks. As each server uses two of them, you'll only be able to start 16 servers with the default configuration. To bump this number to 256 servers, add the following to `/etc/docker/daemon.json`:
+6. By default, docker only allows to create 32 bridge networks. As each server uses two of them, you'll only be able to start 16 servers with the default configuration. To bump this number to 256 servers, add the following to `/etc/docker/daemon.json`:
 ```json
 {
    "default-address-pools":[
@@ -67,24 +55,24 @@ then restart the docker service with `sudo systemctl restart docker`.
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-8. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
+7. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
 ```bash
 CARD=none
 RUNTIME=runc
 ```
-9. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
+8. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
-10. Set `vm.overcommit_memory = 2` in `/etc/sysctl.conf` to avoid memory overcommitting.
-11. In the `.env` file, enter the `auth_backend` credentials generated on the frontend.
-12. In the `.env` file, if you'd like to use `keycloak`, enter the `keycloak` client information and set to `XPRA_KEYCLOAK_AUTH` to `yes`.
-13. In the `.env` file, put the `tls` certificate you generated on the frontend in `DOCKERFS_CERT`. Make sure it's a one-line variable.
-14. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
-15. Install and start the backend with `./scripts/installbackend.sh`.
-16. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`. 
-17. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
-18. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
+9. Set `vm.overcommit_memory = 2` in `/etc/sysctl.conf` to avoid memory overcommitting.
+10. In the `.env` file, enter the `auth_backend` credentials generated on the frontend.
+11. In the `.env` file, if you'd like to use `keycloak`, enter the `keycloak` client information and set to `XPRA_KEYCLOAK_AUTH` to `yes`.
+12. In the `.env` file, put the `tls` certificate you generated on the frontend in `DOCKERFS_CERT`. Make sure it's a one-line variable.
+13. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+14. Install and start the backend with `./scripts/installbackend.sh`.
+15. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`.
+16. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
+17. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 There are two options to control `app-in-browser`. You can use the REST API, or bash scripts. The former is used for integration and the latter option can be used for debug.

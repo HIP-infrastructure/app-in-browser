@@ -6,3 +6,4 @@
 **/__pycache__
 scripts/certbot.sh
 pm2/node_modules
+hip.config.yml

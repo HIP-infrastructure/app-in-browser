@@ -129,7 +129,7 @@ def control_server():
 
   if action is not None and server_id is not None and hip_user is not None:
     if action == "start":
-      script = "startserver.sh"
+      script = "startserver.py"
     elif action == "pause":
       script = "pauseserver.sh"
     elif action == "resume":
