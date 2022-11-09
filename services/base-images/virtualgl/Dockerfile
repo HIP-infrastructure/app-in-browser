@@ -3,8 +3,10 @@ LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG VERSION
+ARG TAG
 
 LABEL base_image_version=$VERSION
+LABEL base_image_tag=$TAG
 
 RUN apt-get update && \
     apt-get upgrade -y && \

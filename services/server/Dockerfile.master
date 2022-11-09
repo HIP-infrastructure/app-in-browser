@@ -1,6 +1,7 @@
 ARG CI_REGISTRY_IMAGE
+ARG TAG
 ARG VIRTUALGL_VERSION
-FROM ${CI_REGISTRY_IMAGE}/virtualgl:${VIRTUALGL_VERSION}
+FROM ${CI_REGISTRY_IMAGE}/virtualgl:${VIRTUALGL_VERSION}${TAG}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -16,6 +17,7 @@ ARG XPRA_KEYCLOAK_SCOPE
 ARG XPRA_KEYCLOAK_GRANT_TYPE
 
 LABEL server_version=$XPRA_VERSION
+LABEL server_tag=$TAG
 
 RUN apt-get update && \
     apt-get upgrade -y && \

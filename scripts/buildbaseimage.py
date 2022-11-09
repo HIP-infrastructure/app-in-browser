@@ -97,6 +97,7 @@ for index, ver in enumerate(version):
   ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY_IMAGE={ci_registry_image}", \
                                                       "--build-arg", f"VERSION={ver}", \
                                                       "--build-arg", f"UPDATE={update}", \
+                                                      "--build-arg", f"TAG={tag}", \
                                                       "--build-arg", f"VIRTUALGL_VERSION={virtualgl_version}", \
                                                       "--build-arg", f"TERMINAL_VERSION={terminal_version}", \
                                                       "--build-arg", f"DOCKERFS_VERSION={dockerfs_version}", \

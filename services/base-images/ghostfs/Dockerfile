@@ -1,13 +1,14 @@
 ARG CI_REGISTRY_IMAGE
+ARG TAG
 ARG TERMINAL_VERSION
-FROM ${CI_REGISTRY_IMAGE}/terminal:${TERMINAL_VERSION}
+FROM ${CI_REGISTRY_IMAGE}/terminal:${TERMINAL_VERSION}${TAG}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG VERSION
 
-LABEL base_image_type=$TYPE
 LABEL base_image_version=$VERSION
+LABEL base_image_tag=$TAG
 
 RUN apt-get update && \
     apt-get upgrade -y && \

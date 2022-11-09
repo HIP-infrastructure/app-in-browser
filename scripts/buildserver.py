@@ -63,6 +63,7 @@ if ci_registry:
 #build xpra-server with cache from registry during CI only
 ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY_IMAGE={ci_registry_image}", \
                                                     "--build-arg", f"XPRA_VERSION={xpra_version}", \
+                                                    "--build-arg", f"TAG={tag}", \
                                                     "--build-arg", f"VIRTUALGL_VERSION={virtualgl_version}", \
                                                     *(["--cache-from", registry_image] if ci_registry else []),
                                                     "-t", registry_image, \
