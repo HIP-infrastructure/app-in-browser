@@ -44,7 +44,7 @@ else:
   exit(1)
 #getting the tag
 if hip_config['backend']['ci']['commit_branch']:
-  ci_commit_branch=hip['backend']['ci']['commit_branch']
+  ci_commit_branch=hip_config['backend']['ci']['commit_branch']
   if ci_commit_branch == "dev":
     tag = f"-{ci_commit_branch}"
   else:
