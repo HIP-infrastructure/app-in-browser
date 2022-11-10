@@ -119,7 +119,7 @@ else:
 #login to registry
 ret_val = subprocess.check_call(["docker", "login", ci_registry_image, \
                                                     "-u", registry_username, \
-                                                    "-p", registry_token])
+                                                    "-p", registry_token], stderr=subprocess.DEVNULL)
 assert ret_val == 0, f"Failed running {args.app_name} because login to registry failed."
 
 #run app container
@@ -148,3 +148,7 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", f"APP_NAME={args.app_name}", \
                                                   f"{ci_registry_image}/{args.app_name}:{app_version}{tag}"])
 assert ret_val == 0, f"Failed running {args.app_name}."
+
+#logout from registry
+ret_val = subprocess.check_call(["docker", "logout", ci_registry_image])
+assert ret_val == 0, f"Failed running {args.app_name} because logout from registry failed."
