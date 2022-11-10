@@ -1,5 +1,5 @@
 backend:
-  CI:
+  ci:
     registry_image: registry.hbp.link/hip/app-in-browser
     commit_branch: master
   dri:

@@ -37,8 +37,8 @@ else:
   print(f"Failed to run {args.app_name} because it wasn't found in hip.yml")
   exit(1)
 #getting the registry
-if hip_config['backend']['CI']['registry_image']:
-  ci_registry_image=hip_config['backend']['CI']['registry_image']
+if hip_config['backend']['ci']['registry_image']:
+  ci_registry_image=hip_config['backend']['ci']['registry_image']
 else:
   print(f"Failed to run {args.app_name} because CI registry image wasn't found in hip.config.yml")
   exit(1)

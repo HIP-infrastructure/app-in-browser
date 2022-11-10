@@ -67,8 +67,8 @@ ci_registry_image = os.getenv('CI_REGISTRY_IMAGE')
 
 # get ci_registry_image from hip.config.yml in case it is not defined in env
 if not ci_registry_image:
-  if hip_config['backend']['CI']['registry_image']:
-    ci_registry_image=hip_config['backend']['CI']['registry_image']
+  if hip_config['backend']['ci']['registry_image']:
+    ci_registry_image=hip_config['backend']['ci']['registry_image']
   else:
     print(f"Failed to run xpra-server because CI registry image wasn't found in hip.config.yml")
     exit(1)
