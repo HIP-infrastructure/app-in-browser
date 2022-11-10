@@ -1,7 +1,10 @@
 backend:
   ci:
-    registry_image: registry.hbp.link/hip/app-in-browser
-    commit_branch: master
+    registry:
+      image: registry.hbp.link/hip/app-in-browser
+      username: registry_username
+      token: registry_token
+    commit_branch: dev
   dri:
     card: card0
     runtime: nvidia

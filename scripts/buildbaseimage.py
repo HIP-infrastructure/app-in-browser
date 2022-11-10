@@ -44,8 +44,8 @@ ci_commit_branch = os.getenv('CI_COMMIT_BRANCH')
 
 # get ci_registry_image from hip.config.yml in case it is not defined in env
 if not ci_registry_image:
-  if hip_config['backend']['ci']['registry_image']:
-    ci_registry_image=hip_config['backend']['ci']['registry_image']
+  if hip_config['backend']['ci']['registry']['image']:
+    ci_registry_image=hip_config['backend']['ci']['registry']['image']
   else:
     print(f"Failed to build {name} because CI registry image wasn't found in hip.config.yml")
     exit(1)
