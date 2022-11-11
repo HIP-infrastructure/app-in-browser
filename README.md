@@ -13,32 +13,8 @@ curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-## GPU support setup (optional)
-1. Install the recommended Nvidia drivers for your system. Check which ones are recommended using the command `ubuntu-drivers devices` and then install them using `sudo ubuntu-drivers autoinstall`.
-2. Reboot the system with `sudo reboot` and check that the drivers are functional using `sudo nvidia-smi`. Additionnaly you can check that the nvidia module is loaded with `lspci -nnk | grep -i nvidia`.
-3. Install the nvidia-docker runtime stable repository and GPG key:
-```bash
-distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-```
-
-4. Run `sudo apt-get update` and then install the runtime with `sudo apt-get install -y nvidia-docker2`.
-5. Finally restart the docker service with `sudo systemctl restart docker`.
-6. You can test your installation is working by running the following image `sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` and getting the same output as in step 2 above.
-7. You might want to deactivate kernel automatic upgrades:
-```bash
-sudo apt-get remove linux-image-virtual
-sudo apt-get autoremove
-```
-
-## Getting and configuring `app-in-browser`
-1. Clone the repository with `git clone --recurse-submodules https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
-2. `cd` into the `app-in-browser` directory.
-3. Change to the branch of your liking. If unsure use the `master` branch.
-4. Run `git submodule update --init` to get the right version of the submodules.
-5. Run `cp .env.template .env` to copy the .env file from its template.
-6. By default, docker only allows to create 32 bridge networks. As each server uses two of them, you'll only be able to start 16 servers with the default configuration. To bump this number to 256 servers, add the following to `/etc/docker/daemon.json`:
+## Docker configuration
+1. By default, docker only allows to create 32 bridge networks. As each server uses two of them, you'll only be able to start 16 servers with the default configuration. To bump this number to 256 servers, add the following to `/etc/docker/daemon.json`:
 ```json
 {
    "default-address-pools":[
@@ -55,24 +31,55 @@ sudo apt-get autoremove
 ```
 then restart the docker service with `sudo systemctl restart docker`.
 
-7. If you don't have a supported Nvidia graphics card, you need to the modify the `.env` file as follows:
+## GPU support setup (optional)
+1. Install the recommended Nvidia drivers for your system. Check which ones are recommended using the command `ubuntu-drivers devices` and then install them using `sudo ubuntu-drivers autoinstall`.
+2. Reboot the system with `sudo reboot` and check that the drivers are functional using `sudo nvidia-smi`. Additionnaly you can check that the nvidia module is loaded with `lspci -nnk | grep -i nvidia`.
+3. Install the nvidia-docker runtime stable repository and GPG key:
 ```bash
-CARD=none
-RUNTIME=runc
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
+   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 ```
-8. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `CARD` variable to match the output of
+4. Run `sudo apt-get update` and then install the runtime with `sudo apt-get install -y nvidia-docker2`.
+5. Finally restart the docker service with `sudo systemctl restart docker`.
+6. You can test your installation is working by running the following image `sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` and getting the same output as in step 2 above.
+7. You might want to deactivate kernel automatic upgrades:
+```bash
+sudo apt-get remove linux-image-virtual
+sudo apt-get autoremove
+```
+
+## Getting `app-in-browser`
+1. Clone the repository with `git clone --recurse-submodules https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
+2. `cd` into the `app-in-browser` directory.
+3. Change to the branch of your liking. If unsure use the `master` branch.
+4. Run `git submodule update --init` to get the right version of the submodules.
+
+## Configuring `app-in-browser`
+1. Run `cp hip.config.template.yml hip.config.yml` to copy the config file from its template.
+2. Edit the config file as specified in the next points.
+3. If you don't have a supported Nvidia graphics card, you need to edit these settings:
+```yaml
+backend:
+  dri:
+    card: none
+    runtime: runc
+```
+4. If you have several graphics cards on your machine, you need to figure out which one is the Nvidia one and configure `app-in-browser` to use it. Change the `card` variable above to match the output of
 ```bash
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
-9. Set `vm.overcommit_memory = 2` in `/etc/sysctl.conf` to avoid memory overcommitting.
-10. In the `.env` file, enter the `auth_backend` credentials generated on the frontend.
-11. In the `.env` file, if you'd like to use `keycloak`, enter the `keycloak` client information and set to `XPRA_KEYCLOAK_AUTH` to `yes`.
-12. In the `.env` file, put the `tls` certificate you generated on the frontend in `DOCKERFS_CERT`. Make sure it's a one-line variable.
-13. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
-14. Install and start the backend with `./scripts/installbackend.sh`.
-15. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`.
-16. Build all docker images with `./scripts/buildall.py`. Sit back as this will likely take some time :)
-17. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
+
+5. Edit the ['backend']['auth'] settings with the credentials generated on the frontend.
+6. If you'd like to use `keycloak`, enter the `keycloak` client information and set to `['server']['keycloak']['auth']` to `yes`.
+7. Put the `tls` certificate you generated on the frontend in `['base']['dockerfs']['cert']`. Make sure it's a one-line variable. You can use the following command:
+```bash
+awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' /path/to/cert.pem
+```
+8. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+9. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`.
+10. Install the HIP backend with `./scripts/install.sh`.
+11. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 There are two options to control `app-in-browser`. You can use the REST API, or bash scripts. The former is used for integration and the latter option can be used for debug.
