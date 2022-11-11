@@ -69,20 +69,6 @@ else:
   print(f"Failed to run xpra-server because CI registry image wasn't found in hip.config.yml")
   exit(1)
 
-#get login info for registry
-if hip_config['backend']['ci']['registry']:
-  registry_username=hip_config['backend']['ci']['registry']['username']
-  registry_token=hip_config['backend']['ci']['registry']['token']
-else:
-  print(f"Failed to run {args.app_name} because registry info wasn't found in hip.config.yml")
-  exit(1)
-
-#login to registry
-ret_val = subprocess.check_call(["docker", "login", ci_registry_image, \
-                                                    "-u", registry_username, \
-                                                    "-p", registry_token], stderr=subprocess.DEVNULL)
-assert ret_val == 0, f"Failed running {args.app_name} because login to registry failed."
-
 #create volume
 ret_val = subprocess.check_call(["docker", "volume", "create", f"{container_name}_x11-unix"])
 assert ret_val == 0, f"Failed creating volume {container_name}_x11-unix."
@@ -124,8 +110,3 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", f"XPRA_KEYCLOAK_GRANT_TYPE={grant_type}", \
                                                   f"{ci_registry_image}/xpra-server:{xpra_version}{tag}"])
 assert ret_val == 0, f"Failed running xpra-server-${container_name}."
-
-
-#logout from registry
-ret_val = subprocess.check_call(["docker", "logout", ci_registry_image])
-assert ret_val == 0, f"Failed running {args.app_name} because logout from registry failed."
