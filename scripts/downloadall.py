@@ -42,33 +42,33 @@ ret_val = subprocess.check_call(["docker", "login", ci_registry_image, \
                                                     "-p", registry_token], stderr=subprocess.DEVNULL)
 assert ret_val == 0, f"Failed running {args.app_name} because login to registry failed."
 
-# download base images
-base_list = hip['base']
-for base, params in base_list.items():
-  if params['state']:
-    #getting the base image version
-    if hip['base'][base]['version']:
-      version=hip['base'][base]['version']
-    else:
-      print(f"Failed to download {base} because it wasn't found in hip.yml")
-      exit(1)
-    # loop over all versions
-    if not isinstance(version, list):
-      version = [version]
-    for index, ver in enumerate(version):
-      # special case for matlab-runtime
-      if base == 'matlab-runtime':
-        # get update
-        update = hip['base']['matlab-runtime']['update'][index]
-        image = f"{base}:{ver}_u{update}{tag}"
-      else:
-        image = f"{base}:{ver}{tag}"
-      registry_image = f"{ci_registry_image}/{image}"
-      #pulling the base image
-      ret_val = subprocess.check_call(["docker", "pull", f"{registry_image}"])
-      assert ret_val == 0, f"Failed pulling {base}."
-  else:
-    print(f"Skipping {params['name']} because it is in state {params['state']}.")
+## download base images
+#base_list = hip['base']
+#for base, params in base_list.items():
+#  if params['state']:
+#    #getting the base image version
+#    if hip['base'][base]['version']:
+#      version=hip['base'][base]['version']
+#    else:
+#      print(f"Failed to download {base} because it wasn't found in hip.yml")
+#      exit(1)
+#    # loop over all versions
+#    if not isinstance(version, list):
+#      version = [version]
+#    for index, ver in enumerate(version):
+#      # special case for matlab-runtime
+#      if base == 'matlab-runtime':
+#        # get update
+#        update = hip['base']['matlab-runtime']['update'][index]
+#        image = f"{base}:{ver}_u{update}{tag}"
+#      else:
+#        image = f"{base}:{ver}{tag}"
+#      registry_image = f"{ci_registry_image}/{image}"
+#      #pulling the base image
+#      ret_val = subprocess.check_call(["docker", "pull", f"{registry_image}"])
+#      assert ret_val == 0, f"Failed pulling {base}."
+#  else:
+#    print(f"Skipping {params['name']} because it is in state {params['state']}.")
 
 # download server
 if hip['server']['xpra']['state']:
