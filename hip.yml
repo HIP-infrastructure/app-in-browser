@@ -103,7 +103,7 @@ base:
 
   ghostfs:
     name: "GhostFS"
-    version: linux-b97dd75
+    version: linux-9b466ec-dev
     state: ready
 
   davfs2:
