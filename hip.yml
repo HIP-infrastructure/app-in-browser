@@ -36,7 +36,7 @@ apps:
 
   fsl:
     name: "FSL"
-    version: 6.0.5.2
+    version: 6.0.6
     url: "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data."
     state: ready
