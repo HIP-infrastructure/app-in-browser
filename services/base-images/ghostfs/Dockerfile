@@ -14,7 +14,7 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
     fuse libfuse2 curl && \
-    curl -OL# https://github.com/pouya-eghbali/ghostfs-builds/releases/download/$VERSION-$TAG/GhostFS && \
+    curl -OL# https://github.com/pouya-eghbali/ghostfs-builds/releases/download/$VERSION$TAG/GhostFS && \
     chmod +x GhostFS && \
     mv GhostFS /usr/bin && \
     apt-get remove -y --purge curl && \
