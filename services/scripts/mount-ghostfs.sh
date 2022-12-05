@@ -23,7 +23,8 @@ echo "done."
 echo -n "Mounting ${NEXTCLOUD_DOMAIN} for ${HIP_USER} as ghostfs... "
 #rm -f /var/run/mount.davfs/home-hipuser-nextcloud.pid
 
-CMD="GhostFS --client --host $NEXTCLOUD_HOST --port $NEXTCLOUD_PORT --cert /apps/ghostfs/secrets/cert.pem -o big_writes -o large_read -o allow_root --write-back 0 --read-ahead 0 --user $HIP_USER --token $HIP_PASSWORD /home/$HIP_USER/nextcloud & echo \$! > /tmp/ghostfs_pid"
+CMD="GhostFS --client --host $NEXTCLOUD_HOST --port $NEXTCLOUD_PORT --cert /apps/ghostfs/secrets/cert.pem -o big_writes -o large_read -o allow_root -o debug --write-back 0 --read-ahead 0 --user $HIP_USER --token $HIP_PASSWORD /home/$HIP_USER/nextcloud & echo \$! > /tmp/ghostfs_pid"
+#CMD="GhostFS --client --host $NEXTCLOUD_HOST --port $NEXTCLOUD_PORT --cert /apps/ghostfs/secrets/cert.pem -o big_writes -o large_read -o allow_root --write-back 0 --read-ahead 0 --user $HIP_USER --token $HIP_PASSWORD /home/$HIP_USER/nextcloud & echo \$! > /tmp/ghostfs_pid"
 runuser -l $HIP_USER -c "$CMD"
 
 sleep 2
