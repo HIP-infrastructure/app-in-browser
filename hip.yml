@@ -125,5 +125,5 @@ base:
 server:
   xpra:
     name: "Xpra"
-    version: ubuntu-main
+    version: master
     state: ready
