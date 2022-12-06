@@ -53,7 +53,7 @@ apps:
     version: 5.0.4
     url: "https://github.com/IntrAnatSEEGSoftware/IntrAnat"
     description: "IntrAnat is a free database and visualization software for Intracranial Electroencephalographic (iEEG) data."
-    state: beta
+    state: off
 
   localizer:
     name: "Localizer"
