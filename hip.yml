@@ -48,6 +48,13 @@ apps:
     description: "HiBoP illustrates the possibility to render group-level activity dynamically at the cortical level, for several experimental conditions (columns) of the same cognitive paradigm."
     state: ready
 
+  intranat:
+    name: "IntrAnat"
+    version: latest
+    url: "https://github.com/IntrAnatSEEGSoftware/IntrAnat"
+    description: "IntrAnat is a free database and visualization software for Intracranial Electroencephalographic (iEEG) data."
+    state: beta
+
   localizer:
     name: "Localizer"
     version: 4.4.1

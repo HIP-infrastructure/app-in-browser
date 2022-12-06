@@ -37,3 +37,6 @@
 [submodule "services/apps/tvb"]
 	path = services/apps/tvb
 	url = git@github.com:HIP-infrastructure/tvb.git
+[submodule "services/apps/intranat"]
+	path = services/apps/intranat
+	url = git@github.com:HIP-infrastructure/intranat.git
