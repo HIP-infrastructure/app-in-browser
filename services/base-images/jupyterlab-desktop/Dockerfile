@@ -1,13 +1,15 @@
 ARG CI_REGISTRY_IMAGE
+ARG TAG
 ARG DOCKERFS_TYPE
 ARG DOCKERFS_VERSION
-FROM ${CI_REGISTRY_IMAGE}/${DOCKERFS_TYPE}:${DOCKERFS_VERSION}
+FROM ${CI_REGISTRY_IMAGE}/${DOCKERFS_TYPE}:${DOCKERFS_VERSION}${TAG}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG JUPYTERLAB_DESKTOP_VERSION
+ARG VERSION
 
-LABEL base_image_version=${JUPYTERLAB_DESKTOP_VERSION}
+LABEL base_image_version=${VERSION}
+LABEL base_image_tag=${TAG}
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -20,8 +22,8 @@ RUN apt-get update && \
     conda install -c conda-forge -y nodejs constructor && \
     npm install -g yarn && \
     cd /apps && \
-    curl -L# https://github.com/jupyterlab/jupyterlab-desktop/archive/refs/tags/v${JUPYTERLAB_DESKTOP_VERSION}.tar.gz | tar xzf - && \
-    mv jupyterlab-desktop-${JUPYTERLAB_DESKTOP_VERSION} jupyterlab-desktop && \
+    curl -L# https://github.com/jupyterlab/jupyterlab-desktop/archive/refs/tags/v${VERSION}.tar.gz | tar xzf - && \
+    mv jupyterlab-desktop-${VERSION} jupyterlab-desktop && \
     cd jupyterlab-desktop && \
     conda update -y nodejs && \
     yarn install && \
@@ -35,4 +37,4 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN echo "Done installing JupyterLab Desktop version ${JUPYTERLAB_DESKTOP_VERSION}"
+RUN echo "Done installing JupyterLab Desktop version ${DESKTOP_VERSION}"

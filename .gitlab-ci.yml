@@ -37,6 +37,7 @@ build-all-job:
   stage: build
   only:
     - master
+    - dev
   script:
     - /bin/bash -c "python3 scripts/buildall.py"
   interruptible: true

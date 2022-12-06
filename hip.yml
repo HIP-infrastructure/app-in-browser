@@ -1,6 +1,3 @@
-backend:
-  version : dev
-
 apps:
   anywave:
     name: "AnyWave"
@@ -39,21 +36,21 @@ apps:
 
   fsl:
     name: "FSL"
-    version: 6.0.5.2
+    version: 6.0.6
     url: "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data."
     state: ready
 
   hibop:
     name: "HiBoP"
-    version: 4.0.1
+    version: 4.1.0
     url: "https://github.com/hbp-HiBoP/HiBoP"
     description: "HiBoP illustrates the possibility to render group-level activity dynamically at the cortical level, for several experimental conditions (columns) of the same cognitive paradigm."
     state: ready
 
   localizer:
     name: "Localizer"
-    version: 4.3.2
+    version: 4.4.1
     url: "https://github.com/CRNL-Eduwell/Localizer"
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
     state: ready
@@ -91,4 +88,42 @@ apps:
     version: 0.7
     url: "https://www.thevirtualbrain.org"
     description: "Simulate a human brain, right on your PC!"
+    state: beta
+
+base:
+  virtualgl:
+    name: "VirtualGL"
+    version: 3.0.2
+    state: ready
+
+  terminal:
+    name: "Wezterm"
+    version: 20220905-102802-7d4b8249
+    state: ready
+
+  ghostfs:
+    name: "GhostFS"
+    version: linux-8a3c637
+    state: ready
+
+  davfs2:
+    name: "DavFS2"
+    version: 1.6.0-1
     state: off
+
+  matlab-runtime:
+    name: "Matlab Runtime"
+    version: [R2020a,R2020b]
+    update: [7,6]
+    state: ready
+
+  jupyterlab-desktop:
+    name: "JupyterLab Destop"
+    version: 3.2.3-1
+    state: ready
+
+server:
+  xpra:
+    name: "Xpra"
+    version: master
+    state: ready

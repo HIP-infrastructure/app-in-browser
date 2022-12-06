@@ -1,0 +1,29 @@
+backend:
+  ci:
+    registry:
+      image: registry.hbp.link/hip/app-in-browser
+      username: registry_username
+      token: registry_token
+    commit_branch: dev
+  dri:
+    card: card0
+    runtime: nvidia
+  auth:
+    username: example_username
+    password: example_password
+
+server:
+  keycloak:
+    auth: no
+    server_url: http://localhost:8080/auth/
+    realm_name: exampe_realm
+    client_id: exampe_client
+    client_secret: secret
+    redirect_uri_base: http://localhost/login/
+    scope: "openid email profile group roles team"
+    grant_type: authorization_code
+
+base:
+  dockerfs:
+    type: ghostfs
+    cert: your_cert

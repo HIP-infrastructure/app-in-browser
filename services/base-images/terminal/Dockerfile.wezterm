@@ -1,12 +1,14 @@
 ARG CI_REGISTRY_IMAGE
+ARG TAG
 ARG VIRTUALGL_VERSION
-FROM ${CI_REGISTRY_IMAGE}/vgl-base:${VIRTUALGL_VERSION}
+FROM ${CI_REGISTRY_IMAGE}/virtualgl:${VIRTUALGL_VERSION}${TAG}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
-ARG WEZTERM_VERSION
+ARG VERSION
 
-LABEL app_version=$WEZTERM_VERSION
+LABEL base_image_version=$VERSION
+LABEL base_image_version=$TAG
 
 WORKDIR /apps/terminal
 
@@ -16,9 +18,9 @@ RUN apt-get update && \
     curl libfontconfig1 libwayland-egl1 libxcb-image0 \
     libxcb-util1 libxkbcommon-x11-0  libxkbcommon0 \
     libxcb-keysyms1 && \
-    curl -LO# https://github.com/wez/wezterm/releases/download/${WEZTERM_VERSION}/wezterm-${WEZTERM_VERSION}.Ubuntu20.04.deb && \
-    dpkg -i wezterm-${WEZTERM_VERSION}.Ubuntu20.04.deb && \
-    rm wezterm-${WEZTERM_VERSION}.Ubuntu20.04.deb && \
+    curl -LO# https://github.com/wez/wezterm/releases/download/${VERSION}/wezterm-${VERSION}.Ubuntu20.04.deb && \
+    dpkg -i wezterm-${VERSION}.Ubuntu20.04.deb && \
+    rm wezterm-${VERSION}.Ubuntu20.04.deb && \
     apt-get remove -y --purge curl && \
     apt-get autoremove -y --purge && \
     apt-get clean && \

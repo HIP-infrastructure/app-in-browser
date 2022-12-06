@@ -1,11 +1,13 @@
 ARG CI_REGISTRY_IMAGE
+ARG TAG
 ARG VIRTUALGL_VERSION
-FROM ${CI_REGISTRY_IMAGE}/vgl-base:${VIRTUALGL_VERSION}
+FROM ${CI_REGISTRY_IMAGE}/virtualgl:${VIRTUALGL_VERSION}${TAG}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG CARD
 ARG XPRA_VERSION
+ARG XPRA_KEYCLOAK_AUTH
 ARG XPRA_KEYCLOAK_SERVER_URL
 ARG XPRA_KEYCLOAK_REALM_NAME
 ARG XPRA_KEYCLOAK_CLIENT_ID
@@ -15,15 +17,15 @@ ARG XPRA_KEYCLOAK_SCOPE
 ARG XPRA_KEYCLOAK_GRANT_TYPE
 
 LABEL server_version=$XPRA_VERSION
+LABEL server_tag=$TAG
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install --no-install-recommends -y \ 
+    apt-get install --no-install-recommends -y \
     software-properties-common gnupg \
     xvfb x11-xserver-utils python3-pip \
     python3-gst-1.0 \
     dbus-x11 python3-dbus pulseaudio \
-    #build-essential \
     python3-xdg menu-xdg curl && \
     pip3 install requests==2.25.1 urllib3==1.26.5 \
     pyinotify netifaces oauthlib python-keycloak && \
