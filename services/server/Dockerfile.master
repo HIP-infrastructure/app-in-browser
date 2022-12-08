@@ -39,35 +39,56 @@ RUN apt-get update && \
     libjs-jquery libjs-jquery-ui xserver-xorg-video-dummy \
     software-properties-common gnupg \
     x11-xserver-utils python3-pip \
-    python3-gst-1.0 \
+    python3-gst-1.0 python3-pycuda \
     dbus-x11 python3-dbus pulseaudio \
     python3-xdg menu-xdg curl && \
     pip3 install requests==2.25.1 urllib3==1.26.5 \
     pyinotify netifaces oauthlib python-keycloak
 #    #pip3 install python-uinput
 
+# for nvenc
+RUN curl -O# https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb && \
+    dpkg -i cuda-keyring_1.0-1_all.deb && \
+    apt-get update && \
+    apt-get -y install cuda
+
 RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     apt-get install -y nodejs && \
     npm i uglify-js -g
 
-#RUN git clone https://github.com/HIP-infrastructure/xpra.git
-#ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak-fixes&per_page=1" xpra_latest_commit
-RUN git clone https://github.com/Xpra-org/xpra.git
-ADD "https://api.github.com/repos/Xpra-org/xpra/commits?sha=master&per_page=1" xpra_latest_commit
+RUN git clone https://github.com/HIP-infrastructure/xpra.git
+ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak-fixes&per_page=1" xpra_latest_commit
+
+#RUN git clone https://github.com/Xpra-org/xpra.git
+#ADD "https://api.github.com/repos/Xpra-org/xpra/commits?sha=master&per_page=1" xpra_latest_commit
+
 RUN cd xpra && \
 #   git checkout keycloak-fixes && \
     git pull && \
 #   git checkout 0f22c8e && \
-#    git checkout v4.4.1 && \
-    git checkout v4.4 && \
-    ln -sf ./packaging/debian/xpra ./debian && \
+#   git checkout v4.4 && \
+    git checkout deb && \
+
+# building a deb package
+    #ln -sf ./packaging/debian/xpra ./debian && \
     debuild -us -uc -b && \
     cd ..
 
+# building from source
+#    python3 ./setup.py install --prefix=/usr \
+#    --with-bencode \
+#    --with-cython_bencode \
+#    --with-server \
+#    --with-x11 && \
+#    sh packaging/debian/xpra/xpra.postinst configure && \
+#    cd ..
+
 #RUN git clone https://github.com/HIP-infrastructure/xpra-html5
 #ADD "https://api.github.com/repos/HIP-infrastructure/xpra-html5/commits?sha=keycloak&per_page=1" xpra_html5_latest_commit
+
 RUN git clone https://github.com/Xpra-org/xpra-html5
 ADD "https://api.github.com/repos/Xpra-org/xpra-html5/commits?sha=master&per_page=1" xpra_html5_latest_commit
+
 RUN cd xpra-html5 && \
 #   git checkout keycloak && \
     git pull && \
@@ -104,8 +125,10 @@ WORKDIR /home/xpra
 # copy xpra config files
 COPY server/config/xpra.conf /etc/xpra/xpra.conf
 COPY server/config/10_content_security_policy.txt /etc/xpra/http-headers/10_content_security_policy.txt
-COPY server/config/default.png /usr/share/backgrounds/images/default.png
+COPY server/config/default.png /usr/share/backgrounds/default.png
 COPY server/config/default-settings.txt /etc/xpra/html5-client/default-settings.txt
+
+RUN ln -sf /usr/share/backgrounds/default.png /usr/share/backgrounds/ubuntu-default-greyscale-wallpaper.png
 
 # copy entrypoint script and other scripts used in it
 COPY server/config/docker-entrypoint.sh /home/xpra/docker-entrypoint.sh
