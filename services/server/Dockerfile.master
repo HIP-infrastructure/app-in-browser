@@ -94,8 +94,8 @@ RUN cd xpra-html5 && \
     git pull && \
 #   git checkout ecc3a08 && \ #good
 #   git checkout ced316f && \ #bad
-#   git checkout v6.0 && \
-    git checkout v5.0 && \
+#   git checkout v6.1 && \
+#   git checkout v5.0 && \
     ./setup.py deb && \
     cd ..
 
