@@ -126,10 +126,14 @@ def control_server():
   action = request.args.get('action')
   server_id = request.args.get('sid')
   hip_user = request.args.get('hipuser')
+  auth_groups = request.args.get('groups')
+
+  keycloak_auth = False
 
   if action is not None and server_id is not None and hip_user is not None:
     if action == "start":
       script = "startserver.py"
+      keycloak_auth = True
     elif action == "pause":
       script = "pauseserver.sh"
     elif action == "resume":
@@ -148,10 +152,13 @@ def control_server():
       raise InvalidUsage('Invalid action', status_code=500)
 
     cmd = [SCRIPT_DIR + script, server_id, hip_user]
-    output = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True)
+    if keycloak_auth:
+      cmd.extend([auth_groups])
 
     if action != "status":
       print(cmd)
+
+    output = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True)
 
     cmd = [SCRIPT_DIR + "getport.sh", server_id, hip_user]
     port = subprocess.run(cmd, cwd=DOCKER_PATH, text=True, capture_output=True).stdout.rstrip()

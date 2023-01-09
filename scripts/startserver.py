@@ -2,6 +2,7 @@
 
 import argparse
 import yaml
+import json
 import subprocess
 import os
 import socket
@@ -10,9 +11,13 @@ import socket
 parser = argparse.ArgumentParser()
 parser.add_argument("server_id", help="server_id of the server to run the app on")
 parser.add_argument("hip_user", help="nextcloud username of the hip user to run the app as")
+parser.add_argument("auth_groups", help="groups allowed to use this server")
 args = parser.parse_args()
 
 container_name = f"{args.server_id}-{args.hip_user}"
+
+# parsing auth_groups
+auth_groups = " ".join(json.loads(args.auth_groups))
 
 #loading hip.yaml
 with open('hip.yml') as f:
@@ -57,6 +62,8 @@ if hip_config['server']['keycloak']:
   client_secret=hip_config['server']['keycloak']['client_secret']
   redirect_uri_base=hip_config['server']['keycloak']['redirect_uri_base']
   scope=hip_config['server']['keycloak']['scope']
+  groups_claim=hip_config['server']['keycloak']['groups_claim']
+  auth_condition=hip_config['server']['keycloak']['auth_condition']
   grant_type=hip_config['server']['keycloak']['grant_type']
 else:
   print(f"Failed to load runtime it wasn't found in hip_config.yml")
@@ -107,6 +114,9 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", f"XPRA_KEYCLOAK_CLIENT_SECRET_KEY={client_secret}", \
                                                   "--env", f"XPRA_KEYCLOAK_REDIRECT_URI={redirect_uri_base}{port}", \
                                                   "--env", f"XPRA_KEYCLOAK_SCOPE=\"{scope}\"", \
+                                                  "--env", f"XPRA_KEYCLOAK_GROUPS_CLAIM={groups_claim}", \
+                                                  "--env", f"XPRA_KEYCLOAK_AUTH_GROUPS=\"{auth_groups}\"", \
+                                                  "--env", f"XPRA_KEYCLOAK_AUTH_CONDITION={auth_condition}", \
                                                   "--env", f"XPRA_KEYCLOAK_GRANT_TYPE={grant_type}", \
                                                   f"{ci_registry_image}/xpra-server:{xpra_version}{tag}"])
 assert ret_val == 0, f"Failed running xpra-server-${container_name}."
