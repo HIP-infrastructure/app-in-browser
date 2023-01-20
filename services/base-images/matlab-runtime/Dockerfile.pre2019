@@ -1,0 +1,32 @@
+ARG CI_REGISTRY_IMAGE
+ARG TAG
+ARG DOCKERFS_TYPE
+ARG DOCKERFS_VERSION
+FROM ${CI_REGISTRY_IMAGE}/${DOCKERFS_TYPE}:${DOCKERFS_VERSION}${TAG}
+LABEL maintainer="nathalie.casati@chuv.ch"
+
+ARG DEBIAN_FRONTEND=noninteractive
+ARG VERSION
+ARG UPDATE
+
+LABEL base_image_version=${VERSION}_u${UPDATE}
+LABEL base_image_tag=${TAG}
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install --no-install-recommends -y \
+    curl unzip libxt6 && \
+    mkdir files && \
+    curl -O# https://ssd.mathworks.com/supportfiles/downloads/${VERSION}/deployment_files/${VERSION}/installers/glnxa64/MCR_${VERSION}_glnxa64_installer.zip && \
+    unzip -q -d files MCR_${VERSION}_glnxa64_installer.zip && \
+    ./files/install -agreeToLicense yes -mode silent && \
+    rm -rf MCR_${VERSION}_glnxa64_installer.zip files && \
+    rm -rf /usr/local/MATLAB/MATLAB_Runtime/v9*/sys/os/glnxa64/libstdc++.so.6 && \
+    apt-get remove -y --purge curl unzip && \
+    apt-get autoremove -y --purge && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+#ENV LD_LIBRARY_PATH /usr/local/MATLAB/MATLAB_Runtime/v95/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v95/bin/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v95/sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v95/extern/bin/glnxa64:${LD_LIBRARY_PATH}
+
+RUN echo "Done installing Matlab Runtime version ${VERSION}_u${UPDATE}"

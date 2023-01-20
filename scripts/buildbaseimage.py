@@ -76,12 +76,15 @@ if not isinstance(version, list):
 for index, ver in enumerate(version):
   # define some needed variables
   context = './services'
+  dockerfile = 'Dockerfile'
   update = ''
   # special case for matlab-runtime
   if name == 'matlab-runtime':
     # get update
     update = hip['base']['matlab-runtime']['update'][index]
     image = f"{name}:{ver}_u{update}{tag}"
+    if ver == 'R2015a':
+      dockerfile = f"{dockerfile}.pre2019"
   else:
     image = f"{name}:{ver}{tag}"
   registry_image = f"{ci_registry_image}/{image}"
@@ -104,7 +107,7 @@ for index, ver in enumerate(version):
                                                       "--build-arg", f"DOCKERFS_TYPE={dockerfs_type}", \
                                                       *(["--cache-from", registry_image] if ci_registry else []),
                                                       "-t", registry_image, \
-                                                      "-f", f"{context}/base-images/{name}/Dockerfile", \
+                                                      "-f", f"{context}/base-images/{name}/{dockerfile}", \
                                                       context])
   assert ret_val == 0, f"Failed building {name}."
 
