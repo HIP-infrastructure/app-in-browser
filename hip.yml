@@ -128,7 +128,7 @@ apps:
 base:
   virtualgl:
     name: "VirtualGL"
-    version: 3.0.90
+    version: 3.0.91
     state: ready
 
   terminal:
