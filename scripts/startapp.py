@@ -84,7 +84,10 @@ else:
   exit(1)
 #getting the dockerfs cert
 if hip_config['base']['dockerfs']['type']:
-  dockerfs_cert=hip_config['base']['dockerfs']['cert']
+  if "collab" in args.nextcloud_domain:
+    dockerfs_cert=hip_config['base']['dockerfs']['cert_collab']
+  else:
+    dockerfs_cert=hip_config['base']['dockerfs']['cert_private']
 else:
   print(f"Failed to run {args.app_name} because dockerfs cert wasn't found in hip.config.yml")
   exit(1)
