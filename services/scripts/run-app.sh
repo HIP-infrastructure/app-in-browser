@@ -22,7 +22,7 @@ if [ $APP_SPECIAL == "terminal" ]; then
 elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
   PROCESS_NAME="electron"
   APP_NAME="jupyterlab-desktop"
-  APP_CMD="/apps/jupyterlab-desktop/node_modules/electron/dist/electron --no-sandbox /apps/jupyterlab-desktop"
+  APP_CMD="jlab"
 fi
 
 #run $APP_NAME as $HIP_USER
