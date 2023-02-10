@@ -153,8 +153,8 @@ base:
     state: ready
 
   jupyterlab-desktop:
-    name: "JupyterLab Destop"
-    version: 3.2.3-1
+    name: "JupyterLab Desktop"
+    version: 3.6.1-1
     state: ready
 
 server:

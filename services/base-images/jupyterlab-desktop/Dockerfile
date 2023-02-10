@@ -14,24 +14,11 @@ LABEL base_image_tag=${TAG}
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
-    curl && \
-    curl -LO# https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    bash Miniconda3-latest-Linux-x86_64.sh -b -p /apps/conda && \
-    rm Miniconda3-latest-Linux-x86_64.sh && \
-    export PATH=/apps/conda/bin:$PATH && \
-    conda install -c conda-forge -y nodejs constructor && \
-    npm install -g yarn && \
-    cd /apps && \
-    curl -L# https://github.com/jupyterlab/jupyterlab-desktop/archive/refs/tags/v${VERSION}.tar.gz | tar xzf - && \
-    mv jupyterlab-desktop-${VERSION} jupyterlab-desktop && \
-    cd jupyterlab-desktop && \
-    conda update -y nodejs && \
-    yarn install && \
-    yarn build && \
-    yarn create_env_installer:linux && \
-    env_installer/JupyterLabDesktopAppServer-*-Linux-x86_64.sh -b -p /apps/jlab_server && \
-    # rm -rf env_installer && \
-    export PATH=/apps/jlab_server/bin:$PATH && \
+    curl libgtk-3-0 libnotify4 libnss3 libxss1 \
+    xdg-utils libatspi2.0-0 libsecret-1-0 && \
+    curl -LO# https://github.com/jupyterlab/jupyterlab-desktop/releases/download/v${VERSION}/JupyterLab-Setup-Debian.deb && \
+    dpkg -i JupyterLab-Setup-Debian.deb && \
+    rm -rf JupyterLab-Setup-Debian.deb && \
     apt-get remove -y --purge curl && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
