@@ -1,4 +1,5 @@
 #!/bin/bash
 
-./scripts/installbackend.sh
+./scripts/restrictnetwork.sh
 ./scripts/downloadall.py
+./scripts/installbackend.sh

@@ -21,6 +21,8 @@ server:
     client_secret: secret
     redirect_uri_base: http://localhost/login/
     scope: "openid email profile group roles team"
+    groups_claim: "roles.group"
+    auth_condition: "and"
     grant_type: authorization_code
 
 base:

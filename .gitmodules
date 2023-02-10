@@ -37,3 +37,18 @@
 [submodule "services/apps/tvb"]
 	path = services/apps/tvb
 	url = git@github.com:HIP-infrastructure/tvb.git
+[submodule "services/apps/intranat"]
+	path = services/apps/intranat
+	url = git@github.com:HIP-infrastructure/intranat.git
+[submodule "services/apps/vscode"]
+	path = services/apps/vscode
+	url = git@github.com:HIP-infrastructure/vscode.git
+[submodule "services/apps/libreoffice"]
+	path = services/apps/libreoffice
+	url = git@github.com:HIP-infrastructure/libreoffice.git
+[submodule "services/apps/filemanager"]
+	path = services/apps/filemanager
+	url = git@github.com:HIP-infrastructure/filemanager.git
+[submodule "services/apps/gardel"]
+	path = services/apps/gardel
+	url = git@github.com:HIP-infrastructure/gardel.git
