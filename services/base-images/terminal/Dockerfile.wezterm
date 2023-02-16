@@ -26,6 +26,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY base-images/terminal/config/wezterm.lua wezterm.lua
+#COPY base-images/terminal/config/wezterm.lua wezterm.lua
 
 RUN echo "Done installing Terminal"
