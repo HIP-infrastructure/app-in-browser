@@ -18,7 +18,7 @@ RUN apt-get update && \
     curl libfontconfig1 libwayland-egl1 libxcb-image0 \
     libxcb-util1 libxkbcommon-x11-0  libxkbcommon0 \
     libxcb-keysyms1 && \
-    curl -LO# https://github.com/wez/wezterm/releases/download/${VERSION}/wezterm-${VERSION}.Ubuntu20.04.deb && \
+    curl -sSLO https://github.com/wez/wezterm/releases/download/${VERSION}/wezterm-${VERSION}.Ubuntu20.04.deb && \
     dpkg -i wezterm-${VERSION}.Ubuntu20.04.deb && \
     rm wezterm-${VERSION}.Ubuntu20.04.deb && \
     apt-get remove -y --purge curl && \

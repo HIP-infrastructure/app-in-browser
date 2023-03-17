@@ -17,7 +17,7 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     curl unzip libxt6 && \
     mkdir files && \
-    curl -O# https://ssd.mathworks.com/supportfiles/downloads/${VERSION}/deployment_files/${VERSION}/installers/glnxa64/MCR_${VERSION}_glnxa64_installer.zip && \
+    curl -sSO https://ssd.mathworks.com/supportfiles/downloads/${VERSION}/deployment_files/${VERSION}/installers/glnxa64/MCR_${VERSION}_glnxa64_installer.zip && \
     unzip -q -d files MCR_${VERSION}_glnxa64_installer.zip && \
     ./files/install -agreeToLicense yes -mode silent && \
     rm -rf MCR_${VERSION}_glnxa64_installer.zip files && \
