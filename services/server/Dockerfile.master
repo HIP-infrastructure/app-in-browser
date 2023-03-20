@@ -45,12 +45,12 @@ RUN apt-get update && \
     python3-gst-1.0 python3-pycuda \
     dbus-x11 python3-dbus pulseaudio \
     python3-xdg menu-xdg curl && \
-    pip3 install requests==2.25.1 urllib3==1.26.5 \
-    pyinotify netifaces oauthlib python-keycloak
-#    #pip3 install python-uinput
+#   pip3 install requests==2.25.1 urllib3==1.26.5 \
+    pip3 install pyinotify netifaces oauthlib python-keycloak
+#   pip3 install python-uinput
 
 # for nvenc
-RUN curl -O# https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb && \
+RUN curl -sSO https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb && \
     dpkg -i cuda-keyring_1.0-1_all.deb && \
     apt-get update && \
     apt-get -y install cuda
@@ -60,14 +60,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     npm i uglify-js -g
 
 RUN git clone https://github.com/HIP-infrastructure/xpra.git
-ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak-auth-groups&per_page=1" xpra_latest_commit
+ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak-auth-groups-new&per_page=1" xpra_latest_commit
 
 #RUN git clone https://github.com/Xpra-org/xpra.git
 #ADD "https://api.github.com/repos/Xpra-org/xpra/commits?sha=master&per_page=1" xpra_latest_commit
 
 RUN cd xpra && \
 #   git checkout keycloak-fixes && \
-    git checkout keycloak-auth-groups && \
+    git checkout keycloak-auth-groups-new && \
     git pull && \
 #   git checkout 0f22c8e && \
 #   git checkout v4.4 && \

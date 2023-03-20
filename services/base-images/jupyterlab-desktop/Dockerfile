@@ -16,7 +16,7 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     curl libgtk-3-0 libnotify4 libnss3 libxss1 \
     xdg-utils libatspi2.0-0 libsecret-1-0 && \
-    curl -LO# https://github.com/jupyterlab/jupyterlab-desktop/releases/download/v${VERSION}/JupyterLab-Setup-Debian.deb && \
+    curl -sSLO https://github.com/jupyterlab/jupyterlab-desktop/releases/download/v${VERSION}/JupyterLab-Setup-Debian.deb && \
     dpkg -i JupyterLab-Setup-Debian.deb && \
     rm -rf JupyterLab-Setup-Debian.deb && \
     apt-get remove -y --purge curl && \

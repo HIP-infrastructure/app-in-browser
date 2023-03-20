@@ -9,7 +9,7 @@
 
 blocked-hosts = xpra.org,www.xpra.org
 sharing = true
-clipboard = true
+clipboard = false
 file_transfer = false
 keyboard = false
 sound = false

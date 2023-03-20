@@ -30,7 +30,7 @@ RUN apt-get update && \
     pip3 install requests==2.25.1 urllib3==1.26.5 \
     pyinotify netifaces oauthlib python-keycloak && \
     #pip3 install python-uinput && \
-    curl -L# https://xpra.org/gpg.asc | apt-key add - && \
+    curl -sSL https://xpra.org/gpg.asc | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ focal main" && \
     apt-get update && \
     apt-get install --no-install-recommends -y xpra xpra-html5 && \
