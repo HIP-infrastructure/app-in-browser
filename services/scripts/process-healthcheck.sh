@@ -6,9 +6,9 @@ if [ $APP_SPECIAL == "terminal" ]; then
   APP_NAME="wezterm"
   APP_CMD="/usr/bin/wezterm"
 elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
-  PROCESS_NAME="electron"
+  PROCESS_NAME="jlab"
   APP_NAME="jupyterlab-desktop"
-  APP_CMD="/apps/jupyterlab-desktop/node_modules/electron/dist/electron --no-sandbox /apps/jupyterlab-desktop"
+  APP_CMD="jlab"
 fi
 
 PID=`ps ax |grep $PROCESS_NAME | grep -v $0 | awk '{print $1}' | tr '\n' ' '`

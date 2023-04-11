@@ -154,7 +154,7 @@ base:
 
   jupyterlab-desktop:
     name: "JupyterLab Desktop"
-    version: 3.6.1-1
+    version: 3.6.2-1
     state: ready
 
 server:

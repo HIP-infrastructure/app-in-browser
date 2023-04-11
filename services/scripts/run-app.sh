@@ -20,7 +20,7 @@ if [ $APP_SPECIAL == "terminal" ]; then
   chown -R $HIP_USER:$HIP_USER /home/$HIP_USER/.config/wezterm
   #CARD=none
 elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
-  PROCESS_NAME="electron"
+  PROCESS_NAME="jlab"
   APP_NAME="jupyterlab-desktop"
   APP_CMD="jlab"
 fi
