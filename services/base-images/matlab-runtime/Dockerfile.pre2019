@@ -21,7 +21,7 @@ RUN apt-get update && \
     unzip -q -d files MCR_${VERSION}_glnxa64_installer.zip && \
     ./files/install -agreeToLicense yes -mode silent && \
     rm -rf MCR_${VERSION}_glnxa64_installer.zip files && \
-    rm -rf /usr/local/MATLAB/MATLAB_Runtime/v9*/sys/os/glnxa64/libstdc++.so.6 && \
+    #rm -rf /usr/local/MATLAB/MATLAB_Runtime/v9*/sys/os/glnxa64/libstdc++.so.6 && \
     apt-get remove -y --purge curl unzip && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
