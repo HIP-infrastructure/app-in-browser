@@ -110,6 +110,7 @@ ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY
                                                     "--build-arg", f"FSL_VERSION={fsl_version}", \
                                                     *app_env,
                                                     *(["--cache-from", registry_image] if ci_registry else []),
+                                                    *(["--progress=plain"] if ci_registry else []),
                                                     "-t", registry_image, \
                                                     "-f", f"{context}/apps/{args.name}/Dockerfile", \
                                                     context])

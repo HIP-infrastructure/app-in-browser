@@ -53,7 +53,7 @@ apps:
     version: latest
     url: "https://meg.univ-amu.fr/wiki/GARDEL:presentation"
     description: "GARDEL is a tool for automatic segmentation and labelization of SEEG contacts."
-    state: off
+    state: beta
 
   hibop:
     name: "HiBoP"
@@ -148,8 +148,8 @@ base:
 
   matlab-runtime:
     name: "Matlab Runtime"
-    version: [R2020a,R2020b]
-    update: [7,6]
+    version: [R2018b,R2020a,R2020b]
+    update: [0,7,6]
     state: ready
 
   jupyterlab-desktop:

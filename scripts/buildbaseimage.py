@@ -83,7 +83,7 @@ for index, ver in enumerate(version):
     # get update
     update = hip['base']['matlab-runtime']['update'][index]
     image = f"{name}:{ver}_u{update}{tag}"
-    if ver == 'R2015a':
+    if (ver == 'R2015a' or ver == 'R2018b'):
       dockerfile = f"{dockerfile}.pre2019"
   else:
     image = f"{name}:{ver}{tag}"
@@ -106,6 +106,7 @@ for index, ver in enumerate(version):
                                                       "--build-arg", f"DOCKERFS_VERSION={dockerfs_version}", \
                                                       "--build-arg", f"DOCKERFS_TYPE={dockerfs_type}", \
                                                       *(["--cache-from", registry_image] if ci_registry else []),
+                                                      *(["--progress=plain"] if ci_registry else []),
                                                       "-t", registry_image, \
                                                       "-f", f"{context}/base-images/{name}/{dockerfile}", \
                                                       context])
