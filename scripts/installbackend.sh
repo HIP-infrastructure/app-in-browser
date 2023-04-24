@@ -33,6 +33,10 @@ then
     sudo npm install pm2 -g
     echo "pm2 installed."
 fi
+
+# generate backend credentials if needed
+./scripts/gencreds.sh
+
 cd pm2 && npm i && cd ..
 sudo pm2 start pm2/ecosystem.config.js
 sudo pm2 save

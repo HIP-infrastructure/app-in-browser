@@ -28,4 +28,5 @@ server:
 base:
   dockerfs:
     type: ghostfs
-    cert: your_cert
+    cert_private: your_cert_private
+    cert_collab: your_cert_collab

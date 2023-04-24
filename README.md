@@ -72,14 +72,13 @@ readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-c
 
 5. Edit the ['backend']['auth'] settings with the credentials generated on the frontend.
 6. If you'd like to use `keycloak`, enter the `keycloak` client information and set to `['server']['keycloak']['auth']` to `yes`.
-7. Put the `tls` certificate you generated on the frontend in `['base']['dockerfs']['cert']`. Make sure it's a one-line variable. You can use the following command:
+7. Put the `tls` certificates you generated on the frontend and collab in `['base']['dockerfs']['cert_private']` and `['base']['dockerfs']['cert_collab']` respectively. The certificates need to be transformed to single lines. You can use the following command:
 ```bash
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' /path/to/cert.pem
 ```
 8. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
-9. Generate credentials for the REST API of the backend with `./scripts/gencreds.sh`.
-10. Install the HIP backend with `./scripts/install.sh`.
-11. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
+9. Install the HIP backend with `./scripts/install.sh`. This script will interactively generate credentials for the REST API of the backend if they don't already exist.
+10. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  
 ## Using `app-in-browser`
 There are two options to control `app-in-browser`. You can use the REST API, or bash scripts. The former is used for integration and the latter option can be used for debug.
@@ -140,7 +139,7 @@ where
 ### Bash scripts
 You can launch servers and apps using the following bash scripts from the `app-in-browser` directory. The parameters are as described above.
 1. Servers:
-   * start: `./scripts/startserver.sh sid hipuser`
+   * start: `./scripts/startserver.sh sid hipuser auth_groups`
    * pause: `./scripts/pauseserver.sh sid hipuser`
    * resume: `./scripts/unpauseserver.sh sid hipuser`
    * stop: `./scripts/stopserver.sh sid hipuser`
@@ -150,11 +149,11 @@ You can launch servers and apps using the following bash scripts from the `app-i
    * logs: `./scripts/viewserverlogs.sh sid hipuser`
    * status: `./scripts/serverstatus.sh sid hipuser`
 2. Apps:
-   * start: `./scripts/startapp.sh app sid aid hipuser hippass "nc"`
+   * start: `./scripts/startapp.sh app sid aid hipuser hippass "nc" "ab" group_folders`
    * pause: `./scripts/pauseapp.sh app sid aid hipuser`
    * resume: `./scripts/unpause.sh app sid aid hipuser`
    * stop: `./scripts/stopapp.sh app sid aid hipuser`
-   * restart: `./scripts/restartapp.sh app sid aid hipuser hippass "nc"`
+   * restart: `./scripts/restartapp.sh app sid aid hipuser hippass "nc" "ab" group_folders`
    * destroy: `./scripts/destroyapp.sh app sid aid hipuser`
    * healthcheck: `./scripts/checkapphealth.sh app sid aid hipuser`
    * logs: `./scripts/viewapplogs.sh app sid aid hipuser`

@@ -20,22 +20,28 @@ if [ $APP_SPECIAL == "terminal" ]; then
   chown -R $HIP_USER:$HIP_USER /home/$HIP_USER/.config/wezterm
   #CARD=none
 elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
-  PROCESS_NAME="electron"
-  APP_NAME="jupyterlab-desktop"
-  APP_CMD="jlab"
+  #PROCESS_NAME="jlab"
+  PROCESS_NAME="/usr/bin/wezterm"
+  APP_NAME="wezterm"
+  #APP_NAME="jupyterlab-desktop"
+  #APP_CMD="jlab"
+  APP_CMD="/usr/bin/wezterm"
+  #APP_CMD="jlab --python-path /apps/jupyterlab-desktop/conda/bin/python"
 fi
 
 #run $APP_NAME as $HIP_USER
 echo -n "Running $APP_NAME as $HIP_USER "
 if [ $CARD == "none" ]; then
   echo "on CPU... "
-  CMD="DISPLAY=$DISPLAY $APP_CMD"
+  CMD="export DISPLAY=$DISPLAY ; $APP_CMD"
+  #CMD="export DISPLAY=$DISPLAY ; QT_DEBUG_PLUGINS=1 $APP_CMD"
 else
   echo "on GPU... "
-  #CMD="vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"
-  #CMD="QT_DEBUG_PLUGINS=1 DISPLAY=$DISPLAY vglrun -d /dev/dri/$CARD $APP_CMD"
-  CMD="DISPLAY=$DISPLAY vglrun -d /dev/dri/$CARD $APP_CMD"
+  #CMD="export DISPLAY=$DISPLAY ; vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"
+  #CMD="export DISPLAY=$DISPLAY ; QT_DEBUG_PLUGINS=1 vglrun -d /dev/dri/$CARD $APP_CMD"
+  CMD="export DISPLAY=$DISPLAY ; vglrun -d /dev/dri/$CARD $APP_CMD"
 fi
+
 runuser -l $HIP_USER -c "$CMD &"
 #runuser -l $HIP_USER -c 'sleep 1000000000000'
 

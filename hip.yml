@@ -1,7 +1,7 @@
 apps:
   anywave:
     name: "AnyWave"
-    version: 2.1.3
+    version: 2.4.6
     url: "https://meg.univ-amu.fr/wiki/AnyWave"
     description: "AnyWave is a software designed to easily open and view data recorded by EEG or MEG acquisition systems."
     state: ready
@@ -53,11 +53,11 @@ apps:
     version: latest
     url: "https://meg.univ-amu.fr/wiki/GARDEL:presentation"
     description: "GARDEL is a tool for automatic segmentation and labelization of SEEG contacts."
-    state: off
+    state: beta
 
   hibop:
     name: "HiBoP"
-    version: 4.1.0
+    version: 4.3.0
     url: "https://github.com/hbp-HiBoP/HiBoP"
     description: "HiBoP illustrates the possibility to render group-level activity dynamically at the cortical level, for several experimental conditions (columns) of the same cognitive paradigm."
     state: ready
@@ -106,7 +106,7 @@ apps:
 
   slicer:
     name: "3D Slicer"
-    version: latest
+    version: 4.10.2
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
     state: beta
@@ -148,13 +148,13 @@ base:
 
   matlab-runtime:
     name: "Matlab Runtime"
-    version: [R2015a,R2020a,R2020b]
+    version: [R2018b,R2020a,R2020b]
     update: [0,7,6]
     state: ready
 
   jupyterlab-desktop:
     name: "JupyterLab Desktop"
-    version: 3.6.1-1
+    version: 3.6.2-1
     state: ready
 
 server:
