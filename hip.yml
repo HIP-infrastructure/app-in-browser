@@ -36,7 +36,7 @@ apps:
 
   freesurfer:
     name: "FreeSurfer"
-    version: 7.2.0
+    version: 7.3.2
     url: "https://surfer.nmr.mgh.harvard.edu"
     description: "An open source software suite for processing and analyzing (human) brain MRI images."
     state: ready
@@ -92,7 +92,7 @@ apps:
 
   mricrogl:
     name: "MRIcroGL"
-    version: 1.2.20210317
+    version: 1.2.20220720
     url: "https://github.com/rordenlab/MRIcroGL"
     description: "MRIcroGL is a cross-platform tool for viewing DICOM and NIfTI format images. It provides a drag-and-drop user interface as well as a scripting language."
     state: ready

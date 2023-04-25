@@ -52,3 +52,6 @@
 [submodule "services/apps/gardel"]
 	path = services/apps/gardel
 	url = git@github.com:HIP-infrastructure/gardel.git
+[submodule "services/apps/frites"]
+	path = services/apps/frites
+	url = git@github.com:HIP-infrastructure/frites.git
