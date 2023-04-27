@@ -1,14 +1,14 @@
 apps:
   anywave:
     name: "AnyWave"
-    version: 2.4.6
+    version: 2.7.5
     url: "https://meg.univ-amu.fr/wiki/AnyWave"
     description: "AnyWave is a software designed to easily open and view data recorded by EEG or MEG acquisition systems."
     state: ready
 
   dcm2niix:
     name: "dcm2niix"
-    version: 1.0.20211006
+    version: 1.0.20230411
     url: "https://github.com/rordenlab/dcm2niix"
     description: "dcm2niix is designed to convert neuroimaging data from the DICOM format to the NIfTI format."
     state: ready
@@ -36,14 +36,14 @@ apps:
 
   freesurfer:
     name: "FreeSurfer"
-    version: 7.2.0
+    version: 7.3.2
     url: "https://surfer.nmr.mgh.harvard.edu"
     description: "An open source software suite for processing and analyzing (human) brain MRI images."
     state: ready
 
   fsl:
     name: "FSL"
-    version: 6.0.6
+    version: 6.0.6.4
     url: "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data."
     state: ready
@@ -85,14 +85,21 @@ apps:
 
   mne:
     name: "MNE-Python"
-    version: 1.0.2
+    version: 1.3.1
     url: "https://mne.tools"
     description: "Open-source Python package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, NIRS, and more."
-    state: off
+    state: beta
+
+  frites:
+    name: "Frites"
+    version: 0.4.3
+    url: "https://github.com/brainets/frites"
+    description: "Frites is a Python toolbox designed for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial) for the discovery of cognitive brain networks."
+    state: beta
 
   mricrogl:
     name: "MRIcroGL"
-    version: 1.2.20210317
+    version: 1.2.20220720
     url: "https://github.com/rordenlab/MRIcroGL"
     description: "MRIcroGL is a cross-platform tool for viewing DICOM and NIfTI format images. It provides a drag-and-drop user interface as well as a scripting language."
     state: ready
@@ -109,14 +116,14 @@ apps:
     version: 4.10.2
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
-    state: beta
+    state: ready
 
   tvb:
     name: "TVB"
     version: 0.7
     url: "https://www.thevirtualbrain.org"
     description: "Simulate a human brain, right on your PC!"
-    state: beta
+    state: ready
 
   vscode:
     name: "VS Code"

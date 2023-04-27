@@ -48,6 +48,11 @@ sudo ipset add docker-allowed 148.187.148.78 comment iam.ebrains.eu
 sudo ipset add docker-allowed 148.187.149.108 comment iam-int.ebrains.eu
 sudo ipset add docker-allowed 68.181.2.161 comment neuroimage.usc.edu
 sudo ipset add docker-allowed 193.62.66.18 comment www.fil.ion.ucl.ac.uk
+sudo ipset add docker-allowed 66.162.65.215 comment slicer.kitware.com
+sudo ipset add docker-allowed 66.194.253.27 comment viewvc.slicer.org
+sudo ipset add docker-allowed 216.136.40.52 comment slicer-packages.kitware.com
+sudo ipset add docker-allowed 52.3.190.103 comment www.nitrc.org
+sudo ipset add docker-allowed 138.197.225.173 comment slicer.org
 
 ##save the ipset
 #sudo mkdir -p /etc/ipset
