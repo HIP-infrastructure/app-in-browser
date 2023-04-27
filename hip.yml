@@ -1,7 +1,7 @@
 apps:
   anywave:
     name: "AnyWave"
-    version: 2.4.6
+    version: 2.7.5
     url: "https://meg.univ-amu.fr/wiki/AnyWave"
     description: "AnyWave is a software designed to easily open and view data recorded by EEG or MEG acquisition systems."
     state: ready
