@@ -20,13 +20,9 @@ if [ $APP_SPECIAL == "terminal" ]; then
   chown -R $HIP_USER:$HIP_USER /home/$HIP_USER/.config/wezterm
   #CARD=none
 elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
-  #PROCESS_NAME="jlab"
-  PROCESS_NAME="/usr/bin/wezterm"
-  APP_NAME="wezterm"
-  #APP_NAME="jupyterlab-desktop"
-  #APP_CMD="jlab"
-  APP_CMD="/usr/bin/wezterm"
-  #APP_CMD="jlab --python-path /apps/jupyterlab-desktop/conda/bin/python"
+  PROCESS_NAME="jlab"
+  APP_NAME="jupyterlab-desktop"
+  APP_CMD="export PATH=/apps/jupyterlab-desktop/conda/bin/:$PATH; jlab"
 fi
 
 #run $APP_NAME as $HIP_USER
