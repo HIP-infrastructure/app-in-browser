@@ -111,6 +111,13 @@ apps:
     description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
     state: ready
 
+  niftyreg:
+    name: "NiftyReg"
+    version: latest
+    url: "https://github.com/KCL-BMEIS/niftyreg"
+    description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)"
+    state: beta
+
   slicer:
     name: "3D Slicer"
     version: 5.2.2
