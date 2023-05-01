@@ -103,6 +103,7 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--runtime", runtime, \
                                                   "--ipc=host", \
                                                   "--name", f"xpra-server-{container_name}", \
+                                                  "--hostname", f"xpra-server-{container_name}", \
                                                   "--restart", "on-failure:5",
                                                   "--env", "NVIDIA_VISIBLE_DEVICES=all", \
                                                   "--env", "NVIDIA_DRIVER_CAPABILITIES=all", \
