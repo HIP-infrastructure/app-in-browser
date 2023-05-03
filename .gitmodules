@@ -55,3 +55,6 @@
 [submodule "services/apps/frites"]
 	path = services/apps/frites
 	url = git@github.com:HIP-infrastructure/frites.git
+[submodule "services/apps/niftyreg"]
+	path = services/apps/niftyreg
+	url = git@github.com:HIP-infrastructure/niftyreg.git
