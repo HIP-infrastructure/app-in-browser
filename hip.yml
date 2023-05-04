@@ -123,7 +123,7 @@ apps:
     version: 2023.03.0
     url: "https://posit.co/products/open-source/rstudio/"
     description: "RStudio is an integrated development environment (IDE) for R and Python."
-    state: beta
+    state: alpha
 
   slicer:
     name: "3D Slicer"
