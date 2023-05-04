@@ -58,3 +58,6 @@
 [submodule "services/apps/niftyreg"]
 	path = services/apps/niftyreg
 	url = git@github.com:HIP-infrastructure/niftyreg.git
+[submodule "services/apps/rstudio"]
+	path = services/apps/rstudio
+	url = git@github.com:HIP-infrastructure/rstudio.git
