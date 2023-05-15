@@ -25,6 +25,13 @@ elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
   APP_CMD="export PATH=/apps/jupyterlab-desktop/conda/bin/:$PATH; jlab"
 fi
 
+#fix slicer extension manager
+if [ $APP_NAME == "slicer" ]; then
+  mkdir -p /home/$HIP_USER/nextcloud/app_data/slicer/NA-MIC
+  ln -s /home/$HIP_USER/nextcloud/app_data/slicer/NA-MIC /apps/slicer/install/Slicer/NA-MIC
+  chown -R $HIP_USER:$HIP_USER /apps/slicer/install/Slicer/NA-MIC
+fi
+
 #run $APP_NAME as $HIP_USER
 echo -n "Running $APP_NAME as $HIP_USER "
 if [ $CARD == "none" ]; then
