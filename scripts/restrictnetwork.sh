@@ -44,6 +44,7 @@ sudo ipset create docker-allowed hash:ip comment
 sudo ipset add docker-allowed 89.145.167.132 comment thehip.app
 sudo ipset add docker-allowed 148.187.148.93 comment qa.thehip.app
 sudo ipset add docker-allowed 148.187.149.10 comment dev.thehip.app
+sudo ipset add docker-allowed 89.145.167.46 comment collab.thehip.app
 sudo ipset add docker-allowed 148.187.151.222 comment collab-qa.thehip.app
 sudo ipset add docker-allowed 148.187.148.252 comment collab-dev.thehip.app
 sudo ipset add docker-allowed 148.187.148.78 comment iam.ebrains.eu
