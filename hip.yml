@@ -169,8 +169,8 @@ base:
 
   matlab-runtime:
     name: "Matlab Runtime"
-    version: [R2018b,R2020a,R2020b]
-    update: [0,7,6]
+    version: [R2018b,R2020b,R2022b]
+    update: [0,6,5]
     state: ready
 
   jupyterlab-desktop:
