@@ -6,6 +6,13 @@ apps:
     description: "AnyWave is a software designed to easily open and view data recorded by EEG or MEG acquisition systems."
     state: ready
 
+  bidsalyzer:
+    name: "Bidsalyzer"
+    version: latest
+    url: "to be added"
+    description: "to be added"
+    state: off
+
   dcm2niix:
     name: "dcm2niix"
     version: 1.0.20230411
