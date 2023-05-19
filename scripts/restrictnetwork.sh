@@ -56,6 +56,10 @@ sudo ipset add docker-allowed 66.194.253.27 comment viewvc.slicer.org
 sudo ipset add docker-allowed 216.136.40.52 comment slicer-packages.kitware.com
 sudo ipset add docker-allowed 52.3.190.103 comment www.nitrc.org
 sudo ipset add docker-allowed 138.197.225.173 comment slicer.org
+sudo ipset add docker-allowed 13.224.103.92 comment cloud.r-project.org
+sudo ipset add docker-allowed 13.224.103.125 comment cloud.r-project.org
+sudo ipset add docker-allowed 13.224.103.62 comment cloud.r-project.org
+sudo ipset add docker-allowed 13.224.103.110 comment cloud.r-project.org
 
 ##save the ipset
 #sudo mkdir -p /etc/ipset
