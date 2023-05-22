@@ -8,10 +8,10 @@ apps:
 
   bidsalyzer:
     name: "Bidsalyzer"
-    version: latest
-    url: "to be added"
-    description: "to be added"
-    state: off
+    version: 1.0.0
+    url: "https://github.com/floriansipp/Bidsalyzer"
+    description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope"
+    state: beta
 
   dcm2niix:
     name: "dcm2niix"
