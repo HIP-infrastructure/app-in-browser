@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#user the ipset to restrict network access within containers
+#remove any netowrk restrictions on containers
 sudo iptables -F DOCKER-USER 
 sudo iptables -I DOCKER-USER -j ACCEPT
 
