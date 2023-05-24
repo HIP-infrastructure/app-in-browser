@@ -60,3 +60,7 @@ sudo iptables -I DOCKER-USER -i $NETIFACE -m set ! --match-set docker-allowed sr
 #make configuration persistent
 sudo netfilter-persistent save
 sudo systemctl enable netfilter-persistent
+
+#print summary
+echo "Summary:"
+sudo ipset list
