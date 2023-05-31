@@ -122,7 +122,7 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--runtime", runtime, \
                                                   "--ipc=host", \
                                                   "--name", container_name, \
-                                                  "--hostname", container_name, \
+                                                  "--hostname", args.app_name, \
                                                   "--restart", "on-failure:5", \
                                                   *(["--env-file", app_env_path] if os.path.exists(app_env_path) else []),
                                                   "--env", "NVIDIA_VISIBLE_DEVICES=all", \
