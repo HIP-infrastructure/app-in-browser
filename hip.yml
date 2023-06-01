@@ -6,6 +6,13 @@ apps:
     description: "AnyWave is a software designed to easily open and view data recorded by EEG or MEG acquisition systems."
     state: ready
 
+  bidsalyzer:
+    name: "Bidsalyzer"
+    version: 1.0.0
+    url: "https://github.com/floriansipp/Bidsalyzer"
+    description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope"
+    state: beta
+
   dcm2niix:
     name: "dcm2niix"
     version: 1.0.20230411
@@ -15,7 +22,7 @@ apps:
 
   bidsmanager:
     name: "BIDS-Manager"
-    version: latest
+    version: b80dd53
     url: "https://github.com/Dynamap/BIDS_Manager"
     description: "Package to collect, organise and manage neuroscience data in Brain Imaging Data Structure (BIDS) format."
     state: ready
@@ -78,7 +85,7 @@ apps:
 
   localizer:
     name: "Localizer"
-    version: 4.4.3
+    version: 4.4.4
     url: "https://github.com/CRNL-Eduwell/Localizer"
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
     state: ready
@@ -159,7 +166,7 @@ base:
 
   ghostfs:
     name: "GhostFS"
-    version: linux-898110c
+    version: linux-845eac7
     state: ready
 
   davfs2:

@@ -41,21 +41,7 @@ fi
 sudo ipset create docker-allowed hash:ip comment
 
 #populate the ipset
-sudo ipset add docker-allowed 89.145.167.132 comment thehip.app
-sudo ipset add docker-allowed 148.187.148.93 comment qa.thehip.app
-sudo ipset add docker-allowed 148.187.149.10 comment dev.thehip.app
-sudo ipset add docker-allowed 89.145.167.46 comment collab.thehip.app
-sudo ipset add docker-allowed 148.187.151.222 comment collab-qa.thehip.app
-sudo ipset add docker-allowed 148.187.148.252 comment collab-dev.thehip.app
-sudo ipset add docker-allowed 148.187.148.78 comment iam.ebrains.eu
-sudo ipset add docker-allowed 148.187.149.108 comment iam-int.ebrains.eu
-sudo ipset add docker-allowed 68.181.2.161 comment neuroimage.usc.edu
-sudo ipset add docker-allowed 193.62.66.18 comment www.fil.ion.ucl.ac.uk
-sudo ipset add docker-allowed 66.162.65.215 comment slicer.kitware.com
-sudo ipset add docker-allowed 66.194.253.27 comment viewvc.slicer.org
-sudo ipset add docker-allowed 216.136.40.52 comment slicer-packages.kitware.com
-sudo ipset add docker-allowed 52.3.190.103 comment www.nitrc.org
-sudo ipset add docker-allowed 138.197.225.173 comment slicer.org
+./scripts/populateipset.py
 
 ##save the ipset
 #sudo mkdir -p /etc/ipset
@@ -74,3 +60,7 @@ sudo iptables -I DOCKER-USER -i $NETIFACE -m set ! --match-set docker-allowed sr
 #make configuration persistent
 sudo netfilter-persistent save
 sudo systemctl enable netfilter-persistent
+
+#print summary
+echo "Summary:"
+sudo ipset list
