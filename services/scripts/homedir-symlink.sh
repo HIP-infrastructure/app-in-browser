@@ -12,7 +12,9 @@ for DIR in "${DIR_ARRAY[@]}"; do
     echo -n "Creating distant directory $DIR as $TARGET_DIR... "
     # creating distant directory and applying the right ownership since it does not exist
     mkdir -p /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
-    chown -R $HIP_USER:$HIP_GROUP /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
+    if [ "$DOCKERFS_TYPE" = "davfs2" ]; then
+      chown -R $HIP_USER:$HIP_GROUP /home/$HIP_USER/nextcloud/$TARGET_DIR/$APP_NAME/$DIR
+    fi
     echo "done."
   fi
 
