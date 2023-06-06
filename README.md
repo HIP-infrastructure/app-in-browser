@@ -53,7 +53,7 @@ sudo apt-get autoremove
 1. Clone the repository with `git clone --recurse-submodules https://github.com/HIP-infrastructure/app-in-browser.git`. If you can see this `README.md`, it means you already have access to the repository.
 2. `cd` into the `app-in-browser` directory.
 3. Change to the branch of your liking. If unsure use the `master` branch.
-4. Run `git submodule update --init` to get the right version of the submodules.
+4. Run `./build/submodule_branch.sh [branch_name]` to get the right version of the submodules.
 
 ## Configuring `app-in-browser`
 1. Run `cp hip.config.template.yml hip.config.yml` to copy the config file from its template.

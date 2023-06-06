@@ -11,11 +11,11 @@ backend:
   auth:
     username: example_username
     password: example_password
-  whitelist:
-    - ip: example_ip1
-      comment: example_fqdn1
-    - ip: example_ip2
-      comment: example_fqdn2
+#  whitelist:
+#    - ip: example_ip1
+#      comment: example_fqdn1
+#    - ip: example_ip2
+#      comment: example_fqdn2
 
 server:
   keycloak:
@@ -30,18 +30,18 @@ server:
     auth_condition: "and"
     grant_type: authorization_code
 
-apps:
-  whitelist:
-    app1:
-      - ip: example_ip1
-        comment: example_fqdn1
-      - ip: example_ip2
-        comment: example_fqdn2
-    app2:
-      - ip: example_ip1
-        comment: example_fqdn1
-      - ip: example_ip2
-        comment: example_fqdn2
+#apps:
+#  whitelist:
+#    app1:
+#      - ip: example_ip1
+#        comment: example_fqdn1
+#      - ip: example_ip2
+#        comment: example_fqdn2
+#    app2:
+#      - ip: example_ip1
+#        comment: example_fqdn1
+#      - ip: example_ip2
+#        comment: example_fqdn2
 
 base:
   dockerfs:
