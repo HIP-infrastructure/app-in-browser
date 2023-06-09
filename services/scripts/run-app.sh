@@ -22,7 +22,8 @@ if [ $APP_SPECIAL == "terminal" ]; then
 elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
   PROCESS_NAME="jlab"
   APP_NAME="jupyterlab-desktop"
-  APP_CMD="export PATH=/apps/jupyterlab-desktop/conda/bin/:$PATH; jlab"
+  APP_CMD_PREFIX="export PATH=/apps/jupyterlab-desktop/conda/bin/:$PATH"
+  APP_CMD="jlab"
 fi
 
 #fix slicer extension manager
@@ -32,17 +33,24 @@ if [ $APP_NAME == "slicer" ]; then
   chown -R $HIP_USER:$HIP_USER /apps/slicer/install/Slicer/NA-MIC
 fi
 
+#add DISPLAY to APP_PREFIX
+if [ ! -z "${APP_CMD_PREFIX}" ]; then
+  APP_CMD_PREFIX="export DISPLAY=$DISPLAY;$APP_CMD_PREFIX"
+else
+  APP_CMD_PREFIX="export DISPLAY=$DISPLAY"
+fi
+
 #run $APP_NAME as $HIP_USER
 echo -n "Running $APP_NAME as $HIP_USER "
 if [ $CARD == "none" ]; then
   echo "on CPU... "
-  CMD="export DISPLAY=$DISPLAY ; $APP_CMD"
-  #CMD="export DISPLAY=$DISPLAY ; QT_DEBUG_PLUGINS=1 $APP_CMD"
+  #CMD="$APP_CMD_PREFIX; QT_DEBUG_PLUGINS=1 $APP_CMD"
+  CMD="$APP_CMD_PREFIX; $APP_CMD"
 else
   echo "on GPU... "
-  #CMD="export DISPLAY=$DISPLAY ; vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"
-  #CMD="export DISPLAY=$DISPLAY ; QT_DEBUG_PLUGINS=1 vglrun -d /dev/dri/$CARD $APP_CMD"
-  CMD="export DISPLAY=$DISPLAY ; vglrun -d /dev/dri/$CARD $APP_CMD"
+  #CMD="$APP_CMD_PREFIX; vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"
+  #CMD="$APP_CMD_PREFIX; QT_DEBUG_PLUGINS=1 vglrun -d /dev/dri/$CARD $APP_CMD"
+  CMD="$APP_CMD_PREFIX; vglrun -d /dev/dri/$CARD $APP_CMD"
 fi
 
 runuser -l $HIP_USER -c "$CMD &"
