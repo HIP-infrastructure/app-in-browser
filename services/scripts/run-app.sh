@@ -22,7 +22,8 @@ if [ $APP_SPECIAL == "terminal" ]; then
 elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
   PROCESS_NAME="jlab"
   APP_NAME="jupyterlab-desktop"
-  APP_CMD="export PATH=/apps/jupyterlab-desktop/conda/bin/:$PATH; jlab"
+  APP_CMD_PREFIX="export PATH=/apps/jupyterlab-desktop/conda/bin/:$PATH"
+  APP_CMD="jlab"
 fi
 
 #fix slicer extension manager
@@ -36,13 +37,13 @@ fi
 echo -n "Running $APP_NAME as $HIP_USER "
 if [ $CARD == "none" ]; then
   echo "on CPU... "
-  CMD="export DISPLAY=$DISPLAY ; $APP_CMD"
+  CMD="export DISPLAY=$DISPLAY ; $APP_CMD_PREFIX ; $APP_CMD"
   #CMD="export DISPLAY=$DISPLAY ; QT_DEBUG_PLUGINS=1 $APP_CMD"
 else
   echo "on GPU... "
   #CMD="export DISPLAY=$DISPLAY ; vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"
   #CMD="export DISPLAY=$DISPLAY ; QT_DEBUG_PLUGINS=1 vglrun -d /dev/dri/$CARD $APP_CMD"
-  CMD="export DISPLAY=$DISPLAY ; vglrun -d /dev/dri/$CARD $APP_CMD"
+  CMD="export DISPLAY=$DISPLAY ; $APP_CMD_PREFIX ; vglrun -d /dev/dri/$CARD $APP_CMD"
 fi
 
 runuser -l $HIP_USER -c "$CMD &"
