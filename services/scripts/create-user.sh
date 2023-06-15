@@ -4,6 +4,23 @@ HIP_USER=$1
 APP_NAME=$2
 
 echo -n "Creating user $HIP_USER... "
+
+if [ "$APP_NAME" = "intranat" ]; then
+  egrep "^brainvisa" /etc/passwd >/dev/null
+  if [ $? -eq 0 ]; then
+    userdel brainvisa
+    if [ ! $? -eq 0 ]; then
+      echo "failed."
+      exit 1
+    fi
+    mv /home/brainvisa /home/$HIP_USER
+    if [ ! $? -eq 0 ]; then
+      echo "failed."
+      exit 1
+    fi
+  fi
+fi
+
 egrep "^$HIP_USER" /etc/passwd >/dev/null
 if [ $? -eq 0 ]; then
   echo "$HIP_USER already exists."

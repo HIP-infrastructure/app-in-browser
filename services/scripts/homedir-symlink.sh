@@ -18,6 +18,21 @@ for DIR in "${DIR_ARRAY[@]}"; do
     echo "done."
   fi
 
+  if [[ -d /home/$HIP_USER/$DIR && ! -L /home/$HIP_USER/$DIR ]]; then
+    echo -n "Local directory $DIR already exists, saving... "
+    #if $DIR already exists and is not a symlink, save it for later use
+    mv /home/$HIP_USER/$DIR /tmp
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+      echo "failed."
+      exit $retVal
+    fi
+    restore=0
+    echo "done."
+  else
+    restore=1
+  fi
+
   LOCAL_PATH=$(dirname $DIR)
   if [[ "$LOCAL_PATH" == "." ]]; then
     # we can use $DIR directly since it's not a subdirectory
@@ -54,5 +69,18 @@ for DIR in "${DIR_ARRAY[@]}"; do
     exit $retVal
   else
     echo "done."
+  fi
+
+  if [ $restore -eq 0 ]; then
+    # if needed, restore the $DIR
+    echo -n "Restoring $DIR... "
+    (shopt -s dotglob; mv /tmp/$DIR/* /home/$HIP_USER/$DIR)
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+      echo "failed."
+      exit $retVal
+    else
+      echo "done."
+    fi
   fi
 done
