@@ -32,7 +32,7 @@ sudo apt-get install -y nodejs
 then restart the docker service with `sudo systemctl restart docker`.
 
 ## GPU support setup (optional)
-1. Install the recommended Nvidia drivers for your system. Check which ones are recommended using the command `ubuntu-drivers devices` and then install them using `sudo ubuntu-drivers autoinstall`.
+1. Install the recommended Nvidia drivers for your system. Install `ubuntu-drivers` using `sudo apt-get install ubuntu-drivers-common` and check which drivers are recommended using the command `ubuntu-drivers devices`. Then install them using `sudo ubuntu-drivers autoinstall`.
 2. Reboot the system with `sudo reboot` and check that the drivers are functional using `sudo nvidia-smi`. Additionnaly you can check that the nvidia module is loaded with `lspci -nnk | grep -i nvidia`.
 3. Install the nvidia-docker runtime stable repository and GPG key:
 ```bash
