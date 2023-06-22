@@ -18,3 +18,6 @@ python-dotenv
 
 # pyyaml
 pyyaml
+
+# gevent
+gevent
