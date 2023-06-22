@@ -13,6 +13,13 @@ apps:
     description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope"
     state: beta
 
+  brainvisa:
+    name: "BrainVisa"
+    version: 5.1.0
+    url: "https://brainvisa.info/web"
+    description: "BrainVISA provides a complete, modular, infrastructure for neuroimaging software. It helps organizing heterogeneous software and data and provides a common general graphical interface for users."
+    state: beta
+
   dcm2niix:
     name: "dcm2niix"
     version: 1.0.20230411
