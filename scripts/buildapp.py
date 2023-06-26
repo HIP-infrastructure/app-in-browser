@@ -93,6 +93,7 @@ dcm2niix_version = hip['apps']['dcm2niix']['version']
 anywave_version = hip['apps']['anywave']['version']
 freesurfer_version = hip['apps']['freesurfer']['version']
 fsl_version = hip['apps']['fsl']['version']
+brainvisa_version = hip['apps']['brainvisa']['version']
 jupyterlab_desktop_version = hip['base']['jupyterlab-desktop']['version']
 
 #build app with cache from registry during CI only
@@ -108,6 +109,7 @@ ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY
                                                     "--build-arg", f"ANYWAVE_VERSION={anywave_version}", \
                                                     "--build-arg", f"FREESURFER_VERSION={freesurfer_version}", \
                                                     "--build-arg", f"FSL_VERSION={fsl_version}", \
+                                                    "--build-arg", f"BRAINVISA_VERSION={brainvisa_version}", \
                                                     *app_env,
                                                     *(["--cache-from", registry_image] if ci_registry else []),
                                                     *(["--progress=plain"] if ci_registry else []),
