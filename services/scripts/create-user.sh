@@ -5,7 +5,7 @@ APP_NAME=$2
 
 echo -n "Creating user $HIP_USER... "
 
-if [ "$APP_NAME" = "intranat" ]; then
+if [ "$APP_NAME" = "brainvisa" ] || [ "$APP_NAME" = "intranat" ]; then
   egrep "^brainvisa" /etc/passwd >/dev/null
   if [ $? -eq 0 ]; then
     userdel brainvisa
