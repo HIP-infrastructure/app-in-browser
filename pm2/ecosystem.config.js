@@ -22,7 +22,9 @@ module.exports = {
   {
     script: gunicorn,
     name: 'gunicorn_app_backend',
-    args: '--worker-class=gevent --worker-connections=20 --workers 2 --timeout 120 --bind 127.0.0.1:8060 --pythonpath backend backend:app',
+    args: '--workers 40 --timeout 120 --bind 127.0.0.1:8060 --pythonpath backend backend:app',
+    //args: '--worker-class=gevent --worker-connections=20 --workers 2 --timeout 120 --bind 127.0.0.1:8060 --pythonpath backend backend:app',
+    //args: '--worker-class=gevent --worker-connections=5 --workers 8 --timeout 120 --bind 127.0.0.1:8060 --pythonpath backend backend:app',
     cwd: relative('..'),
     watch: relative('../backend'),
     interpreter: 'python3'	  
