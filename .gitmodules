@@ -66,4 +66,4 @@
 	url = git@github.com:HIP-infrastructure/rstudio.git
 [submodule "services/apps/brainvisa"]
 	path = services/apps/brainvisa
-	url = https://github.com/HIP-infrastructure/brainvisa
+	url = git@github.com:HIP-infrastructure/brainvisa.git
