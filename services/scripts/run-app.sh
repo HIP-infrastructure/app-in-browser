@@ -26,11 +26,24 @@ elif [ $APP_SPECIAL == "jupyterlab-desktop" ]; then
   APP_CMD="jlab"
 fi
 
-#fix slicer extension manager
 if [ $APP_NAME == "slicer" ]; then
-  mkdir -p /home/$HIP_USER/nextcloud/app_data/slicer/NA-MIC
-  ln -s /home/$HIP_USER/nextcloud/app_data/slicer/NA-MIC /apps/slicer/install/Slicer/NA-MIC
-  chown -R $HIP_USER:$HIP_USER /apps/slicer/install/Slicer/NA-MIC
+  #case when there is no data in APP_DATA_DIR beforehand
+  NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/slicer/NA-MIC
+  APP_DATA_DIR=/apps/slicer/install/Slicer/NA-MIC
+  mkdir -p ${NC_APP_DATA_DIR}
+  ln -s ${NC_APP_DATA_DIR} ${APP_DATA_DIR}
+  chown -R $HIP_USER:$HIP_USER ${APP_DATA_DIR}
+elif [ $APP_NAME == "localizer" ] || [ $APP_NAME == "bidsalyzer" ]; then
+  #case when there is data in APP_DATA_DIR beforehand
+  NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/$APP_NAME/Resources
+  APP_DATA_DIR=/apps/$APP_NAME/install/${APP_NAME^}.${APP_VERSION}.linux64/Resources
+  if [ ! -d ${NC_APP_DATA_DIR} ]; then
+    mkdir -p ${NC_APP_DATA_DIR}
+    cp -a ${APP_DATA_DIR}/* ${NC_APP_DATA_DIR}
+  fi
+  rm -rf ${APP_DATA_DIR}
+  ln -s ${NC_APP_DATA_DIR} ${APP_DATA_DIR}
+  chown -R $HIP_USER:$HIP_USER ${APP_DATA_DIR}
 fi
 
 #add DISPLAY to APP_PREFIX

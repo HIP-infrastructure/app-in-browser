@@ -11,7 +11,14 @@ apps:
     version: 1.0.0
     url: "https://github.com/floriansipp/Bidsalyzer"
     description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope"
-    state: beta
+    state: ready
+
+  brainvisa:
+    name: "BrainVisa"
+    version: 5.1.0
+    url: "https://brainvisa.info/web"
+    description: "BrainVISA provides a complete, modular, infrastructure for neuroimaging software. It helps organizing heterogeneous software and data and provides a common general graphical interface for users."
+    state: off
 
   dcm2niix:
     name: "dcm2niix"
@@ -39,7 +46,7 @@ apps:
     version: latest
     url : "https://github.com/lxqt/pcmanfm-qt"
     description: "PCManFM-Qt is a Qt-based file manager which uses GLib for file management. It was started as the Qt port of PCManFM, the file manager of LXDE."
-    state: beta
+    state: ready
 
   freesurfer:
     name: "FreeSurfer"
@@ -64,7 +71,7 @@ apps:
 
   hibop:
     name: "HiBoP"
-    version: 4.3.0
+    version: 4.3.1
     url: "https://github.com/hbp-HiBoP/HiBoP"
     description: "HiBoP illustrates the possibility to render group-level activity dynamically at the cortical level, for several experimental conditions (columns) of the same cognitive paradigm."
     state: ready
