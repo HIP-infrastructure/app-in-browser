@@ -2,7 +2,7 @@
 
 `app-in-browser` allows controlling 3D accelerated graphic servers in the browser that will display a set of apps. Additionally, it mounts `Nextcloud` homedirs and group folders into the app containers.
 
-In order to deploy `app-in-browser` on Ubuntu 20.04, follow these steps.
+In order to deploy `app-in-browser` on Ubuntu 22.04, follow these steps.
 
 
 ## Machine preparation
