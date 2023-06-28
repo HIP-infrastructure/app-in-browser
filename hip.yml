@@ -129,7 +129,7 @@ apps:
     name: "NiftyReg"
     version: latest
     url: "https://github.com/KCL-BMEIS/niftyreg"
-    description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)"
+    description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)."
     state: beta
 
   rstudio:
