@@ -10,13 +10,13 @@ apps:
     name: "Bidsalyzer"
     version: 1.0.0
     url: "https://github.com/floriansipp/Bidsalyzer"
-    description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope"
+    description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope."
     state: ready
 
   brainvisa:
     name: "BrainVisa"
     version: 5.1.0
-    url: "https://brainvisa.info/web"
+    url: "https://brainvisa.info"
     description: "BrainVISA provides a complete, modular, infrastructure for neuroimaging software. It helps organizing heterogeneous software and data and provides a common general graphical interface for users."
     state: off
 
@@ -129,13 +129,13 @@ apps:
     name: "NiftyReg"
     version: latest
     url: "https://github.com/KCL-BMEIS/niftyreg"
-    description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)"
+    description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)."
     state: beta
 
   rstudio:
     name: "RStudio"
     version: 2023.06.0
-    url: "https://posit.co/products/open-source/rstudio/"
+    url: "https://posit.co/products/open-source/rstudio"
     description: "RStudio is an integrated development environment (IDE) for R and Python."
     state: beta
 
