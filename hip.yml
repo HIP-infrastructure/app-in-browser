@@ -92,7 +92,7 @@ apps:
 
   localizer:
     name: "Localizer"
-    version: 4.4.4
+    version: 4.4.5
     url: "https://github.com/CRNL-Eduwell/Localizer"
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
     state: ready
