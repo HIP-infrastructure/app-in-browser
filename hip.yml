@@ -106,7 +106,7 @@ apps:
 
   frites:
     name: "Frites"
-    version: 0.4.3
+    version: 0.4.4
     url: "https://github.com/brainets/frites"
     description: "Frites is a Python toolbox designed for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial) for the discovery of cognitive brain networks."
     state: beta
@@ -145,6 +145,13 @@ apps:
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
     state: ready
+
+  trcanonymizer:
+    name: "TRCAnonymizer"
+    version: 1.0.0
+    url: "https://github.com/floriansipp/TRCAnonymizer"
+    description: "TRCAnonymizer is a software that, allows you to check if your Micromed data file are anonymized and if not gives you the mean through a simple interface to do so."
+    state: beta
 
   tvb:
     name: "TVB"

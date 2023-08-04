@@ -67,3 +67,6 @@
 [submodule "services/apps/brainvisa"]
 	path = services/apps/brainvisa
 	url = git@github.com:HIP-infrastructure/brainvisa.git
+[submodule "services/apps/trcanonymizer"]
+	path = services/apps/trcanonymizer
+	url = git@github.com:HIP-infrastructure/trcanonymizer.git
