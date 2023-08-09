@@ -78,7 +78,7 @@ apps:
 
   intranat:
     name: "IntrAnat"
-    version: 5.0.4
+    version: 5.1.0
     url: "https://github.com/IntrAnatSEEGSoftware/IntrAnat"
     description: "IntrAnat is a free database and visualization software for Intracranial Electroencephalographic (iEEG) data."
     state: off
@@ -109,6 +109,13 @@ apps:
     version: 0.4.4
     url: "https://github.com/brainets/frites"
     description: "Frites is a Python toolbox designed for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial) for the discovery of cognitive brain networks."
+    state: beta
+
+  matlab:
+    name: "Matlab"
+    version: R2023a
+    url: "https://mathworks.com/products/matlab.html"
+    description: "MATLAB is a programming platform designed specifically for engineers and scientists to analyze and design systems and products."
     state: beta
 
   mricrogl:
@@ -187,6 +194,11 @@ base:
     name: "DavFS2"
     version: 1.6.0-1
     state: off
+
+  matlab-desktop:
+    name: "Matlab Desktop"
+    version: R2023a
+    state: ready
 
   matlab-runtime:
     name: "Matlab Runtime"
