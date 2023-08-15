@@ -73,3 +73,6 @@
 [submodule "services/apps/matlab"]
 	path = services/apps/matlab
 	url = git@github.com:HIP-infrastructure/matlab.git
+[submodule "services/apps/brainstorm_matlab"]
+	path = services/apps/brainstorm_matlab
+	url = git@github.com:HIP-infrastructure/brainstorm_matlab.git

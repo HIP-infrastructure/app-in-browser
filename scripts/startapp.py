@@ -92,12 +92,14 @@ else:
   print(f"Failed to run {args.app_name} because dockerfs cert wasn't found in hip.config.yml")
   exit(1)
 #getting the matlab-desktop license
-if args.app_name in ["matlab", "brainstorm", "intranat"]:
+if args.app_name in ["matlab", "brainstorm_matlab", "intranat"]:
   if hip_config['base']['matlab-desktop']['license']:
     matlab_license=hip_config['base']['matlab-desktop']['license']
   else:
     print(f"Failed to run {args.app_name} because matlab-desktop license wasn't found in hip.config.yml")
     exit(1)
+else:
+    matlab_license = None
 
 # get the user token or password
 hip_password=None

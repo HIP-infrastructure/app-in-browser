@@ -41,6 +41,13 @@ apps:
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: ready
 
+  brainstorm_matlab:
+    name: "Brainstorm (Matlab)"
+    version: latest
+    url: "https://neuroimage.usc.edu/brainstorm"
+    description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
+    state: beta
+
   filemanager:
     name: "FileManager"
     version: latest
