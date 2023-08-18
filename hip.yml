@@ -18,7 +18,7 @@ apps:
     version: 5.1.0
     url: "https://brainvisa.info"
     description: "BrainVISA provides a complete, modular, infrastructure for neuroimaging software. It helps organizing heterogeneous software and data and provides a common general graphical interface for users."
-    state: off
+    state: beta
 
   dcm2niix:
     name: "dcm2niix"
@@ -189,7 +189,7 @@ base:
 
   terminal:
     name: "Wezterm"
-    version: 20220905-102802-7d4b8249
+    version: 20230712-072601-f4abf8fd
     state: ready
 
   ghostfs:
