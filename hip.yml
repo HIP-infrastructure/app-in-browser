@@ -10,15 +10,15 @@ apps:
     name: "Bidsalyzer"
     version: 1.0.0
     url: "https://github.com/floriansipp/Bidsalyzer"
-    description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope"
+    description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope."
     state: ready
 
   brainvisa:
     name: "BrainVisa"
     version: 5.1.0
-    url: "https://brainvisa.info/web"
+    url: "https://brainvisa.info"
     description: "BrainVISA provides a complete, modular, infrastructure for neuroimaging software. It helps organizing heterogeneous software and data and provides a common general graphical interface for users."
-    state: off
+    state: beta
 
   dcm2niix:
     name: "dcm2niix"
@@ -40,6 +40,13 @@ apps:
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: ready
+
+  brainstorm_matlab:
+    name: "Brainstorm (Matlab)"
+    version: latest
+    url: "https://neuroimage.usc.edu/brainstorm"
+    description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
+    state: beta
 
   filemanager:
     name: "FileManager"
@@ -78,7 +85,7 @@ apps:
 
   intranat:
     name: "IntrAnat"
-    version: 5.0.4
+    version: 5.1.0
     url: "https://github.com/IntrAnatSEEGSoftware/IntrAnat"
     description: "IntrAnat is a free database and visualization software for Intracranial Electroencephalographic (iEEG) data."
     state: off
@@ -92,7 +99,7 @@ apps:
 
   localizer:
     name: "Localizer"
-    version: 4.4.4
+    version: 4.4.5
     url: "https://github.com/CRNL-Eduwell/Localizer"
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
     state: ready
@@ -106,9 +113,16 @@ apps:
 
   frites:
     name: "Frites"
-    version: 0.4.3
+    version: 0.4.4
     url: "https://github.com/brainets/frites"
     description: "Frites is a Python toolbox designed for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial) for the discovery of cognitive brain networks."
+    state: beta
+
+  matlab:
+    name: "Matlab"
+    version: R2023a
+    url: "https://mathworks.com/products/matlab.html"
+    description: "MATLAB is a programming platform designed specifically for engineers and scientists to analyze and design systems and products."
     state: beta
 
   mricrogl:
@@ -129,13 +143,13 @@ apps:
     name: "NiftyReg"
     version: latest
     url: "https://github.com/KCL-BMEIS/niftyreg"
-    description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)"
+    description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)."
     state: beta
 
   rstudio:
     name: "RStudio"
-    version: 2023.03.0
-    url: "https://posit.co/products/open-source/rstudio/"
+    version: 2023.06.0
+    url: "https://posit.co/products/open-source/rstudio"
     description: "RStudio is an integrated development environment (IDE) for R and Python."
     state: beta
 
@@ -145,6 +159,13 @@ apps:
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
     state: ready
+
+  trcanonymizer:
+    name: "TRCAnonymizer"
+    version: 1.0.0
+    url: "https://github.com/floriansipp/TRCAnonymizer"
+    description: "TRCAnonymizer is a software that, allows you to check if your Micromed data file are anonymized and if not gives you the mean through a simple interface to do so."
+    state: beta
 
   tvb:
     name: "TVB"
@@ -168,18 +189,23 @@ base:
 
   terminal:
     name: "Wezterm"
-    version: 20220905-102802-7d4b8249
+    version: 20230712-072601-f4abf8fd
     state: ready
 
   ghostfs:
     name: "GhostFS"
-    version: linux-845eac7
+    version: 1861209
     state: ready
 
   davfs2:
     name: "DavFS2"
     version: 1.6.0-1
     state: off
+
+  matlab-desktop:
+    name: "Matlab Desktop"
+    version: R2023a
+    state: ready
 
   matlab-runtime:
     name: "Matlab Runtime"

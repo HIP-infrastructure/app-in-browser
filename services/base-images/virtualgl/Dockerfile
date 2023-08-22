@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -11,7 +11,7 @@ LABEL base_image_tag=$TAG
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \ 
-    curl ca-certificates libglu1-mesa libegl1-mesa libxv1 libxtst6 && \
+    curl ca-certificates libglu1-mesa libegl1-mesa libxv1 libxtst6 libegl-mesa0 primus && \
     #curl -sSO https://s3.amazonaws.com/virtualgl-pr/dev/linux/virtualgl_${VERSION}_amd64.deb && \
     #curl -sSO "https://downloads.sourceforge.net/virtualgl/${VERSION}%20(3.0beta1)/virtualgl_2.6.90_amd64.deb" && \
     curl -sSO https://s3.amazonaws.com/virtualgl-pr/main/linux/virtualgl_${VERSION}_amd64.deb && \

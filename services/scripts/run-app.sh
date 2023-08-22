@@ -44,6 +44,9 @@ elif [ $APP_NAME == "localizer" ] || [ $APP_NAME == "bidsalyzer" ]; then
   rm -rf ${APP_DATA_DIR}
   ln -s ${NC_APP_DATA_DIR} ${APP_DATA_DIR}
   chown -R $HIP_USER:$HIP_USER ${APP_DATA_DIR}
+elif [ $APP_NAME == "matlab" ] || [ $APP_NAME == "brainstorm_matlab" ] ||[ $APP_NAME == "intranat" ]; then
+  #case when APP_NAME needs a matlab license
+  echo -e $MATLAB_LICENSE | sed -e 's/^"//' -e 's/"$//' > /opt/matlab/R2023a/licenses
 fi
 
 #add DISPLAY to APP_PREFIX

@@ -15,7 +15,7 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
     fuse libfuse2 binutils curl && \
-    curl -sSOL https://github.com/pouya-eghbali/ghostfs-builds/releases/download/${VERSION}${TAG}/GhostFS && \
+    curl -sSOL https://github.com/pouya-eghbali/ghostfs-builds/releases/download/linux-ubuntu-22.04-${VERSION}${TAG}/GhostFS && \
     chmod +x GhostFS && \
     mv GhostFS /usr/bin && \
     apt-get remove -y --purge curl && \

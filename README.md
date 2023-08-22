@@ -2,11 +2,11 @@
 
 `app-in-browser` allows controlling 3D accelerated graphic servers in the browser that will display a set of apps. Additionally, it mounts `Nextcloud` homedirs and group folders into the app containers.
 
-In order to deploy `app-in-browser` on Ubuntu 20.04, follow these steps.
+In order to deploy `app-in-browser` on Ubuntu 22.04, follow these steps.
 
 
 ## Machine preparation
-1. Install `docker` using this [guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04). Don't forget to enable the docker service using `sudo systemctl enable docker`.
+1. Install `docker` using this [guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04). Don't forget to enable the docker service using `sudo systemctl enable docker`.
 2. Install `Node.js` using the following commands:
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
@@ -32,18 +32,24 @@ sudo apt-get install -y nodejs
 then restart the docker service with `sudo systemctl restart docker`.
 
 ## GPU support setup (optional)
-1. Install the recommended Nvidia drivers for your system. Check which ones are recommended using the command `ubuntu-drivers devices` and then install them using `sudo ubuntu-drivers autoinstall`.
+1. Install the recommended Nvidia drivers for your system. Install `ubuntu-drivers` using `sudo apt-get install ubuntu-drivers-common` and check which drivers are recommended using the command `ubuntu-drivers devices`. Then install them using `sudo ubuntu-drivers autoinstall`.
 2. Reboot the system with `sudo reboot` and check that the drivers are functional using `sudo nvidia-smi`. Additionnaly you can check that the nvidia module is loaded with `lspci -nnk | grep -i nvidia`.
-3. Install the nvidia-docker runtime stable repository and GPG key:
+3. Install the NVIDIA Container Toolkit package repository and GPG key:
 ```bash
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+      && curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+      && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | \
+            sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+            sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
 ```
-4. Run `sudo apt-get update` and then install the runtime with `sudo apt-get install -y nvidia-docker2`.
-5. Finally restart the docker service with `sudo systemctl restart docker`.
-6. You can test your installation is working by running the following image `sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` and getting the same output as in step 2 above.
-7. You might want to deactivate kernel automatic upgrades:
+4. Run `sudo apt-get update` and then install the runtime with `sudo apt-get install -y nvidia-container-toolkit`.
+5. Configure the Docker daemon to recognize the NVIDIA Container Runtime:
+```bash
+sudo nvidia-ctk runtime configure --runtime=docker
+```
+7. Finally restart the docker service with `sudo systemctl restart docker`.
+8. You can test your installation is working by running the following image `sudo docker run --rm --runtime=nvidia --gpus all nvidia/cuda:11.6.2-base-ubuntu20.04 nvidia-smi` and getting the same output as in step 2 above.
+9. You might want to deactivate kernel automatic upgrades:
 ```bash
 sudo apt-get remove linux-image-virtual
 sudo apt-get autoremove
