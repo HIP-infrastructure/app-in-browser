@@ -164,3 +164,7 @@ You can launch servers and apps using the following bash scripts from the `app-i
    * healthcheck: `./scripts/checkapphealth.sh app sid aid hipuser`
    * logs: `./scripts/viewapplogs.sh app sid aid hipuser`
    * status: `./scripts/appstatus.sh app sid aid hipuser`
+
+## Acknowledgement
+
+This research was supported by the EBRAINS research infrastructure, funded from the European Union’s Horizon 2020 Framework Programme for Research and Innovation under the Specific Grant Agreement No. 945539 (Human Brain Project SGA3).
