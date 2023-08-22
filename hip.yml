@@ -46,7 +46,7 @@ apps:
     version: latest
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
-    state: beta
+    state: off
 
   filemanager:
     name: "FileManager"
@@ -123,7 +123,7 @@ apps:
     version: R2023a
     url: "https://mathworks.com/products/matlab.html"
     description: "MATLAB is a programming platform designed specifically for engineers and scientists to analyze and design systems and products."
-    state: beta
+    state: off
 
   mricrogl:
     name: "MRIcroGL"
