@@ -164,3 +164,30 @@ You can launch servers and apps using the following bash scripts from the `app-i
    * healthcheck: `./scripts/checkapphealth.sh app sid aid hipuser`
    * logs: `./scripts/viewapplogs.sh app sid aid hipuser`
    * status: `./scripts/appstatus.sh app sid aid hipuser`
+
+## Building app-in-browser (optional)
+If you wish to build `app-in-browser` on a local machine, first install the build dependencies:
+```bash
+sudo apt-get install python3-pip
+sudo pip3 install -r build/requirements.txt
+```
+Then for building everything, execute:
+```bash
+./buildall.py
+```
+For building the server only, execute:
+```bash
+./buildserver.py
+```
+For building a specific base image, execute:
+```bash
+./buildbaseimage.py [base_image_name]
+```
+For building a specific app, execute:
+```bash
+./buildapp.py [app_image_name]
+```
+
+## Acknowledgement
+
+This research was supported by the EBRAINS research infrastructure, funded from the European Union’s Horizon 2020 Framework Programme for Research and Innovation under the Specific Grant Agreement No. 945539 (Human Brain Project SGA3).
