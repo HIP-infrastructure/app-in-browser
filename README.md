@@ -165,9 +165,10 @@ You can launch servers and apps using the following bash scripts from the `app-i
    * logs: `./scripts/viewapplogs.sh app sid aid hipuser`
    * status: `./scripts/appstatus.sh app sid aid hipuser`
 
-## Building app-in-browser
+## Building app-in-browser (optional)
 If you wish to build `app-in-browser` on a local machine, first install the build dependencies:
 ```bash
+sudo apt-get install python3-pip
 pip3 install -r build/requirements.txt
 ```
 Then for building everything, execute:
