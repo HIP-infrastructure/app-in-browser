@@ -169,7 +169,7 @@ You can launch servers and apps using the following bash scripts from the `app-i
 If you wish to build `app-in-browser` on a local machine, first install the build dependencies:
 ```bash
 sudo apt-get install python3-pip
-pip3 install -r build/requirements.txt
+sudo pip3 install -r build/requirements.txt
 ```
 Then for building everything, execute:
 ```bash
