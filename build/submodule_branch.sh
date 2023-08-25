@@ -7,7 +7,7 @@ for i in services/apps/*/; do
   if [ -z "${CI_REGISTRY}" ]; then
     git config pull.rebase false
   fi
-  git pull origin $1
+  git pull origin $1 --allow-unrelated-histories
   cd - > /dev/null
   echo "Done with $i."
   echo
