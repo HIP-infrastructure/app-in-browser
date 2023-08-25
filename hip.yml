@@ -194,7 +194,7 @@ base:
 
   ghostfs:
     name: "GhostFS"
-    version: 1861209
+    version: 2830b7b
     state: ready
 
   davfs2:
