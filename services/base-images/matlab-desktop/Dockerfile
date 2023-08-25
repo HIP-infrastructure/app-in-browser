@@ -20,6 +20,7 @@ RUN apt-get update && \
     curl -sSOL https://www.mathworks.com/mpm/glnxa64/mpm && \
     chmod +x mpm && \
     ./mpm install --release=R2023a --destination=/opt/matlab/R2023a MATLAB Signal_Processing_Toolbox Parallel_Computing_Toolbox && \
+    cd .. && \
     rm -rf /apps/mpm && \
     apt-get remove -y --purge curl unzip && \
     apt-get autoremove -y --purge && \
