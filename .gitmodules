@@ -76,3 +76,9 @@
 [submodule "services/apps/trcanonymizer"]
 	path = services/apps/trcanonymizer
 	url = git@github.com:HIP-infrastructure/trcanonymizer.git
+[submodule "services/apps/jupyterlab"]
+	path = services/apps/jupyterlab
+	url = git@github.com:HIP-infrastructure/jupyterlab.git
+[submodule "services/apps/terminal_dip"]
+	path = services/apps/terminal_dip
+	url = git@github.com:HIP-infrastructure/terminal_dip

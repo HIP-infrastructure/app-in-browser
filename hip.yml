@@ -88,6 +88,13 @@ apps:
     version: 5.1.0
     url: "https://github.com/IntrAnatSEEGSoftware/IntrAnat"
     description: "IntrAnat is a free database and visualization software for Intracranial Electroencephalographic (iEEG) data."
+    state: beta
+
+  jupyterlab:
+    name: "Jupyterlab-Desktop"
+    version: 3.6.2-1
+    url: "https://github.com/jupyterlab/jupyterlab-desktop"
+    description: "JupyterLab Desktop is the cross-platform desktop application for JupyterLab and the quickest and easiest way to get started with Jupyter notebooks on your personal computer."
     state: off
 
   libreoffice:
@@ -123,7 +130,7 @@ apps:
     version: R2023a
     url: "https://mathworks.com/products/matlab.html"
     description: "MATLAB is a programming platform designed specifically for engineers and scientists to analyze and design systems and products."
-    state: off
+    state: beta
 
   mricrogl:
     name: "MRIcroGL"
@@ -159,6 +166,13 @@ apps:
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
     state: ready
+
+  terminal_dip:
+    name: "Terminal"
+    version: latest
+    url: "https://wezfurlong.org/wezterm/index.html"
+    description: "WezTerm is a powerful cross-platform terminal emulator and multiplexer implemented in Rust"
+    state: off
 
   trcanonymizer:
     name: "TRCAnonymizer"
