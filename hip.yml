@@ -46,7 +46,7 @@ apps:
     version: latest
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
-    state: off
+    state: beta
 
   filemanager:
     name: "FileManager"
@@ -91,11 +91,11 @@ apps:
     state: beta
 
   jupyterlab:
-    name: "Jupyterlab-Desktop"
-    version: 3.6.2-1
+    name: "JupyterLab Desktop"
+    version: latest
     url: "https://github.com/jupyterlab/jupyterlab-desktop"
     description: "JupyterLab Desktop is the cross-platform desktop application for JupyterLab and the quickest and easiest way to get started with Jupyter notebooks on your personal computer."
-    state: off
+    state: beta
 
   libreoffice:
     name: "LibreOffice"
@@ -172,7 +172,7 @@ apps:
     version: latest
     url: "https://wezfurlong.org/wezterm/index.html"
     description: "WezTerm is a powerful cross-platform terminal emulator and multiplexer implemented in Rust"
-    state: off
+    state: beta
 
   trcanonymizer:
     name: "TRCAnonymizer"
