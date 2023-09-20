@@ -176,7 +176,7 @@ apps:
 
   trcanonymizer:
     name: "TRCAnonymizer"
-    version: 1.0.0
+    version: 1.0.1
     url: "https://github.com/floriansipp/TRCAnonymizer"
     description: "TRCAnonymizer is a software that, allows you to check if your Micromed data file are anonymized and if not gives you the mean through a simple interface to do so."
     state: beta
