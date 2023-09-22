@@ -91,6 +91,15 @@ if hip_config['base']['dockerfs']['type']:
 else:
   print(f"Failed to run {args.app_name} because dockerfs cert wasn't found in hip.config.yml")
   exit(1)
+#getting the matlab-desktop license
+if args.app_name in ["matlab", "brainstorm_matlab", "intranat"]:
+  if hip_config['base']['matlab-desktop']['license']:
+    matlab_license=hip_config['base']['matlab-desktop']['license']
+  else:
+    print(f"Failed to run {args.app_name} because matlab-desktop license wasn't found in hip.config.yml")
+    exit(1)
+else:
+    matlab_license = None
 
 # get the user token or password
 hip_password=None
@@ -133,6 +142,7 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", f"NEXTCLOUD_DOMAIN={args.nextcloud_domain}", \
                                                   "--env", f"DOCKERFS_TYPE={dockerfs_type}", \
                                                   "--env", f"DOCKERFS_CERT={dockerfs_cert}", \
+                                                  *(["--env", f"MATLAB_LICENSE={matlab_license}"] if matlab_license is not None else []), \
                                                   "--env", f"CARD={card}", \
                                                   "--env", f"APP_NAME={args.app_name}", \
                                                   "--env", f"APP_VERSION={app_version}", \
