@@ -4,14 +4,14 @@ apps:
     version: 2.7.5
     url: "https://meg.univ-amu.fr/wiki/AnyWave"
     description: "AnyWave is a software designed to easily open and view data recorded by EEG or MEG acquisition systems."
-    state: ready
+    state: off
 
   bidsalyzer:
     name: "Bidsalyzer"
     version: 1.0.0
     url: "https://github.com/floriansipp/Bidsalyzer"
     description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope"
-    state: ready
+    state: off
 
   brainvisa:
     name: "BrainVisa"
@@ -25,21 +25,21 @@ apps:
     version: 1.0.20230411
     url: "https://github.com/rordenlab/dcm2niix"
     description: "dcm2niix is designed to convert neuroimaging data from the DICOM format to the NIfTI format."
-    state: ready
+    state: off
 
   bidsmanager:
     name: "BIDS-Manager"
     version: b80dd53
     url: "https://github.com/Dynamap/BIDS_Manager"
     description: "Package to collect, organise and manage neuroscience data in Brain Imaging Data Structure (BIDS) format."
-    state: ready
+    state: off
 
   brainstorm:
     name: "Brainstorm"
     version: latest
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
-    state: ready
+    state: off
 
   filemanager:
     name: "FileManager"
@@ -53,28 +53,28 @@ apps:
     version: 7.3.2
     url: "https://surfer.nmr.mgh.harvard.edu"
     description: "An open source software suite for processing and analyzing (human) brain MRI images."
-    state: ready
+    state: off
 
   fsl:
     name: "FSL"
     version: 6.0.6.4
     url: "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data."
-    state: ready
+    state: off
 
   gardel:
     name: "GARDEL"
     version: latest
     url: "https://meg.univ-amu.fr/wiki/GARDEL:presentation"
     description: "GARDEL is a tool for automatic segmentation and labelization of SEEG contacts."
-    state: beta
+    state: off
 
   hibop:
     name: "HiBoP"
     version: 4.3.1
     url: "https://github.com/hbp-HiBoP/HiBoP"
     description: "HiBoP illustrates the possibility to render group-level activity dynamically at the cortical level, for several experimental conditions (columns) of the same cognitive paradigm."
-    state: ready
+    state: off
 
   intranat:
     name: "IntrAnat"
@@ -95,21 +95,21 @@ apps:
     version: 4.4.4
     url: "https://github.com/CRNL-Eduwell/Localizer"
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
-    state: ready
+    state: off
 
   mne:
     name: "MNE-Python"
     version: 1.3.1
     url: "https://mne.tools"
     description: "Open-source Python package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, NIRS, and more."
-    state: beta
+    state: off
 
   frites:
     name: "Frites"
     version: 0.4.3
     url: "https://github.com/brainets/frites"
     description: "Frites is a Python toolbox designed for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial) for the discovery of cognitive brain networks."
-    state: beta
+    state: off
 
   mricrogl:
     name: "MRIcroGL"
@@ -123,14 +123,14 @@ apps:
     version: latest
     url: "https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface"
     description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
-    state: ready
+    state: off
 
   niftyreg:
     name: "NiftyReg"
     version: latest
     url: "https://github.com/KCL-BMEIS/niftyreg"
     description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)"
-    state: beta
+    state: off
 
   rstudio:
     name: "RStudio"
@@ -151,7 +151,7 @@ apps:
     version: 0.7
     url: "https://www.thevirtualbrain.org"
     description: "Simulate a human brain, right on your PC!"
-    state: ready
+    state: off
 
   vscode:
     name: "VS Code"
@@ -195,5 +195,5 @@ base:
 server:
   xpra:
     name: "Xpra"
-    version: master
+    version: master-dip
     state: ready
