@@ -94,7 +94,7 @@ s.close()
 
 #run container
 ret_val = subprocess.check_call(["docker", "run", "-d", \
-                                                  "-p", f"127.0.0.1:{port}:8080", \
+                                                  "-p", f"{port}:8080", \
                                                   "-v", f"{container_name}_x11-unix:/tmp/.X11-unix", \
                                                   "-v", "/var/run/dbus:/var/run/dbus", \
                                                   "--privileged", \
@@ -119,5 +119,6 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", f"XPRA_KEYCLOAK_AUTH_GROUPS=\"{auth_groups}\"", \
                                                   "--env", f"XPRA_KEYCLOAK_AUTH_CONDITION={auth_condition}", \
                                                   "--env", f"XPRA_KEYCLOAK_GRANT_TYPE={grant_type}", \
+                                                  "--env", "OAUTHLIB_INSECURE_TRANSPORT=1", \
                                                   f"{ci_registry_image}/xpra-server:{xpra_version}{tag}"])
 assert ret_val == 0, f"Failed running xpra-server-${container_name}."

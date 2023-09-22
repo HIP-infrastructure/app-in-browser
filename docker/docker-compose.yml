@@ -1,0 +1,22 @@
+version: '3.2'
+
+services:
+  app-in-browser:
+    image: local/hip-app-in-browser:installed
+    stdin_open: true
+    #tty: true
+    entrypoint: /bin/bash
+    volumes:
+      - ..:/home/localadmin/chuv/hip/app-in-browser
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /mnt/nextcloud-dp:/mnt/nextcloud-dp
+    ports:
+      - "9001:9001"
+    #   - "1180:80"
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    name: frontend
+    driver: bridge

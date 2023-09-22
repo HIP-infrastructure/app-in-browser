@@ -3,6 +3,7 @@
 encode gzip zstd
 
 #tls /etc/caddy/cert.pem /etc/caddy/key.pem 
+#tls self_signed
 
 route /session/* {
 	@session {
@@ -16,7 +17,7 @@ route /session/* {
 	}
 	handle @session {
 		rewrite {re.session.2}
-		reverse_proxy localhost:{re.session.1}
+		reverse_proxy 172.17.0.1:{re.session.1}
 	}
 }
 
