@@ -6,6 +6,13 @@ apps:
     description: "AnyWave is a software designed to easily open and view data recorded by EEG or MEG acquisition systems."
     state: ready
 
+  arx:
+    name: "ARX"
+    version: 3.9.1
+    url: "https://arx.deidentifier.org/"
+    description: "ARX is a comprehensive open source software for anonymizing sensitive personal data."
+    state: off
+
   bidsalyzer:
     name: "Bidsalyzer"
     version: 1.0.0

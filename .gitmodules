@@ -82,3 +82,6 @@
 [submodule "services/apps/terminal_dip"]
 	path = services/apps/terminal_dip
 	url = git@github.com:HIP-infrastructure/terminal_dip
+[submodule "services/apps/arx"]
+	path = services/apps/arx
+	url = git@github.com:HIP-infrastructure/arx
