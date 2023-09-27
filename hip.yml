@@ -10,13 +10,8 @@ apps:
     name: "Bidsalyzer"
     version: 1.0.0
     url: "https://github.com/floriansipp/Bidsalyzer"
-<<<<<<< HEAD
-    description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope"
-    state: off
-=======
     description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope."
-    state: ready
->>>>>>> master
+    state: off
 
   brainvisa:
     name: "BrainVisa"
@@ -148,13 +143,8 @@ apps:
     name: "NiftyReg"
     version: latest
     url: "https://github.com/KCL-BMEIS/niftyreg"
-<<<<<<< HEAD
-    description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)"
-    state: off
-=======
     description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)."
-    state: beta
->>>>>>> master
+    state: off
 
   rstudio:
     name: "RStudio"
