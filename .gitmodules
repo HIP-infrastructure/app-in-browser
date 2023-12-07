@@ -88,3 +88,6 @@
 [submodule "services/apps/orange3"]
 	path = services/apps/orange3
 	url = git@github.com:HIP-infrastructure/orange3
+[submodule "services/apps/btvreplay"]
+	path = services/apps/btvreplay
+	url = git@github.com:HIP-infrastructure/btvreplay

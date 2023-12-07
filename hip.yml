@@ -55,6 +55,13 @@ apps:
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: beta
 
+  btvreplay:
+    name: "BTVReplay"
+    version: 3.7.0
+    url: "https://github.com/floriansipp/BTVReplay-builds"
+    description: "BTVReplay is a software that allow you to view your iEEG data with anatomical and video data synchronyzed in a simple interface."
+    state: beta
+
   filemanager:
     name: "FileManager"
     version: latest
@@ -222,7 +229,7 @@ base:
 
   ghostfs:
     name: "GhostFS"
-    version: 2830b7b
+    version: 56fe511
     state: ready
 
   davfs2:
