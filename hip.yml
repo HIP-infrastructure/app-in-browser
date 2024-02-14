@@ -55,6 +55,13 @@ apps:
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: beta
 
+  btvreplay:
+    name: "BTVReplay"
+    version: 3.7.0
+    url: "https://github.com/floriansipp/BTVReplay-builds"
+    description: "BTVReplay is a software that allow you to view your iEEG data with anatomical and video data synchronyzed in a simple interface."
+    state: beta
+
   filemanager:
     name: "FileManager"
     version: latest
@@ -160,6 +167,13 @@ apps:
     description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)."
     state: beta
 
+  orange3:
+    name: "Orange3"
+    version: latest
+    url: "https://github.com/biolab/orange3"
+    description: "Open source machine learning and data visualization."
+    state: beta
+
   rstudio:
     name: "RStudio"
     version: 2023.06.0
@@ -205,17 +219,17 @@ apps:
 base:
   virtualgl:
     name: "VirtualGL"
-    version: 3.1
+    version: 3.1.1
     state: ready
 
   terminal:
     name: "Wezterm"
-    version: 20230712-072601-f4abf8fd
+    version: 20240203-110809-5046fc22
     state: ready
 
   ghostfs:
     name: "GhostFS"
-    version: 5f89c6c
+    version: c7fcbab
     state: ready
 
   davfs2:

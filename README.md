@@ -7,11 +7,7 @@ In order to deploy `app-in-browser` on Ubuntu 22.04, follow these steps.
 
 ## Machine preparation
 1. Install `docker` using this [guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04). Don't forget to enable the docker service using `sudo systemctl enable docker`.
-2. Install `Node.js` using the following commands:
-```bash
-curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
+2. Install `Node.js` using [guide](https://github.com/nodesource/distributions#installation-instructions).
 
 ## Docker configuration
 1. By default, docker only allows to create 32 bridge networks. As each server uses two of them, you'll only be able to start 16 servers with the default configuration. To bump this number to 256 servers, add the following to `/etc/docker/daemon.json`:
