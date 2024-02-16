@@ -1,8 +1,9 @@
 name: gitlab-sync
-on: push
-  branches:
-    - master
-    - dev
+on:
+  push:
+    branches:
+      - master
+      - dev
 jobs:
   git-sync:
     runs-on: ubuntu-latest
