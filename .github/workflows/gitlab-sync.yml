@@ -1,5 +1,9 @@
 name: gitlab-sync
-on: push
+on:
+  push:
+    branches:
+      - master
+      - dev
 jobs:
   git-sync:
     runs-on: ubuntu-latest
@@ -8,6 +12,6 @@ jobs:
         uses: wei/git-sync@v3
         with:
           source_repo: ${{ secrets.SOURCE_GITHUB }}
-          source_branch: "refs/remotes/source/*"
+          source_branch: ${GITHUB_REF##*/}
           destination_repo: ${{ secrets.TARGET_GITLAB }}
-          destination_branch: "refs/heads/*"
+          destination_branch: ${GITHUB_REF##*/}
