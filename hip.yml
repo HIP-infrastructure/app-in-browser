@@ -41,6 +41,13 @@ apps:
     description: "Package to collect, organise and manage neuroscience data in Brain Imaging Data Structure (BIDS) format."
     state: off
 
+  bidstoolbox:
+    name: "BIDS Toolbox"
+    version: latest
+    url: "https://github.com/CHUV-DIP/PyEEGBids"
+    description: "Python tool to manage data in BIDS format."
+    state: beta
+
   brainstorm:
     name: "Brainstorm"
     version: latest
