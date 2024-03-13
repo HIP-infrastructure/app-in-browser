@@ -24,7 +24,7 @@ server:
     realm_name: exampe_realm
     client_id: exampe_client
     client_secret: secret
-    redirect_uri_base: http://localhost/login/
+    redirect_uri_base: http://localhost/session/
     scope: "openid email profile group roles team"
     groups_claim: "roles.group"
     auth_condition: "and"
