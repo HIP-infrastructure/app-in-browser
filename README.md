@@ -2,7 +2,7 @@
 
 `app-in-browser` allows controlling 3D accelerated graphic servers in the browser that will display a set of apps. Additionally, it mounts `Nextcloud` homedirs and group folders into the app containers.
 
-In order to deploy `app-in-browser` on Ubuntu 22.04, follow these steps.
+To deploy `app-in-browser` on Ubuntu 22.04, follow these steps.
 
 
 ## Machine preparation
@@ -10,7 +10,7 @@ In order to deploy `app-in-browser` on Ubuntu 22.04, follow these steps.
 2. Install `Node.js` using [guide](https://github.com/nodesource/distributions#installation-instructions).
 
 ## Docker configuration
-1. By default, docker only allows to create 32 bridge networks. As each server uses two of them, you'll only be able to start 16 servers with the default configuration. To bump this number to 256 servers, add the following to `/etc/docker/daemon.json`:
+1. By default, docker only allows creating 32 bridge networks. As each server uses two of them, you will only be able to start 16 servers with the default configuration. To bump this number to 256 servers, add the following to `/etc/docker/daemon.json`:
 ```json
 {
    "default-address-pools":[
@@ -29,7 +29,7 @@ then restart the docker service with `sudo systemctl restart docker`.
 
 ## GPU support setup (optional)
 1. Install the recommended Nvidia drivers for your system. Install `ubuntu-drivers` using `sudo apt-get install ubuntu-drivers-common` and check which drivers are recommended using the command `ubuntu-drivers devices`. Then install them using `sudo ubuntu-drivers autoinstall`.
-2. Reboot the system with `sudo reboot` and check that the drivers are functional using `sudo nvidia-smi`. Additionnaly you can check that the nvidia module is loaded with `lspci -nnk | grep -i nvidia`.
+2. Reboot the system with `sudo reboot` and check that the drivers are functional using `sudo nvidia-smi`. Additionally, you can check that the nvidia module is loaded with `lspci -nnk | grep -i nvidia`.
 3. Install the NVIDIA Container Toolkit package repository and GPG key:
 ```bash
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
