@@ -72,7 +72,7 @@ backend:
 readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-card | xargs basename
 ```
 
-5. Edit the ['backend']['auth'] settings with the credentials generated on the frontend.
+5. Edit the `['backend']['auth']` settings with the credentials generated on the frontend. Set `server_url` to the domain of your Keycloak instance and `redirect_uri_base` to the domain the app-in-browser backend instance. The other settings correspond to the Keycloak realm and client you're going to be using.
 6. If you'd like to use `keycloak`, enter the `keycloak` client information and set to `['server']['keycloak']['auth']` to `yes`.
 7. Put the `tls` certificates you generated on the frontend and collab in `['base']['dockerfs']['cert_private']` and `['base']['dockerfs']['cert_collab']` respectively. The certificates need to be transformed to single lines. You can use the following command:
 ```bash
