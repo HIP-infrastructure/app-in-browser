@@ -29,7 +29,7 @@ RUN apt-get update && \
     libxdamage-dev libxres-dev libxkbfile-dev \
     python-all-dev pandoc libsystemd-dev \
     libgtk-3-dev python3-dev python3-cairo-dev \
-    python-gi-dev cython3 xauth x11-xkb-utils \
+    python-gi-dev xauth x11-xkb-utils \
     xvfb python3-cairo python3-gi-cairo \
     python3-opengl python3-lz4 python3-rencode python3-pil \
     devscripts build-essential lintian debhelper git \
@@ -45,10 +45,11 @@ RUN apt-get update && \
     python3-gst-1.0 python3-pycuda \
     dbus-x11 python3-dbus pulseaudio \
     python3-xdg menu-xdg curl \
+    pkgconf libavif-dev libyuv-dev libopenh264-dev libxxhash-dev \
     libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio \
     va-driver-all gstreamer1.0-vaapi && \
     pip3 install requests==2.29.0 urllib3==1.26.15 && \
-    pip3 install pyinotify netifaces oauthlib python-keycloak
+    pip3 install pyinotify netifaces oauthlib python-keycloak cython
 #   pip3 install python-uinput
 
 # for nvenc
@@ -62,14 +63,14 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     npm i uglify-js -g
 
 RUN git clone https://github.com/HIP-infrastructure/xpra.git
-ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak-auth-groups-rebase&per_page=1" xpra_latest_commit
+ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak-auth-groups-rebase-2&per_page=1" xpra_latest_commit
 
 #RUN git clone https://github.com/Xpra-org/xpra.git
 #ADD "https://api.github.com/repos/Xpra-org/xpra/commits?sha=master&per_page=1" xpra_latest_commit
 
 RUN cd xpra && \
     git fetch && \
-    git checkout keycloak-auth-groups-rebase && \
+    git checkout keycloak-auth-groups-rebase-2 && \
     git pull && \
 #   git checkout 0f22c8e && \
 #   git checkout v4.4 && \
@@ -87,17 +88,16 @@ RUN cd xpra && \
 #    cd ..
 
 #RUN git clone https://github.com/HIP-infrastructure/xpra-html5
-#ADD "https://api.github.com/repos/HIP-infrastructure/xpra-html5/commits?sha=keycloak&per_page=1" xpra_html5_latest_commit
+#ADD "https://api.github.com/repos/HIP-infrastructure/xpra-html5/commits?sha=fix/type-mismatch&per_page=1" xpra_html5_latest_commit
 
 RUN git clone https://github.com/Xpra-org/xpra-html5
 ADD "https://api.github.com/repos/Xpra-org/xpra-html5/commits?sha=master&per_page=1" xpra_html5_latest_commit
 
 RUN cd xpra-html5 && \
-#   git checkout keycloak && \
     git pull && \
-#   git checkout v6.1 && \
-    #fix for jupyterlab-desktop
-    git checkout cd0de67 && \
+    #git checkout fix/type-mismatch && \
+    #git checkout v11.0 && \
+    git checkout 7dce93f && \
     ./setup.py deb && \
     cd ..
 
