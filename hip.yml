@@ -46,7 +46,7 @@ apps:
     version: latest
     url: "https://github.com/CHUV-DIP/PyEEGBids"
     description: "Python tool to manage data in BIDS format."
-    state: beta
+    state: off
 
   brainstorm:
     name: "Brainstorm"
