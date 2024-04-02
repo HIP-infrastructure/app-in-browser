@@ -91,3 +91,9 @@
 [submodule "services/apps/btvreplay"]
 	path = services/apps/btvreplay
 	url = git@github.com:HIP-infrastructure/btvreplay
+[submodule "services/apps/bidstoolbox"]
+	path = services/apps/bidstoolbox
+	url = git@github.com:HIP-infrastructure/bidstoolbox
+[submodule "services/apps/bidsbox"]
+	path = services/apps/bidsbox
+	url = git@github.com:HIP-infrastructure/bidsbox
