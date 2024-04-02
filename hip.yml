@@ -20,6 +20,13 @@ apps:
     description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope."
     state: ready
 
+  bidsbox:
+    name: "Bidsbox"
+    version: 1.0.0
+    url: "https://github.com/HIP-infrastructure/bidsbox"
+    description: "Bidsificator is a software that allows you to import multiple data modalities to a BIDS filestructure."
+    state: beta
+
   brainvisa:
     name: "BrainVisa"
     version: 5.1.0
@@ -39,7 +46,14 @@ apps:
     version: b80dd53
     url: "https://github.com/Dynamap/BIDS_Manager"
     description: "Package to collect, organise and manage neuroscience data in Brain Imaging Data Structure (BIDS) format."
-    state: ready
+    state: off
+
+  bidstoolbox:
+    name: "BIDS Toolbox"
+    version: latest
+    url: "https://github.com/CHUV-DIP/PyEEGBids"
+    description: "Python tool to manage data in BIDS format."
+    state: off
 
   brainstorm:
     name: "Brainstorm"
@@ -78,7 +92,7 @@ apps:
 
   fsl:
     name: "FSL"
-    version: 6.0.6.4
+    version: 6.0.7.9
     url: "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data."
     state: ready

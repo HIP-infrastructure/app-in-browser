@@ -20,11 +20,11 @@ backend:
 server:
   keycloak:
     auth: no
-    server_url: http://localhost:8080/auth/
+    server_url: http://keycloak.local
     realm_name: exampe_realm
     client_id: exampe_client
     client_secret: secret
-    redirect_uri_base: http://localhost/login/
+    redirect_uri_base: http://app-in-browser.local/session/
     scope: "openid email profile group roles team"
     groups_claim: "roles.group"
     auth_condition: "and"
