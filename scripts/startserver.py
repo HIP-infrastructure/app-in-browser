@@ -62,7 +62,7 @@ if hip_config['server']['keycloak']:
   client_secret=hip_config['server']['keycloak']['client_secret']
   redirect_uri_base=hip_config['server']['keycloak']['redirect_uri_base']
   scope=hip_config['server']['keycloak']['scope']
-  groups_claim=hip_config['server']['keycloak']['groups_claim']
+  claim_field=hip_config['server']['keycloak']['claim_field']
   auth_condition=hip_config['server']['keycloak']['auth_condition']
   grant_type=hip_config['server']['keycloak']['grant_type']
 else:
@@ -115,7 +115,7 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", f"XPRA_KEYCLOAK_CLIENT_SECRET_KEY={client_secret}", \
                                                   "--env", f"XPRA_KEYCLOAK_REDIRECT_URI={redirect_uri_base}{port}", \
                                                   "--env", f"XPRA_KEYCLOAK_SCOPE=\"{scope}\"", \
-                                                  "--env", f"XPRA_KEYCLOAK_GROUPS_CLAIM={groups_claim}", \
+                                                  "--env", f"XPRA_KEYCLOAK_CLAIM_FIELD={claim_field}", \
                                                   "--env", f"XPRA_KEYCLOAK_AUTH_GROUPS=\"{auth_groups}\"", \
                                                   "--env", f"XPRA_KEYCLOAK_AUTH_CONDITION={auth_condition}", \
                                                   "--env", f"XPRA_KEYCLOAK_GRANT_TYPE={grant_type}", \
