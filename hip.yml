@@ -18,7 +18,7 @@ apps:
     version: 1.0.0
     url: "https://github.com/floriansipp/Bidsalyzer"
     description: "Bidsalyzer is a BIDS-compliant application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelope."
-    state: ready
+    state: off
 
   bidsbox:
     name: "Bidsbox"
