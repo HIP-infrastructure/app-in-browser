@@ -62,16 +62,17 @@ RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     apt-get install -y nodejs && \
     npm i uglify-js -g
 
-RUN git clone https://github.com/HIP-infrastructure/xpra.git
-ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=keycloak-auth-groups-rebase-3&per_page=1" xpra_latest_commit
+#RUN git clone https://github.com/HIP-infrastructure/xpra.git
+#ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=feat/keycloak-auth-groups&per_page=1" xpra_latest_commit
 
-#RUN git clone https://github.com/Xpra-org/xpra.git
-#ADD "https://api.github.com/repos/Xpra-org/xpra/commits?sha=master&per_page=1" xpra_latest_commit
+RUN git clone https://github.com/Xpra-org/xpra.git
+ADD "https://api.github.com/repos/Xpra-org/xpra/commits?sha=master&per_page=1" xpra_latest_commit
 
 RUN cd xpra && \
-    git fetch && \
-    git checkout keycloak-auth-groups-rebase-3 && \
+    #git fetch && \
     git pull && \
+    #git checkout feat/keycloak-auth-groups && \
+    git checkout 759fb0c && \
 # building a deb package
     debuild -us -uc -b && \
     cd ..
@@ -94,7 +95,8 @@ RUN cd xpra-html5 && \
     git pull && \
     #git checkout fix/type-mismatch && \
     #git checkout v11.0 && \
-    git checkout 7dce93f && \
+    #git checkout 7dce93f && \
+    git checkout 085e0df && \
     ./setup.py deb && \
     cd ..
 
