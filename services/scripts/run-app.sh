@@ -60,8 +60,8 @@ fi
 echo -n "Running $APP_NAME as $HIP_USER "
 if [ $CARD == "none" ]; then
   echo "on CPU... "
-  CMD="$APP_CMD_PREFIX; QT_DEBUG_PLUGINS=1 $APP_CMD"
-  #CMD="$APP_CMD_PREFIX; $APP_CMD"
+  #CMD="$APP_CMD_PREFIX; QT_DEBUG_PLUGINS=1 $APP_CMD"
+  CMD="$APP_CMD_PREFIX; $APP_CMD"
 else
   echo "on GPU... "
   #CMD="$APP_CMD_PREFIX; vglrun -d /dev/dri/$CARD /opt/VirtualGL/bin/glxspheres64"

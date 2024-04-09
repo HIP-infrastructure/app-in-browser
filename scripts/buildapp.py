@@ -114,7 +114,6 @@ ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY
                                                     "--build-arg", f"BRAINVISA_VERSION={brainvisa_version}", \
                                                     "--build-arg", f"MATLAB_VERSION={matlab_desktop_version}", \
                                                     "--build-arg", f"TERMINAL_VERSION={terminal_version}", \
-                                                    "--no-cache", \
                                                     *app_env,
                                                     *(["--cache-from", registry_image] if ci_registry else []),
                                                     *(["--progress=plain"] if ci_registry else []),
