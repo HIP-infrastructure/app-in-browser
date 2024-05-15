@@ -34,6 +34,13 @@ apps:
     description: "BrainVISA provides a complete, modular, infrastructure for neuroimaging software. It helps organizing heterogeneous software and data and provides a common general graphical interface for users."
     state: beta
 
+  cuda_app:
+    name: "Cuda App"
+    version: latest
+    url: ""
+    description: "Demo App for GPU testing"
+    state: beta
+
   dcm2niix:
     name: "dcm2niix"
     version: 1.0.20230411
