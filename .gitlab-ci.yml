@@ -1,19 +1,21 @@
-image: docker:20
+image: docker:25
 variables:
   # using "docker" as the host is only possible if you alias the service below
-  DOCKER_HOST: tcp://docker:2375 
-  # could be wrong here but although Docker defaults to overlay2, 
-  # Docker-in-Docker (DIND) does not according to the following GitLab doc: 
+  DOCKER_HOST: tcp://docker:2375
+  # could be wrong here but although Docker defaults to overlay2,
+  # Docker-in-Docker (DIND) does not according to the following GitLab doc:
   # https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-the-overlayfs-driver
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
+
 services:
-  - name: docker:20-dind
+  - name: docker:25-dind
     alias: docker
-    # in our experience although you'd assume this would be sufficient, this did 
-    # nothing to prevent connection errors without `DOCKER_TLS_CERTDIR` being set 
+    # in our experience although you'd assume this would be sufficient, this did
+    # nothing to prevent connection errors without `DOCKER_TLS_CERTDIR` being set
     # to an empty string, and I would call that beyond mildly infuriating.
     command: ["--tls=false", "--mtu=1450"]
+
 before_script:
   - apk add --no-cache bash
   - apk add --no-cache openssh-client
@@ -27,17 +29,49 @@ before_script:
   - chmod 700 ~/.ssh
   - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
   - git submodule init
-  - git submodule update 
+  - git submodule update
   - ./build/submodule_branch.sh $CI_COMMIT_BRANCH
   - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
-stages:
-  - build
-build-all-job:
-  stage: build
+.step: &step
   only:
     - master
     - dev
-  script:
-    - /bin/bash -c "python3 scripts/buildall.py"
+    - feat/split-build-steps # remove me
   interruptible: true
+
+stages:
+  - base-images
+  - server
+  - apps
+
+build-base-images:
+  <<: *step
+  stage: base-images
+  script:
+    - /bin/bash -c "python3 scripts/buildall.py --base-images"
+
+build-server:
+  <<: *step
+  stage: server
+  script:
+    - /bin/bash -c "python3 scripts/buildall.py --server"
+
+# Splitting them up in batches
+build-apps-ae:
+  <<: *step
+  stage: apps
+  script:
+    - /bin/bash -c "python3 scripts/buildall.py --apps --apps-scope a-e"
+
+build-apps-fm:
+  <<: *step
+  stage: apps
+  script:
+    - /bin/bash -c "python3 scripts/buildall.py --apps --apps-scope f-m"
+
+build-apps-nz:
+  <<: *step
+  stage: apps
+  script:
+    - /bin/bash -c "python3 scripts/buildall.py --apps --apps-scope n-z"
