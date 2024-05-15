@@ -6,8 +6,8 @@ backend:
       token: registry_token
     commit_branch: branch_name
   dri:
-    card: card0
-    runtime: nvidia
+    card: none
+    runtime: runc
   auth:
     username: example_username
     password: example_password
