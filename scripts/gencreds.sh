@@ -5,11 +5,15 @@ if [ -f ./backend/backend.secret ]; then
     exit 1
 fi
 
-echo -n "Enter backend username: "
-read -r backend_username
-echo -n "Enter backend password: "
-read -rs backend_password
-echo
+if [ "$#" -eq 0 ]; then
+    echo -n "Enter backend username: "
+    read -r backend_username
+    echo -n "Enter backend password: "
+    read -rs backend_password
+else
+    backend_username="$1"
+    backend_password="$2"
+fi
 
 backend_hash=`python3 -c "from werkzeug.security import generate_password_hash as g; print(g(\"$backend_password\"), end=\"\");"`
 

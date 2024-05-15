@@ -28,19 +28,19 @@ else:
   print(f"Failed to run {args.app_name} because CI registry image wasn't found in hip.config.yml")
   exit(1)
 
-#get login info for registry
-if hip_config['backend']['ci']['registry']:
-  registry_username=hip_config['backend']['ci']['registry']['username']
-  registry_token=hip_config['backend']['ci']['registry']['token']
-else:
-  print(f"Failed to run {args.app_name} because registry info wasn't found in hip.config.yml")
-  exit(1)
+# #get login info for registry
+# if hip_config['backend']['ci']['registry']:
+#   registry_username=hip_config['backend']['ci']['registry']['username']
+#   registry_token=hip_config['backend']['ci']['registry']['token']
+# else:
+#   print(f"Failed to run {args.app_name} because registry info wasn't found in hip.config.yml")
+#   exit(1)
 
-#login to registry
-ret_val = subprocess.check_call(["docker", "login", ci_registry_image, \
-                                                    "-u", registry_username, \
-                                                    "-p", registry_token], stderr=subprocess.DEVNULL)
-assert ret_val == 0, f"Failed running {args.app_name} because login to registry failed."
+# #login to registry
+# ret_val = subprocess.check_call(["docker", "login", ci_registry_image, \
+#                                                     "-u", registry_username, \
+#                                                     "-p", registry_token], stderr=subprocess.DEVNULL)
+# assert ret_val == 0, f"Failed running {args.app_name} because login to registry failed."
 
 ## download base images
 #base_list = hip['base']
@@ -101,5 +101,5 @@ for app, params in app_list.items():
     print(f"Skipping {params['name']} because it is in state {params['state']}.")
 
 #logout from registry
-ret_val = subprocess.check_call(["docker", "logout", ci_registry_image])
-assert ret_val == 0, f"Failed running {args.app_name} because logout from registry failed."
+# ret_val = subprocess.check_call(["docker", "logout", ci_registry_image])
+# assert ret_val == 0, f"Failed running {args.app_name} because logout from registry failed."
