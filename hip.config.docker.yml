@@ -1,0 +1,50 @@
+backend:
+  ci:
+    registry:
+      image: registry.hbp.link/hip/app-in-browser
+      username: registry_username
+      token: registry_token
+    commit_branch: branch_name
+  dri:
+    card: card0
+    runtime: nvidia
+  auth:
+    username: example_username
+    password: example_password
+#  whitelist:
+#    - ip: example_ip1
+#      comment: example_fqdn1
+#    - ip: example_ip2
+#      comment: example_fqdn2
+
+server:
+  keycloak:
+    auth: no
+    server_url: http://keycloak.local
+    realm_name: hip
+    client_id: hip
+    client_secret: supersecret
+    redirect_uri_base: http://app-in-browser.local/session/
+    scope: "openid email profile group roles team"
+    claim_field: "roles.group"
+    auth_condition: "and"
+    grant_type: authorization_code
+
+#apps:
+#  whitelist:
+#    app1:
+#      - ip: example_ip1
+#        comment: example_fqdn1
+#      - ip: example_ip2
+#        comment: example_fqdn2
+#    app2:
+#      - ip: example_ip1
+#        comment: example_fqdn1
+#      - ip: example_ip2
+#        comment: example_fqdn2
+
+base:
+  dockerfs:
+    type: ghostfs
+    cert_private: your_cert_private
+    cert_collab: your_cert_collab

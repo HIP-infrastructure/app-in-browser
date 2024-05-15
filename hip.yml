@@ -4,7 +4,7 @@ apps:
     version: 2.7.5
     url: "https://meg.univ-amu.fr/wiki/AnyWave"
     description: "AnyWave is a software designed to easily open and view data recorded by EEG or MEG acquisition systems."
-    state: ready
+    state: off
 
   arx:
     name: "ARX"
@@ -32,14 +32,14 @@ apps:
     version: 5.1.0
     url: "https://brainvisa.info"
     description: "BrainVISA provides a complete, modular, infrastructure for neuroimaging software. It helps organizing heterogeneous software and data and provides a common general graphical interface for users."
-    state: beta
+    state: off
 
   dcm2niix:
     name: "dcm2niix"
     version: 1.0.20230411
     url: "https://github.com/rordenlab/dcm2niix"
     description: "dcm2niix is designed to convert neuroimaging data from the DICOM format to the NIfTI format."
-    state: ready
+    state: off
 
   bidsmanager:
     name: "BIDS-Manager"
@@ -60,21 +60,21 @@ apps:
     version: latest
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
-    state: ready
+    state: off
 
   brainstorm_matlab:
     name: "Brainstorm (Matlab)"
     version: latest
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
-    state: beta
+    state: off
 
   btvreplay:
     name: "BTVReplay"
     version: 3.7.0
     url: "https://github.com/floriansipp/BTVReplay-builds"
     description: "BTVReplay is a software that allow you to view your iEEG data with anatomical and video data synchronyzed in a simple interface."
-    state: beta
+    state: off
 
   filemanager:
     name: "FileManager"
@@ -88,147 +88,147 @@ apps:
     version: 7.3.2
     url: "https://surfer.nmr.mgh.harvard.edu"
     description: "An open source software suite for processing and analyzing (human) brain MRI images."
-    state: ready
+    state: off
 
   fsl:
     name: "FSL"
     version: 6.0.7.9
     url: "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data."
-    state: ready
+    state: off
 
   gardel:
     name: "GARDEL"
     version: latest
     url: "https://meg.univ-amu.fr/wiki/GARDEL:presentation"
     description: "GARDEL is a tool for automatic segmentation and labelization of SEEG contacts."
-    state: beta
+    state: off
 
   hibop:
     name: "HiBoP"
     version: 4.3.1
     url: "https://github.com/hbp-HiBoP/HiBoP"
     description: "HiBoP illustrates the possibility to render group-level activity dynamically at the cortical level, for several experimental conditions (columns) of the same cognitive paradigm."
-    state: ready
+    state: off
 
   intranat:
     name: "IntrAnat"
     version: 5.1.0
     url: "https://github.com/IntrAnatSEEGSoftware/IntrAnat"
     description: "IntrAnat is a free database and visualization software for Intracranial Electroencephalographic (iEEG) data."
-    state: beta
+    state: off
 
   jupyterlab:
     name: "JupyterLab Desktop"
     version: latest
     url: "https://github.com/jupyterlab/jupyterlab-desktop"
     description: "JupyterLab Desktop is the cross-platform desktop application for JupyterLab and the quickest and easiest way to get started with Jupyter notebooks on your personal computer."
-    state: beta
+    state: off
 
   libreoffice:
     name: "LibreOffice"
     version: latest
     url: "https://www.libreoffice.org"
     description: "LibreOffice is a free and powerful office suite, and a successor to OpenOffice.org (commonly known as OpenOffice)."
-    state: beta
+    state: off
 
   localizer:
     name: "Localizer"
     version: 4.4.5
     url: "https://github.com/CRNL-Eduwell/Localizer"
     description: "Localizer is an application whose goal is to take raw brain recordings and process them to obtain the frequency responses using a combination of band pass filter and Hilbert Envelloppe."
-    state: ready
+    state: off
 
   mne:
     name: "MNE-Python"
     version: 1.3.1
     url: "https://mne.tools"
     description: "Open-source Python package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, NIRS, and more."
-    state: beta
+    state: off
 
   frites:
     name: "Frites"
     version: 0.4.4
     url: "https://github.com/brainets/frites"
     description: "Frites is a Python toolbox designed for assessing information-based measures on human and animal neurophysiological data (M/EEG, Intracranial) for the discovery of cognitive brain networks."
-    state: beta
+    state: off
 
   matlab:
     name: "Matlab"
     version: R2023a
     url: "https://mathworks.com/products/matlab.html"
     description: "MATLAB is a programming platform designed specifically for engineers and scientists to analyze and design systems and products."
-    state: beta
+    state: off
 
   mricrogl:
     name: "MRIcroGL"
     version: 1.2.20220720
     url: "https://github.com/rordenlab/MRIcroGL"
     description: "MRIcroGL is a cross-platform tool for viewing DICOM and NIfTI format images. It provides a drag-and-drop user interface as well as a scripting language."
-    state: ready
+    state: off
 
   mrideface:
     name: "MRI Deface"
     version: latest
     url: "https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface"
     description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
-    state: ready
+    state: off
 
   niftyreg:
     name: "NiftyReg"
     version: latest
     url: "https://github.com/KCL-BMEIS/niftyreg"
     description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)."
-    state: beta
+    state: off
 
   orange3:
     name: "Orange3"
     version: latest
     url: "https://github.com/biolab/orange3"
     description: "Open source machine learning and data visualization."
-    state: beta
+    state: off
 
   rstudio:
     name: "RStudio"
     version: 2023.06.0
     url: "https://posit.co/products/open-source/rstudio"
     description: "RStudio is an integrated development environment (IDE) for R and Python."
-    state: beta
+    state: off
 
   slicer:
     name: "3D Slicer"
     version: 5.2.2
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
-    state: ready
+    state: off
 
   terminal_dip:
     name: "Terminal"
     version: latest
     url: "https://wezfurlong.org/wezterm/index.html"
     description: "WezTerm is a powerful cross-platform terminal emulator and multiplexer implemented in Rust"
-    state: beta
+    state: off
 
   trcanonymizer:
     name: "TRCAnonymizer"
     version: 1.1.0
     url: "https://github.com/floriansipp/TRCAnonymizer"
     description: "TRCAnonymizer is a software that, allows you to check if your Micromed data file are anonymized and if not gives you the mean through a simple interface to do so."
-    state: beta
+    state: off
 
   tvb:
     name: "TVB"
     version: 0.7
     url: "https://www.thevirtualbrain.org"
     description: "Simulate a human brain, right on your PC!"
-    state: ready
+    state: off
 
   vscode:
     name: "VS Code"
     version: latest
     url: "https://code.visualstudio.com/"
     description: "Visual Studio Code is a lightweight but powerful source code editor which runs on your desktop."
-    state: beta
+    state: off
 
 base:
   virtualgl:
