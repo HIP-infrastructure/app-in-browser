@@ -10,5 +10,8 @@ cd pm2 && npm i && cd ..
 sudo pm2 start pm2/ecosystem.config.js
 sudo pm2 save
 sudo pm2 startup
-sudo systemctl start pm2-root
-sudo systemctl enable pm2-root
+if command -v systemctl &> /dev/null
+then
+    sudo systemctl start pm2-root
+    sudo systemctl enable pm2-root
+fi
