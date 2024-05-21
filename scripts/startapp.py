@@ -146,5 +146,6 @@ ret_val = subprocess.check_call(["docker", "run", "-d", \
                                                   "--env", f"CARD={card}", \
                                                   "--env", f"APP_NAME={args.app_name}", \
                                                   "--env", f"APP_VERSION={app_version}", \
+                                                  "--add-host", "hip.local=host-gateway", \
                                                   f"{ci_registry_image}/{args.app_name}:{app_version}{tag}"])
 assert ret_val == 0, f"Failed running {args.app_name}."
