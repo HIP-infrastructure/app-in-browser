@@ -9,8 +9,8 @@ backend:
     card: none
     runtime: runc
   auth:
-    username: example_username
-    password: example_password
+    username: backend_username
+    password: backend_password
 #  whitelist:
 #    - ip: example_ip1
 #      comment: example_fqdn1
