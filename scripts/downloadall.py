@@ -1,50 +1,59 @@
 #!/usr/bin/env python3
 
-import os
 import subprocess
-import yaml
-from shutil import copy2
 
-with open('hip.yml') as f:
+import yaml
+
+with open("hip.yml") as f:
   hip = yaml.load(f, Loader=yaml.FullLoader)
-with open('hip.config.yml') as f:
+
+with open("hip.config.yml") as f:
   hip_config = yaml.load(f, Loader=yaml.FullLoader)
 
-#getting the tag
-if hip_config['backend']['ci']['commit_branch']:
-  ci_commit_branch=hip_config['backend']['ci']['commit_branch']
-  if ci_commit_branch == "dev":
-    tag = f"-{ci_commit_branch}"
-  else:
-    tag = ''
-else:
-  print(f"Failed to load tag it wasn't found in hip.config.yml")
+# getting the tag
+if not hip_config["backend"]["ci"]["commit_branch"]:
+  print("Failed to load tag as it wasn't found in hip.config.yml")
   exit(1)
 
-#getting the registry
-if hip_config['backend']['ci']['registry']['image']:
-  ci_registry_image=hip_config['backend']['ci']['registry']['image']
+ci_commit_branch = hip_config["backend"]["ci"]["commit_branch"]
+if ci_commit_branch == "dev":
+  tag = f"-{ci_commit_branch}"
 else:
-  print(f"Failed to run {args.app_name} because CI registry image wasn't found in hip.config.yml")
+  tag = ""
+
+# getting the registry
+if not hip_config["backend"]["ci"]["registry"]["image"]:
+  print("Failed to run because CI registry image wasn't found in hip.config.yml")
   exit(1)
 
-#get login info for registry
-if hip_config['backend']['ci']['registry']:
-  registry_username=hip_config['backend']['ci']['registry']['username']
-  registry_token=hip_config['backend']['ci']['registry']['token']
-else:
-  print(f"Failed to run {args.app_name} because registry info wasn't found in hip.config.yml")
+ci_registry_image = hip_config["backend"]["ci"]["registry"]["image"]
+
+# get login info for registry
+if not hip_config["backend"]["ci"]["registry"]:
+  print("Failed to run because registry info wasn't found in hip.config.yml")
   exit(1)
 
-#login to registry
-ret_val = subprocess.check_call(["docker", "login", ci_registry_image, \
-                                                    "-u", registry_username, \
-                                                    "-p", registry_token], stderr=subprocess.DEVNULL)
-assert ret_val == 0, f"Failed running {args.app_name} because login to registry failed."
+registry_username = hip_config["backend"]["ci"]["registry"].get("username")
+registry_token = hip_config["backend"]["ci"]["registry"].get("token")
+
+# login to registry
+if registry_username and registry_token:
+  subprocess.check_call(
+    [
+      "docker",
+      "login",
+      ci_registry_image,
+      "-u",
+      registry_username,
+      "-p",
+      registry_token,
+    ],
+    stderr=subprocess.DEVNULL,
+  )
 
 ## download base images
-#base_list = hip['base']
-#for base, params in base_list.items():
+# base_list = hip['base']
+# for base, params in base_list.items():
 #  if params['state']:
 #    #getting the base image version
 #    if hip['base'][base]['version']:
@@ -71,35 +80,39 @@ assert ret_val == 0, f"Failed running {args.app_name} because login to registry 
 #    print(f"Skipping {params['name']} because it is in state {params['state']}.")
 
 # download server
-if hip['server']['xpra']['state']:
-  #getting the server version
-  if hip['server']['xpra']['version']:
-    version=hip['server']['xpra']['version']
-  else:
-    print(f"Failed to download xpra-server because it wasn't found in hip.yml")
+server_state = hip["server"]["xpra"]["state"]
+if server_state:
+  # getting the server version
+  if not hip["server"]["xpra"]["version"]:
+    print("Failed to download xpra-server because it wasn't found in hip.yml")
     exit(1)
-  #pulling server
-  ret_val = subprocess.check_call(["docker", "pull", f"{ci_registry_image}/xpra-server:{version}{tag}"])
-  assert ret_val == 0, f"Failed pulling xpra-server."
+
+  version = hip["server"]["xpra"]["version"]
+
+  # pulling server
+  subprocess.check_call(
+    ["docker", "pull", f"{ci_registry_image}/xpra-server:{version}{tag}"]
+  )
 else:
-  print(f"Skipping {params['name']} because it is in state {params['state']}.")
+  print(f"Skipping Xpra server because it is in state {server_state}.")
 
 # download apps
-app_list = hip['apps']
+app_list = hip["apps"]
 for app, params in app_list.items():
-  if params['state']:
-    #getting app version
-    if hip['apps'][app]['version']:
-      version=hip['apps'][app]['version']
-    else:
-      print(f"Failed to download {app} because it wasn't found in hip.yml")
-      exit(1)
-    #pulling the app
-    ret_val = subprocess.check_call(["docker", "pull", f"{ci_registry_image}/{app}:{version}{tag}"])
-    assert ret_val == 0, f"Failed pulling {app}."
-  else:
+  if not params["state"]:
     print(f"Skipping {params['name']} because it is in state {params['state']}.")
+    continue
 
-#logout from registry
-ret_val = subprocess.check_call(["docker", "logout", ci_registry_image])
-assert ret_val == 0, f"Failed running {args.app_name} because logout from registry failed."
+  # getting app version
+  if not hip["apps"][app]["version"]:
+    print(f"Failed to download {app} because it wasn't found in hip.yml")
+    exit(1)
+
+  version = hip["apps"][app]["version"]
+
+  # pulling the app
+  subprocess.check_call(["docker", "pull", f"{ci_registry_image}/{app}:{version}{tag}"])
+
+# logout from registry
+if registry_username and registry_token:
+  subprocess.check_call(["docker", "logout", ci_registry_image])

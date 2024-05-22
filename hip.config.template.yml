@@ -2,8 +2,8 @@ backend:
   ci:
     registry:
       image: registry.hbp.link/hip/app-in-browser
-      username: registry_username
-      token: registry_token
+      #username: registry_username
+      #token: registry_token
     commit_branch: branch_name
   dri:
     card: card0
