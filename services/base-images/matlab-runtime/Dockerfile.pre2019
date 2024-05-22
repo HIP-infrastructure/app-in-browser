@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 ARG CI_REGISTRY_IMAGE
 ARG TAG
 ARG DOCKERFS_TYPE
@@ -12,20 +13,23 @@ ARG UPDATE
 LABEL base_image_version=${VERSION}_u${UPDATE}
 LABEL base_image_tag=${TAG}
 
-RUN apt-get update && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=cache,target=/var/cache/curl,sharing=locked \
+     apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
     curl unzip libxt6 && \
+    pushd /var/cache/curl && \
+    curl -sSO -C - https://ssd.mathworks.com/supportfiles/downloads/${VERSION}/deployment_files/${VERSION}/installers/glnxa64/MCR_${VERSION}_glnxa64_installer.zip && \
+    popd && \
     mkdir files && \
-    curl -sSO https://ssd.mathworks.com/supportfiles/downloads/${VERSION}/deployment_files/${VERSION}/installers/glnxa64/MCR_${VERSION}_glnxa64_installer.zip && \
-    unzip -q -d files MCR_${VERSION}_glnxa64_installer.zip && \
+    unzip -q -d files /var/cache/curl/MCR_${VERSION}_glnxa64_installer.zip && \
     ./files/install -agreeToLicense yes -mode silent && \
-    rm -rf MCR_${VERSION}_glnxa64_installer.zip files && \
+    rm -rf files && \
     rm -rf /usr/local/MATLAB/MATLAB_Runtime/v9*/sys/os/glnxa64/libstdc++.so.6 && \
     apt-get remove -y --purge curl unzip && \
-    apt-get autoremove -y --purge && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get autoremove -y --purge
 
 #ENV LD_LIBRARY_PATH /usr/local/MATLAB/MATLAB_Runtime/v95/runtime/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v95/bin/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v95/sys/os/glnxa64:/usr/local/MATLAB/MATLAB_Runtime/v95/extern/bin/glnxa64:${LD_LIBRARY_PATH}
 

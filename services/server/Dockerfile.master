@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+# vim: set ft=dockerfile:
 ARG CI_REGISTRY_IMAGE
 ARG TAG
 ARG VIRTUALGL_VERSION
@@ -22,7 +24,10 @@ ARG XPRA_KEYCLOAK_GRANT_TYPE
 LABEL server_version=$XPRA_VERSION
 LABEL server_tag=$TAG
 
-RUN apt-get update && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=cache,target=/root/.cache/pip \
+    apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
     libx11-dev libxtst-dev libxcomposite-dev \
@@ -53,15 +58,23 @@ RUN apt-get update && \
 #   pip3 install python-uinput
 
 # for nvenc
-RUN curl -sSO https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=cache,target=/var/cache/curl \
+    pushd /var/cache/curl && \
+    curl -sSO -C - https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb && \
     dpkg -i cuda-keyring_1.1-1_all.deb && \
+    popd && \
     apt-get update && \
     apt-get -y install cuda
 
-RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     apt-get install -y nodejs && \
     npm i uglify-js -g
 
+# TODO: Building the .deb should really be done in another stage...
 #RUN git clone https://github.com/HIP-infrastructure/xpra.git
 #ADD "https://api.github.com/repos/HIP-infrastructure/xpra/commits?sha=feat/keycloak-auth-groups&per_page=1" xpra_latest_commit
 
@@ -73,7 +86,7 @@ RUN cd xpra && \
     git pull && \
     #git checkout feat/keycloak-auth-groups && \
     git checkout 759fb0c && \
-# building a deb package
+    # building a deb package
     debuild -us -uc -b && \
     cd ..
 # building from source
@@ -119,7 +132,7 @@ RUN chmod 644 /etc/xpra/ssl-cert.pem && \
     chmod -R 700 /run/user/1000
 
 HEALTHCHECK --interval=10s --timeout=10s --retries=5 --start-period=30s \
-  CMD curl -fks https://localhost:8080
+    CMD curl -fks https://localhost:8080
 
 WORKDIR /home/xpra
 
