@@ -8,6 +8,10 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
 
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
+
 services:
   - name: docker:25-dind
     alias: docker
