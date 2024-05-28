@@ -86,7 +86,7 @@ apps:
   filemanager:
     name: "FileManager"
     version: latest
-    url : "https://github.com/lxqt/pcmanfm-qt"
+    url: "https://github.com/lxqt/pcmanfm-qt"
     description: "PCManFM-Qt is a Qt-based file manager which uses GLib for file management. It was started as the Qt port of PCManFM, the file manager of LXDE."
     state: ready
 
@@ -265,8 +265,8 @@ base:
 
   matlab-runtime:
     name: "Matlab Runtime"
-    version: [R2018b,R2020b,R2022b]
-    update: [0,6,5]
+    version: [R2018b, R2020b, R2022b]
+    update: [0, 6, 5]
     state: ready
 
   jupyterlab-desktop:
