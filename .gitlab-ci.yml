@@ -1,9 +1,8 @@
 image: docker:25
 
-# GitLab 16.10 is needed
-#workflow:
-#  auto_cancel:
-#    on_new_commit: interruptible
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
 
 variables:
   # using "docker" as the host is only possible if you alias the service below
@@ -46,6 +45,7 @@ build-all-job:
   only:
     - master
     - dev
+    - feat-buildx
   script:
     - /bin/bash -c "python3 scripts/buildall.py"
   interruptible: true
