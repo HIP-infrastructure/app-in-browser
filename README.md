@@ -81,7 +81,8 @@ awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' /path/to/cert.pem
 8. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
 9. Install the HIP backend with `./scripts/install.sh`. This script will interactively generate credentials for the REST API of the backend if they don't already exist.
 10. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
- 
+11. If you have a Matlab licence server, uncomment line 51 and 52 and replace <Host Name> by the host name of the machine where the matlab server is installed and <Host ID> with the Host ID that you used during the installation of the server. This information can be found on Mathworks with the information of your licence server. You also need to whitelist the matlab server in the configuration file.
+
 ## Using `app-in-browser`
 There are two options to control `app-in-browser`. You can use the REST API, or bash scripts. The former is used for integration and the latter option can be used for debug.
 
