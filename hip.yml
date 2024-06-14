@@ -250,7 +250,7 @@ base:
 
   ghostfs:
     name: "GhostFS"
-    version: c7fcbab
+    version: c296342
     state: ready
 
   davfs2:
