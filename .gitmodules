@@ -97,3 +97,6 @@
 [submodule "services/apps/bidsbox"]
 	path = services/apps/bidsbox
 	url = git@github.com:HIP-infrastructure/bidsbox
+[submodule "services/apps/cuda_app"]
+	path = services/apps/cuda_app
+	url = git@github.com:HIP-infrastructure/cuda_app

@@ -43,7 +43,7 @@ if not ci_commit_branch:
     exit(1)
 
 # create a tag
-if ci_commit_branch == "dev":
+if ci_commit_branch != "master":
   tag = f"-{ci_commit_branch}"
 else:
   tag = ''

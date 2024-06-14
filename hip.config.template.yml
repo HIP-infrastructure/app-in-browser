@@ -48,3 +48,5 @@ base:
     type: ghostfs
     cert_private: your_cert_private
     cert_collab: your_cert_collab
+#  matlab-desktop:
+#    license: SERVER <Host Name> <Host ID> 27000\nUSE_SERVER
