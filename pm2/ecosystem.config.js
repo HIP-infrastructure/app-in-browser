@@ -5,9 +5,16 @@ const { execSync } = require("child_process");
 const which = cmd => execSync(`which ${cmd}`).toString().trimEnd();
 const relative = (...dir) => path.resolve(__dirname, ...dir);
 
-const envConfig = dotenv.config({ path: relative("../backend/backend.env") }).parsed || {};
+const env = dotenv.config({ path: relative("../backend/backend.env") }).parsed || {};
+
 // Merge .env variables with process.env, with process.env taking precedence
-const env = { ...envConfig, ...process.env };
+const whitelist = ['BACKEND_DOMAIN']; 
+whitelist.forEach(key => {
+  if (process.env[key]) {
+    env[key] = process.env[key];
+  }
+});
+
 
 const caddy = which("caddy");
 const gunicorn = which("gunicorn");
