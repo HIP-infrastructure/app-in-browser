@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 ARG CI_REGISTRY_IMAGE
 ARG TAG
 ARG TERMINAL_VERSION
@@ -11,7 +12,10 @@ ARG TAG
 LABEL base_image_version=$VERSION
 LABEL base_image_tag=$TAG
 
-RUN apt-get update && \
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
     fuse libfuse2 binutils curl && \
@@ -19,8 +23,6 @@ RUN apt-get update && \
     chmod +x GhostFS && \
     mv GhostFS /usr/bin && \
     apt-get remove -y --purge curl && \
-    apt-get autoremove -y --purge && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* 
+    apt-get autoremove -y --purge
 
 RUN echo "Done installing ghostfs version ${VERSION}"

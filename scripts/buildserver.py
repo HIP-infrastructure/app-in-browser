@@ -61,15 +61,16 @@ if ci_registry:
     print(f"Failed pulling {registry_image} from registry.")
 
 #build xpra-server with cache from registry during CI only
-ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY_IMAGE={ci_registry_image}", \
-                                                    "--build-arg", f"XPRA_VERSION={xpra_version}", \
-                                                    "--build-arg", f"TAG={tag}", \
-                                                    "--build-arg", f"VIRTUALGL_VERSION={virtualgl_version}", \
-                                                    *(["--cache-from", registry_image] if ci_registry else []),
-                                                    *(["--progress=plain"] if ci_registry else []),
-                                                    "-t", registry_image, \
-                                                    "-f", f"{context}/server/Dockerfile.{xpra_version}", \
-                                                    context])
+ret_val = subprocess.check_call(["docker", "buildx", "build",
+                                 "--build-arg", f"CI_REGISTRY_IMAGE={ci_registry_image}", \
+                                 "--build-arg", f"XPRA_VERSION={xpra_version}", \
+                                 "--build-arg", f"TAG={tag}", \
+                                 "--build-arg", f"VIRTUALGL_VERSION={virtualgl_version}", \
+                                 *(["--cache-from", registry_image] if ci_registry else []),
+                                 *(["--progress=plain"] if ci_registry else []),
+                                 "-t", registry_image, \
+                                 "-f", f"{context}/server/Dockerfile.{xpra_version}", \
+                                 context])
 assert ret_val == 0, f"Failed building xpra-server."
 
 #push xpra-server to registry during CI only
