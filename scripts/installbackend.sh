@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # install all tools required for the install, python, pip, requirements.txt etc..
-./script/installrequirements.sh
+./scripts/installrequirements.sh
 
 # generate backend credentials if needed
 ./scripts/gencreds.sh
