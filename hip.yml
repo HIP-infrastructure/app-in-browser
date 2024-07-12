@@ -123,14 +123,14 @@ apps:
     version: latest
     url: "https://github.com/jupyterlab/jupyterlab-desktop"
     description: "JupyterLab Desktop is the cross-platform desktop application for JupyterLab and the quickest and easiest way to get started with Jupyter notebooks on your personal computer."
-    state: off
+    state: ready
 
   libreoffice:
     name: "LibreOffice"
     version: latest
     url: "https://www.libreoffice.org"
     description: "LibreOffice is a free and powerful office suite, and a successor to OpenOffice.org (commonly known as OpenOffice)."
-    state: off
+    state: ready
 
   localizer:
     name: "Localizer"
@@ -207,7 +207,7 @@ apps:
     version: latest
     url: "https://wezfurlong.org/wezterm/index.html"
     description: "WezTerm is a powerful cross-platform terminal emulator and multiplexer implemented in Rust"
-    state: off
+    state: ready
 
   trcanonymizer:
     name: "TRCAnonymizer"
@@ -228,7 +228,7 @@ apps:
     version: latest
     url: "https://code.visualstudio.com/"
     description: "Visual Studio Code is a lightweight but powerful source code editor which runs on your desktop."
-    state: off
+    state: ready
 
 base:
   virtualgl:
