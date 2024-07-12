@@ -1,7 +1,7 @@
 backend:
   ci:
     registry:
-      image: registry.build.chorus-tre.ch/hip/app-in-browser
+      image: registry.hbp.link/hip/app-in-browser
       username: registry_username
       token: registry_token
     commit_branch: branch_name
