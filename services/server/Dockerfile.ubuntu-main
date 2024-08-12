@@ -4,8 +4,8 @@ ARG VIRTUALGL_VERSION
 FROM ${CI_REGISTRY_IMAGE}/virtualgl:${VIRTUALGL_VERSION}${TAG}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
-ARG DEBIAN_FRONTEND=noninteractive
 ARG CARD
+ARG TAG
 ARG XPRA_VERSION
 ARG XPRA_KEYCLOAK_AUTH
 ARG XPRA_KEYCLOAK_SERVER_URL
@@ -19,17 +19,19 @@ ARG XPRA_KEYCLOAK_GRANT_TYPE
 LABEL server_version=$XPRA_VERSION
 LABEL server_tag=$TAG
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
     software-properties-common gnupg \
     xvfb x11-xserver-utils python3-pip \
+    dbus-x11 pulseaudio \
     python3-gst-1.0 \
-    dbus-x11 python3-dbus pulseaudio \
+    python3-urllib3 python3-requests python3-oauthlib \
+    python3-dbus python3-netifaces \
     python3-xdg menu-xdg curl && \
-    pip3 install requests==2.25.1 urllib3==1.26.5 \
-    pyinotify netifaces oauthlib python-keycloak && \
-    #pip3 install python-uinput && \
+    pip3 install python-keycloak inotify && \
     curl -sSL https://xpra.org/gpg.asc | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ jammy main" && \
     apt-get update && \
