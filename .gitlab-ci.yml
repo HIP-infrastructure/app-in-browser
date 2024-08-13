@@ -1,14 +1,14 @@
-image: docker:20
+image: docker:27
 variables:
   # using "docker" as the host is only possible if you alias the service below
-  DOCKER_HOST: tcp://docker:2375 
+  DOCKER_HOST: tcp://docker:2375
   # could be wrong here but although Docker defaults to overlay2, 
   # Docker-in-Docker (DIND) does not according to the following GitLab doc: 
   # https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-the-overlayfs-driver
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
 services:
-  - name: docker:20-dind
+  - name: docker:27-dind
     alias: docker
     # in our experience although you'd assume this would be sufficient, this did 
     # nothing to prevent connection errors without `DOCKER_TLS_CERTDIR` being set 
@@ -27,7 +27,7 @@ before_script:
   - chmod 700 ~/.ssh
   - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
   - git submodule init
-  - git submodule update 
+  - git submodule update
   - ./build/submodule_branch.sh $CI_COMMIT_BRANCH
   - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
@@ -38,6 +38,7 @@ build-all-job:
   only:
     - master
     - dev
+    - fix-base-images
   script:
     - /bin/bash -c "python3 scripts/buildall.py"
   interruptible: true
