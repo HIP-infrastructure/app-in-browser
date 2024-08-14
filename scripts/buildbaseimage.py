@@ -97,7 +97,7 @@ for index, ver in enumerate(version):
       print(f"Failed pulling {registry_image} from registry.")
 
   #build base image with cache from registry during CI only
-  ret_val = subprocess.check_call(["docker", "buildx", "build",
+  subprocess.check_call(["docker", "buildx", "build", \
                                    "--build-arg", f"CI_REGISTRY_IMAGE={ci_registry_image}", \
                                    "--build-arg", f"VERSION={ver}", \
                                    "--build-arg", f"UPDATE={update}", \
@@ -111,7 +111,6 @@ for index, ver in enumerate(version):
                                    "-t", registry_image, \
                                    "-f", f"{context}/base-images/{name}/{dockerfile}", \
                                    context])
-  assert ret_val == 0, f"Failed building {name}."
 
   #push the base image to registry during CI only
   if ci_registry:
