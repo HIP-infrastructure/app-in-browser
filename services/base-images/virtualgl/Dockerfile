@@ -1,4 +1,7 @@
+# syntax=docker/dockerfile:1
 FROM ubuntu:22.04
+SHELL ["/bin/bash", "-xe", "-o", "pipefail", "-c"]
+
 LABEL maintainer="nathalie.casati@chuv.ch"
 
 ARG DEBIAN_FRONTEND=noninteractive

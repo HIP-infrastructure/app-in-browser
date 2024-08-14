@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 ARG CI_REGISTRY_IMAGE
 ARG TAG
 ARG DOCKERFS_TYPE
@@ -15,7 +16,10 @@ LABEL base_image_tag=${TAG}
 #https://github.com/mathworks-ref-arch/container-images/tree/main/matlab-deps
 #Issue for R2023a and Ubuntu22.04:
 #https://www.mathworks.com/matlabcentral/answers/1978579-why-do-some-matlab-features-fail-on-ubuntu-23-04-and-debian-12-with-exit-code-127-in-matlab-r2022b-a
-RUN apt-get update && \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=cache,target=/var/cache/curl,sharing=locked \
+    apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
     curl ca-certificates libasound2 libc6 libcairo-gobject2 libcairo2 libcap2 \
@@ -24,18 +28,14 @@ RUN apt-get update && \
     libnss3 libodbc2 libodbcinst2 libpam0g libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 \
     libpython3.10 libsndfile1 libuuid1 libwayland-client0 libxcomposite1 libxcursor1 libxdamage1 \
     libxfixes3 libxft2 libxinerama1 libxrandr2 libxt6 libxtst6 libxxf86vm1 locales locales-all make net-tools procps unzip zlib1g && \
-    mkdir /apps/mpm && \
-    cd /apps/mpm && \
-    curl -sSOL https://www.mathworks.com/mpm/glnxa64/mpm && \
+    pushd /var/cache/curl && \
+    curl -sSOL -C - https://www.mathworks.com/mpm/glnxa64/mpm && \
     chmod +x mpm && \
     ./mpm install --release=R2023a --destination=/opt/matlab/R2023a MATLAB Signal_Processing_Toolbox Parallel_Computing_Toolbox && \
-    cd .. && \
+    popd && \
     # If libfreetype.so.6 is not removed, java error when trying to open the matlab code editor \
     rm -rf /opt/matlab/R2023a/bin/glnxa64/libfreetype.so.6 && \
-    rm -rf /apps/mpm && \
     apt-get remove -y --purge curl unzip && \
-    apt-get autoremove -y --purge && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get autoremove -y --purge
 
 RUN echo "Done installing matlab"
