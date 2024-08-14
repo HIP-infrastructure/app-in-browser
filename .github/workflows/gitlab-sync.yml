@@ -4,7 +4,6 @@ on:
     branches:
       - master
       - dev
-      - fix-base-images
 jobs:
   git-sync:
     runs-on: ubuntu-latest

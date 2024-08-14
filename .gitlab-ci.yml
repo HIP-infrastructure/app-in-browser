@@ -39,7 +39,6 @@ build-all-job:
   only:
     - master
     - dev
-    - fix-base-images
   script:
     - /bin/bash -c "python3 scripts/buildall.py"
   interruptible: true
