@@ -31,7 +31,7 @@ RUN apt-get update && \
     python3-urllib3 python3-requests python3-oauthlib \
     python3-dbus python3-netifaces \
     python3-xdg menu-xdg curl && \
-    pip3 install python-keycloak inotify && \
+    pip3 install python-keycloak pyinotify && \
     curl -sSL https://xpra.org/gpg.asc | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ jammy main" && \
     apt-get update && \
