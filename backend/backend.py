@@ -42,7 +42,7 @@ def get_hip():
 hip = get_hip()
 
 def get_domain():
-  return str(os.getenv('BACKEND_DOMAIN'))
+  return str(os.getenv('BACKEND_DOMAIN_APP_IN_BROWSER'))
 
 def get_ip():
   s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

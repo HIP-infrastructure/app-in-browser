@@ -78,7 +78,7 @@ readlink -f /dev/dri/by-path/pci-0000:`lspci | grep NVIDIA | awk '{print $1}'`-c
 ```bash
 awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' /path/to/cert.pem
 ```
-8. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN` variable to the domain on which the backend is will be hosted.
+8. Copy the backend environment template file with `cp backend/backend.env.template backend/backend.env` and modify the `BACKEND_DOMAIN_APP_IN_BROWSER` variable to the domain on which the backend is will be hosted.
 9. Install the HIP backend with `./scripts/install.sh`. This script will interactively generate credentials for the REST API of the backend if they don't already exist.
 10. Check that the backend is running with `./scripts/backendstatus.sh` and by checking https://`url`/api/ok.
  

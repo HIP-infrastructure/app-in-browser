@@ -8,7 +8,7 @@ const relative = (...dir) => path.resolve(__dirname, ...dir);
 const env = dotenv.config({ path: relative("../backend/backend.env") }).parsed || {};
 
 // Merge .env variables with process.env, with process.env taking precedence
-const whitelist = ['BACKEND_DOMAIN']; 
+const whitelist = ['BACKEND_DOMAIN_APP_IN_BROWSER']; 
 whitelist.forEach(key => {
   if (process.env[key]) {
     env[key] = process.env[key];
