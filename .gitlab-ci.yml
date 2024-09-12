@@ -44,7 +44,7 @@ build-all-job:
 build-chorusbg:
   stage: build
   only:
-    - feat/docker
+    - feat-docker
   script:
     - /bin/bash -c "services/server/change-background/change.sh"
   interruptible: true
