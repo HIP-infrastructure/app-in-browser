@@ -41,3 +41,10 @@ build-all-job:
   script:
     - /bin/bash -c "python3 scripts/buildall.py"
   interruptible: true
+build-chorusbg:
+  stage: build
+  only:
+    - feat/docker
+  script:
+    - /bin/bash -c "services/server/change-background/change.sh"
+  interruptible: true
