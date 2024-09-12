@@ -270,5 +270,5 @@ base:
 server:
   xpra:
     name: "Xpra"
-    version: master
+    version: chorusbg
     state: ready
