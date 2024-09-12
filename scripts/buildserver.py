@@ -77,3 +77,17 @@ if ci_registry:
   ret_val = subprocess.check_call(["docker", "push", registry_image])
   assert ret_val == 0, f"Failed pushing {registry_image} to registry."
   pass
+
+
+if ci_commit_branch == 'master' and tag == '' and ci_registry:
+  context = './services/server/change-background'
+  registry_image_background = registry_image + "-chorusbg"
+  ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"REGISTRY_IMAGE={registry_image}", \
+                                                    *(["--cache-from", registry_image] if ci_registry else []),
+                                                    *(["--progress=plain"] if ci_registry else []),
+                                                    "-t", registry_image_background, \
+                                                    "-f", f"{context}/Dockerfile", \
+                                                    context])
+  assert ret_val == 0, f"Failed building xpra-server."
+  ret_val = subprocess.check_call(["docker", "push", registry_image_background])
+  assert ret_val == 0, f"Failed pushing {registry_image_background} to registry."
