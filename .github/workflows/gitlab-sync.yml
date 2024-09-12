@@ -4,6 +4,7 @@ on:
     branches:
       - master
       - dev
+      - feat/docker
 jobs:
   git-sync:
     runs-on: ubuntu-latest
