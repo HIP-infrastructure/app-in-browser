@@ -25,7 +25,7 @@ apps:
     version: 1.0.0
     url: "https://github.com/HIP-infrastructure/bidsbox"
     description: "Bidsificator is a software that allows you to import multiple data modalities to a BIDS filestructure."
-    state: off
+    state: beta
 
   brainvisa:
     name: "BrainVisa"
@@ -39,7 +39,7 @@ apps:
     version: latest
     url: ""
     description: "Demo App for GPU testing"
-    state: beta
+    state: off
 
   dcm2niix:
     name: "dcm2niix"
