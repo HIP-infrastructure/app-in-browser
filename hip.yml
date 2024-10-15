@@ -127,7 +127,7 @@ apps:
 
   jupyterlab:
     name: "JupyterLab Desktop"
-    version: latest
+    version: 4.2.5-1
     url: "https://github.com/jupyterlab/jupyterlab-desktop"
     description: "JupyterLab Desktop is the cross-platform desktop application for JupyterLab and the quickest and easiest way to get started with Jupyter notebooks on your personal computer."
     state: beta
