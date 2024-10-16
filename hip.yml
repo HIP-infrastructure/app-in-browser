@@ -181,6 +181,13 @@ apps:
     description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
     state: ready
 
+  mrtrix3:
+    name: "Mrtrix3"
+    version: 3.0.4
+    url: "https://www.mrtrix.org"
+    description: "MRtrix3 provides a set of tools to perform various types of diffusion MRI analyses, from various forms of tractography through to next-generation group-level analyses."
+    state: beta
+
   niftyreg:
     name: "NiftyReg"
     version: latest
