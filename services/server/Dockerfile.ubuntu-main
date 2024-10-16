@@ -36,12 +36,12 @@ RUN apt-get update && \
     add-apt-repository "deb https://xpra.org/ jammy main" && \
     apt-get update && \
     apt-get install --no-install-recommends -y \
-    xpra xpra-html5 xpra-x11 && \
+    xpra xpra-html5 xpra-server xpra-x11 && \
     apt-get remove -y --purge gnupg && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    chmod 644 /etc/xpra/ssl-cert.pem && \
+    chmod 644 /etc/xpra/ssl/cert.pem && \
     # make all applications started with vglrun use video stream encoding
     echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf && \
     # create the xpra user and socket directory
