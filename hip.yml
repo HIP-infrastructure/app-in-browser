@@ -25,7 +25,7 @@ apps:
     version: 1.0.0
     url: "https://github.com/HIP-infrastructure/bidsbox"
     description: "Bidsificator is a software that allows you to import multiple data modalities to a BIDS filestructure."
-    state: off
+    state: beta
 
   brainvisa:
     name: "BrainVisa"
@@ -99,7 +99,7 @@ apps:
 
   fsl:
     name: "FSL"
-    version: 6.0.7.11
+    version: 6.0.7.13
     url: "https://fsl.fmrib.ox.ac.uk/fsl/docs/#/"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI, and diffusion brain imaging data."
     state: ready
@@ -127,7 +127,7 @@ apps:
 
   jupyterlab:
     name: "JupyterLab Desktop"
-    version: latest
+    version: 4.2.5-1
     url: "https://github.com/jupyterlab/jupyterlab-desktop"
     description: "JupyterLab Desktop is the cross-platform desktop application for JupyterLab and the quickest and easiest way to get started with Jupyter notebooks on your personal computer."
     state: beta
@@ -180,6 +180,13 @@ apps:
     url: "https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface"
     description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
     state: ready
+
+  mrtrix3:
+    name: "Mrtrix3"
+    version: 3.0.4
+    url: "https://www.mrtrix.org"
+    description: "MRtrix3 provides a set of tools to perform various types of diffusion MRI analyses, from various forms of tractography through to next-generation group-level analyses."
+    state: beta
 
   niftyreg:
     name: "NiftyReg"
@@ -271,11 +278,11 @@ base:
 
   jupyterlab-desktop:
     name: "JupyterLab Desktop"
-    version: 3.6.2-1
+    version: 4.2.5-1
     state: ready
 
 server:
   xpra:
     name: "Xpra"
-    version: master
+    version: ubuntu-main
     state: ready

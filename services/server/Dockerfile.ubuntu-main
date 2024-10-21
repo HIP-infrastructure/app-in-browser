@@ -4,8 +4,8 @@ ARG VIRTUALGL_VERSION
 FROM ${CI_REGISTRY_IMAGE}/virtualgl:${VIRTUALGL_VERSION}${TAG}
 LABEL maintainer="nathalie.casati@chuv.ch"
 
-ARG DEBIAN_FRONTEND=noninteractive
 ARG CARD
+ARG TAG
 ARG XPRA_VERSION
 ARG XPRA_KEYCLOAK_AUTH
 ARG XPRA_KEYCLOAK_SERVER_URL
@@ -19,41 +19,44 @@ ARG XPRA_KEYCLOAK_GRANT_TYPE
 LABEL server_version=$XPRA_VERSION
 LABEL server_tag=$TAG
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install --no-install-recommends -y \
     software-properties-common gnupg \
     xvfb x11-xserver-utils python3-pip \
+    dbus-x11 pulseaudio \
     python3-gst-1.0 \
-    dbus-x11 python3-dbus pulseaudio \
+    python3-urllib3 python3-requests python3-oauthlib \
+    python3-dbus python3-netifaces \
     python3-xdg menu-xdg curl && \
-    pip3 install requests==2.25.1 urllib3==1.26.5 \
-    pyinotify netifaces oauthlib python-keycloak && \
-    #pip3 install python-uinput && \
+    pip3 install python-keycloak pyinotify && \
     curl -sSL https://xpra.org/gpg.asc | apt-key add - && \
     add-apt-repository "deb https://xpra.org/ jammy main" && \
     apt-get update && \
-    apt-get install --no-install-recommends -y xpra xpra-html5 && \
+    apt-get install --no-install-recommends -y \
+    xpra xpra-html5 xpra-server xpra-x11 && \
     apt-get remove -y --purge gnupg && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    chmod 644 /etc/xpra/ssl-cert.pem && \
+    chmod 644 /etc/xpra/ssl/cert.pem && \
     # make all applications started with vglrun use video stream encoding
     echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf && \
     # create the xpra user and socket directory
     useradd --create-home --shell /bin/bash xpra --gid xpra --uid 1000 && \
-    mkdir -p /run/user/1000/xpra && \
-    chown -R 1000 /run/user/1000 && \
+    mkdir -p /run/user/1000/xpra /home/xpra/.xpra && \
+    chown -R 1000 /run/user/1000 /home/xpra/.xpra && \
     chmod -R 700 /run/user/1000
 
 HEALTHCHECK --interval=10s --timeout=10s --retries=5 --start-period=30s \
-  CMD curl -fks https://localhost:8080
+  CMD curl -fs http://localhost:8080
 
 WORKDIR /home/xpra
 
 # copy xpra config files
-COPY server/config/xpra.conf /etc/xpra/xpra.conf
+COPY server/config/xpra.conf /home/xpra/.xpra/xpra.conf
 COPY server/config/10_content_security_policy.txt /etc/xpra/http-headers/10_content_security_policy.txt
 COPY server/config/default.png /usr/share/backgrounds/images/default.png
 COPY server/config/default-settings.txt /etc/xpra/html5-client/default-settings.txt

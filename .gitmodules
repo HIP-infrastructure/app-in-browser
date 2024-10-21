@@ -100,3 +100,6 @@
 [submodule "services/apps/cuda_app"]
 	path = services/apps/cuda_app
 	url = git@github.com:HIP-infrastructure/cuda_app
+[submodule "services/apps/mrtrix3"]
+	path = services/apps/mrtrix3
+	url = git@github.com:HIP-infrastructure/mrtrix3
