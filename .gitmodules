@@ -106,4 +106,3 @@
 [submodule "szcore"]
 	path = services/apps/szcore
 	url = git@github.com:HIP-infrastructure/szcore.git
-	branch = dev
