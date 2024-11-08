@@ -217,7 +217,7 @@ apps:
     state: ready
 
   szcore:
-    name: "SzScore"
+    name: "SzCORE"
     version: gotman1982
     url: "https://github.com/esl-epfl/szcore"
     description: "Algorithms for the SzCORE collab"
