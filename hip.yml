@@ -216,11 +216,11 @@ apps:
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
     state: ready
 
-  szscore:
+  szcore:
     name: "SzScore"
     version: gotman1982
-    url: "https://github.com/esl-epfl/szscore"
-    description: "Algorithms for the SzScore collab"
+    url: "https://github.com/esl-epfl/szcore"
+    description: "Algorithms for the SzCORE collab"
     state: beta
 
   terminal_dip:
