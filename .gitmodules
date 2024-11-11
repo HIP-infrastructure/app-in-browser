@@ -103,3 +103,6 @@
 [submodule "services/apps/mrtrix3"]
 	path = services/apps/mrtrix3
 	url = git@github.com:HIP-infrastructure/mrtrix3
+[submodule "szcore"]
+	path = services/apps/szcore
+	url = git@github.com:HIP-infrastructure/szcore.git
