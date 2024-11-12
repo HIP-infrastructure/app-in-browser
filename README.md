@@ -197,8 +197,10 @@ Permit the networks to allow access to the docker registry
 ```
 ./scripts/permitnetwork.sh
 ```
-- Build the containers you want to build, using the scripts in scripts/ 
-- Restrict the networks again
+
+Build the containers you want to build, using the scripts in scripts/ 
+
+Restrict the networks again
 ```
 ./scripts/restrictnetwork.sh
 ```
