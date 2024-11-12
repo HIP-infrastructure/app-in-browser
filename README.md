@@ -184,6 +184,7 @@ For building a specific app, execute:
 ```bash
 ./buildapp.py [app_image_name]
 ```
+
 ## Updating an application
 
 Changes and testing for development of an application must be done on the dev servers.
