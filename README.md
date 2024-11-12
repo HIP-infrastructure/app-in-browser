@@ -184,7 +184,25 @@ For building a specific app, execute:
 ```bash
 ./buildapp.py [app_image_name]
 ```
+## Updating an application
 
+Changes and testing for development of an application must be done on the dev servers.
+
+When the changes are ready, to be tested, commit them to the dev branch
+
+If you need to build the containers on the machine, you will need to:
+
+Permit the networks to allow access to the docker registry
+```
+app-in-browser/scripts/permitnetwork.sh
+```
+- Build the containers you want to build, using the scripts in scripts/ 
+- Restrict the networks again
+```
+app-in-browser/scripts/restrictnetwork.sh
+```
+
+Look into the `scripts` folder for other useful scripts.
 ## Acknowledgement
 
 This research was supported by the EBRAINS research infrastructure, funded from the European Union’s Horizon 2020 Framework Programme for Research and Innovation under the Specific Grant Agreement No. 945539 (Human Brain Project SGA3).
