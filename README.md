@@ -200,7 +200,7 @@ Permit the networks to allow access to the docker registry
 - Build the containers you want to build, using the scripts in scripts/ 
 - Restrict the networks again
 ```
-app-in-browser/scripts/restrictnetwork.sh
+./scripts/restrictnetwork.sh
 ```
 
 Look into the `scripts` folder for other useful scripts.
