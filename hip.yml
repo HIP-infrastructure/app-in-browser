@@ -99,7 +99,7 @@ apps:
 
   fsl:
     name: "FSL"
-    version: 6.0.7.13
+    version: 6.0.7.15
     url: "https://fsl.fmrib.ox.ac.uk/fsl/docs/#/"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI, and diffusion brain imaging data."
     state: ready
@@ -113,7 +113,7 @@ apps:
 
   hibop:
     name: "HiBoP"
-    version: 4.3.1
+    version: 4.3.2
     url: "https://github.com/hbp-HiBoP/HiBoP"
     description: "HiBoP illustrates the possibility to render group-level activity dynamically at the cortical level, for several experimental conditions (columns) of the same cognitive paradigm."
     state: ready
@@ -148,7 +148,7 @@ apps:
 
   mne:
     name: "MNE-Python"
-    version: 1.3.1
+    version: 1.8.0
     url: "https://mne.tools"
     description: "Open-source Python package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, NIRS, and more."
     state: beta
