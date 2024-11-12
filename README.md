@@ -195,7 +195,7 @@ If you need to build the containers on the machine, you will need to:
 
 Permit the networks to allow access to the docker registry
 ```
-app-in-browser/scripts/permitnetwork.sh
+./scripts/permitnetwork.sh
 ```
 - Build the containers you want to build, using the scripts in scripts/ 
 - Restrict the networks again
