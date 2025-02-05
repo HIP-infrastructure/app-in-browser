@@ -106,3 +106,6 @@
 [submodule "szcore"]
 	path = services/apps/szcore
 	url = git@github.com:HIP-infrastructure/szcore.git
+[submodule "services/apps/ciclone"]
+	path = services/apps/ciclone
+	url = git@github.com:HIP-infrastructure/ciclone.git
