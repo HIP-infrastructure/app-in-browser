@@ -12,6 +12,8 @@ jobs:
         uses: wei/git-sync@v3
         with:
           source_repo: ${{ secrets.SOURCE_GITHUB }}
-          source_branch: ${GITHUB_REF##*/}
+          #source_branch: ${GITHUB_REF##*/}
+          source_branch: ${{ github.ref_name }}
           destination_repo: ${{ secrets.TARGET_GITLAB }}
-          destination_branch: ${GITHUB_REF##*/}
+          #destination_branch: ${GITHUB_REF##*/}
+          destination_branch: ${{ github.ref_name }}
