@@ -116,7 +116,7 @@ apps:
     version: latest
     url: "https://meg.univ-amu.fr/wiki/GARDEL:presentation"
     description: "GARDEL is a tool for automatic segmentation and labelization of SEEG contacts."
-    state: beta
+    state: off
 
   hibop:
     name: "HiBoP"
