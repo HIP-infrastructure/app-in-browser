@@ -68,6 +68,23 @@ elif [ $APP_NAME == "ciclone" ]; then
   # Set ownership and permissions
   chown -R $HIP_USER:$HIP_USER "${APP_DATA_DIR}"
   APP_CMD_PREFIX="export PATH=/apps/$APP_NAME/venv/bin/:$PATH"
+elif [ $APP_NAME == "bidssearchtool" ]; then
+  NC_CONFIG_DIR=/home/$HIP_USER/nextcloud/app_data/bidssearchtool/config
+  CONFIG_DIR=/usr/local/lib/python3.10/dist-packages/src
+  NC_PARQUET_DIR=/home/$HIP_USER/nextcloud/app_data/bidssearchtool/parquet_files
+  PARQUET_DIR=/apps/${APP_NAME}/BIDS-Search-Tool/data/parquet_files
+  if [ ! -d ${NC_CONFIG_DIR} ]; then
+    mkdir -p ${NC_CONFIG_DIR}
+    cp ${CONFIG_DIR}/user_config.yaml ${NC_CONFIG_DIR}
+  fi
+  rm -f ${CONFIG_DIR}/user_config.yaml
+  ln -s ${NC_CONFIG_DIR}/user_config.yaml ${CONFIG_DIR}/user_config.yaml
+  if [ ! -d ${NC_PARQUET_DIR} ]; then
+    mkdir -p ${NC_PARQUET_DIR}
+  fi
+  rm -rf ${PARQUET_DIR}
+  ln -s ${NC_PARQUET_DIR} ${PARQUET_DIR}
+  chown -R $HIP_USER:$HIP_USER ${PARQUET_DIR}
 fi
 
 #add DISPLAY to APP_PREFIX

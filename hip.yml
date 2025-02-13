@@ -27,6 +27,13 @@ apps:
     description: "Bidsificator is a software that allows you to import multiple data modalities to a BIDS filestructure."
     state: beta
 
+  bidssearchtool:
+    name: "Bids Search Tool"
+    version: 1.0.0
+    url: "https://github.com/HIP-infrastructure/bidssearchtool"
+    description: "Bids search tool allows to search through Bids datasets."
+    state: beta
+
   brainvisa:
     name: "BrainVisa"
     version: 5.1.0
