@@ -1,4 +1,11 @@
 apps:
+  ants:
+    name: "ANTs"
+    version: 2.5.3
+    url: "https://github.com/ANTsX/ANTs"
+    description: "Advanced Normalization Tools (ANTs) is a state-of-the-art medical image registration and segmentation toolkit."
+    state: ready
+
   anywave:
     name: "AnyWave"
     version: 2.7.5
@@ -29,7 +36,7 @@ apps:
 
   bidssearchtool:
     name: "Bids Search Tool"
-    version: 1.0.0
+    version: 1.0.1
     url: "https://github.com/HIP-infrastructure/bidssearchtool"
     description: "Bids search tool allows to search through Bids datasets."
     state: beta
