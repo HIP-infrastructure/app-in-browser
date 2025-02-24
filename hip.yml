@@ -1,4 +1,11 @@
 apps:
+  ants:
+    name: "ANTs"
+    version: 2.5.3
+    url: "https://github.com/ANTsX/ANTs"
+    description: "Advanced Normalization Tools (ANTs) is a state-of-the-art medical image registration and segmentation toolkit."
+    state: ready
+
   anywave:
     name: "AnyWave"
     version: 2.7.5
@@ -27,11 +34,25 @@ apps:
     description: "Bidsificator is a software that allows you to import multiple data modalities to a BIDS filestructure."
     state: beta
 
+  bidssearchtool:
+    name: "Bids Search Tool"
+    version: 1.0.1
+    url: "https://github.com/HIP-infrastructure/bidssearchtool"
+    description: "Bids search tool allows to search through Bids datasets."
+    state: beta
+
   brainvisa:
     name: "BrainVisa"
     version: 5.1.0
     url: "https://brainvisa.info"
     description: "BrainVISA provides a complete, modular, infrastructure for neuroimaging software. It helps organizing heterogeneous software and data and provides a common general graphical interface for users."
+    state: beta
+
+  ciclone:
+    name: "CiCLONE"
+    version: 1.0.0
+    url: "https://github.com/HIP-infrastructure/ciclone"
+    description: "CiCLONE is a software that allows you to perform registration of medical images and electrodes marking."
     state: beta
 
   cuda_app:
@@ -109,7 +130,7 @@ apps:
     version: latest
     url: "https://meg.univ-amu.fr/wiki/GARDEL:presentation"
     description: "GARDEL is a tool for automatic segmentation and labelization of SEEG contacts."
-    state: beta
+    state: off
 
   hibop:
     name: "HiBoP"
