@@ -72,7 +72,8 @@ RUN cd xpra && \
     #git fetch && \
     git pull && \
     #git checkout feat/keycloak-auth-groups && \
-    git checkout 759fb0c && \
+    # commit from release v6.2.3
+    git checkout 8374640 && \
 # building a deb package
     debuild -us -uc -b && \
     cd ..
@@ -96,11 +97,12 @@ RUN cd xpra-html5 && \
     #git checkout fix/type-mismatch && \
     #git checkout v11.0 && \
     #git checkout 7dce93f && \
-    git checkout 085e0df && \
+    # commit from Jan 31, 2025 && \
+    git checkout 742025184a0f99653efa57ddf11d85d313b02e7c && \
     ./setup.py deb && \
     cd ..
 
-RUN ls /xpra-*_amd64.deb /xpra_*_amd64.deb |grep -v nvidia |xargs dpkg -i && \
+RUN ls /xpra-*_amd64.deb /xpra_*_amd64.deb |grep -v nvidia |grep -v xpra-client-gnome |xargs dpkg -i && \
     dpkg -i /xpra-html5/dist/xpra-html5-*.deb
 
     #apt-get remove -y --purge gnupg && \
@@ -109,7 +111,7 @@ RUN ls /xpra-*_amd64.deb /xpra_*_amd64.deb |grep -v nvidia |xargs dpkg -i && \
     #rm -rf /var/lib/apt/lists/* && \
 
 
-RUN chmod 644 /etc/xpra/ssl-cert.pem && \
+RUN chmod 644 /etc/xpra/ssl/cert.pem && \
     # make all applications started with vglrun use video stream encoding
     echo "\nclass-instance:vglrun=video" >> /etc/xpra/content-type/50_class.conf && \
     # create the xpra user and socket directory
