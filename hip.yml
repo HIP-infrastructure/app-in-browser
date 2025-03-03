@@ -223,6 +223,13 @@ apps:
     description: "Open source machine learning and data visualization."
     state: beta
 
+  robex:
+    name: "ROBEX"
+    version: 1.2
+    url: "https://www.nitrc.org/projects/robex"
+    description: "ROBEX is an automatic whole-brain extraction tool for T1-weighted MRI data."
+    state: beta
+
   rstudio:
     name: "RStudio"
     version: 2023.06.0
@@ -312,5 +319,5 @@ base:
 server:
   xpra:
     name: "Xpra"
-    version: ubuntu-main
+    version: master
     state: ready

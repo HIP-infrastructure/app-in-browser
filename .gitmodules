@@ -115,3 +115,6 @@
 [submodule "services/apps/ants"]
 	path = services/apps/ants
 	url = git@github.com:HIP-infrastructure/ants.git
+[submodule "services/apps/robex"]
+	path = services/apps/robex
+	url = git@github.com:HIP-infrastructure/robex.git
