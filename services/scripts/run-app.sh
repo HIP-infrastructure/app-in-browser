@@ -28,8 +28,8 @@ fi
 
 if [ $APP_NAME == "slicer" ]; then
   #case when there is no data in APP_DATA_DIR beforehand
-  NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/slicer/NA-MIC
-  APP_DATA_DIR=/apps/slicer/install/Slicer/NA-MIC
+  NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/slicer/slicer.org
+  APP_DATA_DIR=/apps/slicer/install/Slicer/slicer.org
   mkdir -p ${NC_APP_DATA_DIR}
   ln -s ${NC_APP_DATA_DIR} ${APP_DATA_DIR}
   chown -R $HIP_USER:$HIP_USER ${APP_DATA_DIR}
