@@ -1,7 +1,7 @@
 apps:
   ants:
     name: "ANTs"
-    version: 2.5.3
+    version: 2.5.4
     url: "https://github.com/ANTsX/ANTs"
     description: "Advanced Normalization Tools (ANTs) is a state-of-the-art medical image registration and segmentation toolkit."
     state: ready
@@ -50,7 +50,7 @@ apps:
 
   ciclone:
     name: "CiCLONE"
-    version: 1.0.0
+    version: 1.0.1
     url: "https://github.com/HIP-infrastructure/ciclone"
     description: "CiCLONE is a software that allows you to perform registration of medical images and electrodes marking."
     state: beta
@@ -64,7 +64,7 @@ apps:
 
   dcm2niix:
     name: "dcm2niix"
-    version: 1.0.20230411
+    version: 1.0.20241211
     url: "https://github.com/rordenlab/dcm2niix"
     description: "dcm2niix is designed to convert neuroimaging data from the DICOM format to the NIfTI format."
     state: ready
@@ -113,14 +113,14 @@ apps:
 
   freesurfer:
     name: "FreeSurfer"
-    version: 7.3.2
+    version: 7.4.1
     url: "https://surfer.nmr.mgh.harvard.edu"
     description: "An open source software suite for processing and analyzing (human) brain MRI images."
     state: ready
 
   fsl:
     name: "FSL"
-    version: 6.0.7.13
+    version: 6.0.7.17
     url: "https://fsl.fmrib.ox.ac.uk/fsl/docs/#/"
     description: "FSL is a comprehensive library of analysis tools for FMRI, MRI, and diffusion brain imaging data."
     state: ready
@@ -169,7 +169,7 @@ apps:
 
   mne:
     name: "MNE-Python"
-    version: 1.3.1
+    version: 1.9.0
     url: "https://mne.tools"
     description: "Open-source Python package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, NIRS, and more."
     state: beta
@@ -232,14 +232,14 @@ apps:
 
   rstudio:
     name: "RStudio"
-    version: 2023.06.0
+    version: 2024.12.1
     url: "https://posit.co/products/open-source/rstudio"
     description: "RStudio is an integrated development environment (IDE) for R and Python."
     state: beta
 
   slicer:
     name: "3D Slicer"
-    version: 5.2.2
+    version: 5.8.1
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
     state: ready
