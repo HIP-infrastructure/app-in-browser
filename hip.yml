@@ -36,7 +36,7 @@ apps:
 
   bidssearchtool:
     name: "Bids Search Tool"
-    version: 1.0.1
+    version: 1.0.2
     url: "https://github.com/HIP-infrastructure/bidssearchtool"
     description: "Bids search tool allows to search through Bids datasets."
     state: beta
