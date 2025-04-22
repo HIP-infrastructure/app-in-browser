@@ -1,4 +1,11 @@
 apps:
+  ants:
+    name: "ANTs"
+    version: 2.5.4
+    url: "https://github.com/ANTsX/ANTs"
+    description: "Advanced Normalization Tools (ANTs) is a state-of-the-art medical image registration and segmentation toolkit."
+    state: ready
+
   anywave:
     name: "AnyWave"
     version: 2.7.5
@@ -25,7 +32,14 @@ apps:
     version: 1.0.0
     url: "https://github.com/HIP-infrastructure/bidsbox"
     description: "Bidsificator is a software that allows you to import multiple data modalities to a BIDS filestructure."
-    state: off
+    state: beta
+
+  bidssearchtool:
+    name: "Bids Search Tool"
+    version: 1.0.2
+    url: "https://github.com/HIP-infrastructure/bidssearchtool"
+    description: "Bids search tool allows to search through Bids datasets."
+    state: beta
 
   brainvisa:
     name: "BrainVisa"
@@ -34,16 +48,23 @@ apps:
     description: "BrainVISA provides a complete, modular, infrastructure for neuroimaging software. It helps organizing heterogeneous software and data and provides a common general graphical interface for users."
     state: beta
 
+  ciclone:
+    name: "CiCLONE"
+    version: 1.0.1
+    url: "https://github.com/HIP-infrastructure/ciclone"
+    description: "CiCLONE is a software that allows you to perform registration of medical images and electrodes marking."
+    state: beta
+
   cuda_app:
     name: "Cuda App"
     version: latest
     url: ""
     description: "Demo App for GPU testing"
-    state: beta
+    state: off
 
   dcm2niix:
     name: "dcm2niix"
-    version: 1.0.20230411
+    version: 1.0.20241211
     url: "https://github.com/rordenlab/dcm2niix"
     description: "dcm2niix is designed to convert neuroimaging data from the DICOM format to the NIfTI format."
     state: ready
@@ -92,16 +113,16 @@ apps:
 
   freesurfer:
     name: "FreeSurfer"
-    version: 7.3.2
+    version: 7.4.1
     url: "https://surfer.nmr.mgh.harvard.edu"
     description: "An open source software suite for processing and analyzing (human) brain MRI images."
     state: ready
 
   fsl:
     name: "FSL"
-    version: 6.0.7.9
-    url: "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FSL"
-    description: "FSL is a comprehensive library of analysis tools for FMRI, MRI and DTI brain imaging data."
+    version: 6.0.7.13
+    url: "https://fsl.fmrib.ox.ac.uk/fsl/docs/#/"
+    description: "FSL is a comprehensive library of analysis tools for FMRI, MRI, and diffusion brain imaging data."
     state: ready
 
   gardel:
@@ -109,7 +130,7 @@ apps:
     version: latest
     url: "https://meg.univ-amu.fr/wiki/GARDEL:presentation"
     description: "GARDEL is a tool for automatic segmentation and labelization of SEEG contacts."
-    state: beta
+    state: off
 
   hibop:
     name: "HiBoP"
@@ -127,7 +148,7 @@ apps:
 
   jupyterlab:
     name: "JupyterLab Desktop"
-    version: latest
+    version: 4.2.5-1
     url: "https://github.com/jupyterlab/jupyterlab-desktop"
     description: "JupyterLab Desktop is the cross-platform desktop application for JupyterLab and the quickest and easiest way to get started with Jupyter notebooks on your personal computer."
     state: beta
@@ -148,7 +169,7 @@ apps:
 
   mne:
     name: "MNE-Python"
-    version: 1.3.1
+    version: 1.9.0
     url: "https://mne.tools"
     description: "Open-source Python package for exploring, visualizing, and analyzing human neurophysiological data: MEG, EEG, sEEG, ECoG, NIRS, and more."
     state: beta
@@ -181,6 +202,13 @@ apps:
     description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
     state: ready
 
+  mrtrix3:
+    name: "Mrtrix3"
+    version: 3.0.4
+    url: "https://www.mrtrix.org"
+    description: "MRtrix3 provides a set of tools to perform various types of diffusion MRI analyses, from various forms of tractography through to next-generation group-level analyses."
+    state: beta
+
   niftyreg:
     name: "NiftyReg"
     version: latest
@@ -195,19 +223,33 @@ apps:
     description: "Open source machine learning and data visualization."
     state: beta
 
+  robex:
+    name: "ROBEX"
+    version: 1.2
+    url: "https://www.nitrc.org/projects/robex"
+    description: "ROBEX is an automatic whole-brain extraction tool for T1-weighted MRI data."
+    state: beta
+
   rstudio:
     name: "RStudio"
-    version: 2023.06.0
+    version: 2024.12.1
     url: "https://posit.co/products/open-source/rstudio"
     description: "RStudio is an integrated development environment (IDE) for R and Python."
     state: beta
 
   slicer:
     name: "3D Slicer"
-    version: 5.2.2
+    version: 5.8.1
     url: "https://www.slicer.org"
     description: "Desktop software to solve advanced image computing challenges with a focus on clinical and biomedical applications."
     state: ready
+
+  szcore:
+    name: "SzCORE"
+    version: gotman1982
+    url: "https://github.com/esl-epfl/szcore"
+    description: "Algorithms for the SzCORE collab"
+    state: beta
 
   terminal_dip:
     name: "Terminal"
@@ -265,13 +307,13 @@ base:
 
   matlab-runtime:
     name: "Matlab Runtime"
-    version: [R2018b, R2020b, R2022b]
-    update: [0, 6, 5]
+    version: [R2018b,R2020b,R2023a]
+    update: [0,6,7]
     state: ready
 
   jupyterlab-desktop:
     name: "JupyterLab Desktop"
-    version: 3.6.2-1
+    version: 4.2.5-1
     state: ready
 
 server:

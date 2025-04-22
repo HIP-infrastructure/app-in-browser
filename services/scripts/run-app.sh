@@ -28,8 +28,8 @@ fi
 
 if [ $APP_NAME == "slicer" ]; then
   #case when there is no data in APP_DATA_DIR beforehand
-  NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/slicer/NA-MIC
-  APP_DATA_DIR=/apps/slicer/install/Slicer/NA-MIC
+  NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/slicer/slicer.org
+  APP_DATA_DIR=/apps/slicer/install/Slicer/slicer.org
   mkdir -p ${NC_APP_DATA_DIR}
   ln -s ${NC_APP_DATA_DIR} ${APP_DATA_DIR}
   chown -R $HIP_USER:$HIP_USER ${APP_DATA_DIR}
@@ -47,6 +47,44 @@ elif [ $APP_NAME == "localizer" ] || [ $APP_NAME == "bidsalyzer" ]; then
 elif [ $APP_NAME == "matlab" ] || [ $APP_NAME == "brainstorm_matlab" ] ||[ $APP_NAME == "intranat" ]; then
   #case when APP_NAME needs a matlab license
   echo -e $MATLAB_LICENSE | sed -e 's/^"//' -e 's/"$//' > /opt/matlab/R2023a/licenses
+elif [ $APP_NAME == "ciclone" ]; then
+  NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/ciclone/config
+  APP_DATA_DIR=/apps/$APP_NAME/venv/lib/python3.10/site-packages/$APP_NAME/config
+  echo "APP_DATA_DIR: $APP_DATA_DIR"
+
+  # Ensure the NC_APP_DATA_DIR exists
+  if [ ! -d "${NC_APP_DATA_DIR}" ]; then
+    mkdir -p "${NC_APP_DATA_DIR}"
+    # Copy files only if the source directory exists
+    if [ -d "${APP_DATA_DIR}" ]; then
+      cp -a "${APP_DATA_DIR}/"* "${NC_APP_DATA_DIR}"
+    else
+      echo "Warning: Source directory ${APP_DATA_DIR} does not exist."
+    fi
+  fi
+  # Remove the existing APP_DATA_DIR and create a symbolic link
+  rm -rf "${APP_DATA_DIR}"
+  ln -s "${NC_APP_DATA_DIR}" "${APP_DATA_DIR}"
+  # Set ownership and permissions
+  chown -R $HIP_USER:$HIP_USER "${APP_DATA_DIR}"
+  APP_CMD_PREFIX="export PATH=/apps/$APP_NAME/venv/bin/:$PATH"
+elif [ $APP_NAME == "bidssearchtool" ]; then
+  NC_CONFIG_DIR=/home/$HIP_USER/nextcloud/app_data/bidssearchtool/config
+  CONFIG_DIR=/usr/local/lib/python3.10/dist-packages/src
+  NC_PARQUET_DIR=/home/$HIP_USER/nextcloud/app_data/bidssearchtool/parquet_files
+  PARQUET_DIR=/apps/${APP_NAME}/BIDS-Search-Tool/data/parquet_files
+  if [ ! -d ${NC_CONFIG_DIR} ]; then
+    mkdir -p ${NC_CONFIG_DIR}
+    cp ${CONFIG_DIR}/user_config.yaml ${NC_CONFIG_DIR}
+  fi
+  rm -f ${CONFIG_DIR}/user_config.yaml
+  ln -s ${NC_CONFIG_DIR}/user_config.yaml ${CONFIG_DIR}/user_config.yaml
+  if [ ! -d ${NC_PARQUET_DIR} ]; then
+    mkdir -p ${NC_PARQUET_DIR}
+  fi
+  rm -rf ${PARQUET_DIR}
+  ln -s ${NC_PARQUET_DIR} ${PARQUET_DIR}
+  chown -R $HIP_USER:$HIP_USER ${PARQUET_DIR}
 fi
 
 #add DISPLAY to APP_PREFIX

@@ -100,3 +100,21 @@
 [submodule "services/apps/cuda_app"]
 	path = services/apps/cuda_app
 	url = git@github.com:HIP-infrastructure/cuda_app
+[submodule "services/apps/mrtrix3"]
+	path = services/apps/mrtrix3
+	url = git@github.com:HIP-infrastructure/mrtrix3
+[submodule "szcore"]
+	path = services/apps/szcore
+	url = git@github.com:HIP-infrastructure/szcore.git
+[submodule "services/apps/bidssearchtool"]
+	path = services/apps/bidssearchtool
+	url = git@github.com:HIP-infrastructure/bidssearchtool
+[submodule "services/apps/ciclone"]
+	path = services/apps/ciclone
+	url = git@github.com:HIP-infrastructure/ciclone.git
+[submodule "services/apps/ants"]
+	path = services/apps/ants
+	url = git@github.com:HIP-infrastructure/ants.git
+[submodule "services/apps/robex"]
+	path = services/apps/robex
+	url = git@github.com:HIP-infrastructure/robex.git
