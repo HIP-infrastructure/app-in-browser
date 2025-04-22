@@ -4,8 +4,14 @@ import os
 import sys
 import subprocess
 import argparse
-import yaml
 from dotenv import dotenv_values
+from common import get_ci_commit_branch, get_hip_image_list
+from common import get_hip_config
+from common import get_hip_image_version
+from common import get_dockerfs_type
+from common import get_dockerfs_version
+from common import get_ci_registry_image
+from common import is_image_in_registry
 
 # parse arguments
 parser = argparse.ArgumentParser()
@@ -15,34 +21,36 @@ parser.add_argument("-f", "--force", default=False, action=argparse.BooleanOptio
                     help="overwrite images already found in the registry")
 args = parser.parse_args()
 
-version=args.version
+name = args.name
+version = args.version
+image_type = "apps"
 
 #loading hip.yaml
-with open("hip.yml") as f:
-  hip = yaml.load(f, Loader=yaml.FullLoader)
+hip = get_hip_image_list()
+
 #loading hip.config.yaml
-with open("hip.config.yml") as f:
-  hip_config = yaml.load(f, Loader=yaml.FullLoader)
+hip_config = get_hip_config()
 
 #if version is not defined get it from hip.yml
 if not version:
-  if hip["apps"][args.name]["version"]:
-    version=hip["apps"][args.name]["version"]
-  else:
-    print(f"Failed to build {args.name} because it wasn't found in hip.yml")
+  try:
+    version = get_hip_image_version(hip, name, image_type)
+  except KeyError:
+    print(f"Failed to build {name} because it wasn't found in hip.yml")
     exit(1)
 
 #getting the dockerfs type
-if hip_config["base"]["dockerfs"]["type"]:
-  dockerfs_type=hip_config["base"]["dockerfs"]["type"]
-else:
-  print(f"Failed to build {args.name} because dockerfs type wasn't found in hip.config.yml")
+try:
+  dockerfs_type = get_dockerfs_type(hip_config, image_type)
+except KeyError:
+  print(f"Failed to build {name} because it wasn't found in hip.config.yml")
   exit(1)
+
 #getting the dockerfs version
-if hip["base"][dockerfs_type]["version"]:
-  dockerfs_version=hip["base"][dockerfs_type]["version"]
-else:
-  print(f"Failed to build {args.name} because dockerfs version wasn't found in hip.yml")
+try:
+  dockerfs_version = get_dockerfs_version(hip, name, image_type, dockerfs_type)
+except:
+  print(f"Failed to build {name} because it wasn't found in hip.yml")
   exit(1)
 
 # load variables from env
@@ -52,18 +60,18 @@ ci_commit_branch = os.getenv("CI_COMMIT_BRANCH")
 
 # get ci_registry_image from hip.config.yml in case it is not defined in env
 if not ci_registry_image:
-  if hip_config["backend"]["ci"]["registry"]["image"]:
-    ci_registry_image=hip_config["backend"]["ci"]["registry"]["image"]
-  else:
-    print(f"Failed to build {args.name} because CI registry image wasn't found in hip.config.yml")
+  try:
+    ci_registry_image = get_ci_registry_image(hip_config)
+  except:
+    print(f"Failed to build {name} because CI registry image wasn't found in hip.config.yml")
     exit(1)
 
 # get ci_commit_branch from hip.config.yml in case it is not defined in env
 if not ci_commit_branch:
-  if hip_config["backend"]["ci"]["commit_branch"]:
-    ci_commit_branch=hip_config["backend"]["ci"]["commit_branch"]
-  else:
-    print(f"Failed to build {args.name} because CI registry image wasn't found in hip.config.yml")
+  try:
+    ci_commit_branch = get_ci_commit_branch(hip_config)
+  except:
+    print(f"Failed to build {name} because CI registry image wasn't found in hip.config.yml")
     exit(1)
 
 # create a tag
@@ -74,22 +82,21 @@ else:
 
 # define some needed variables
 context = "./services"
-image = f"{args.name}:{version}{tag}"
+image = f"{name}:{version}{tag}"
 registry_image = f"{ci_registry_image}/{image}"
 
 # check if this specific image:version-tag already exists in the registry
-image_already_exists = (subprocess.run(["docker", "manifest", "inspect", registry_image],
-                         capture_output=True).returncode == 0)
+is_image_in_registry = is_image_in_registry(registry_image)
 
-if image_already_exists and not args.force:
+if is_image_in_registry and not args.force:
   print(f"{image} skipped, already found in registry \n \
         Use 'force' to overwrite existing images")
   sys.exit(0)
-elif image_already_exists and args.force:
+elif is_image_in_registry and args.force:
    print(f"Overwriting {image} found on the registry ('force' option used)")
 
 # get app specific build-args
-app_env_path=f"{context}/apps/{args.name}/build.env"
+app_env_path=f"{context}/apps/{name}/build.env"
 app_env=[]
 if os.path.exists(app_env_path):
   config = dotenv_values(app_env_path)
@@ -117,7 +124,7 @@ ghostfs_version = hip["base"]["ghostfs"]["version"]
 #build app with cache from registry during CI only
 ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY_IMAGE={ci_registry_image}", \
                                                     "--build-arg", f"CI_REGISTRY={ci_registry}", \
-                                                    "--build-arg", f"APP_NAME={args.name}", \
+                                                    "--build-arg", f"APP_NAME={name}", \
                                                     "--build-arg", f"APP_VERSION={version}", \
                                                     "--build-arg", f"TAG={tag}", \
                                                     "--build-arg", f"DOCKERFS_TYPE={dockerfs_type}", \
@@ -136,9 +143,9 @@ ret_val = subprocess.check_call(["docker", "build", "--build-arg", f"CI_REGISTRY
                                                     *(["--cache-from", registry_image] if ci_registry else []),
                                                     *(["--progress=plain"] if ci_registry else []),
                                                     "-t", registry_image, \
-                                                    "-f", f"{context}/apps/{args.name}/Dockerfile", \
+                                                    "-f", f"{context}/apps/{name}/Dockerfile", \
                                                     context])
-assert ret_val == 0, f"Failed building {args.name}."
+assert ret_val == 0, f"Failed building {name}."
 
 #push the app to registry during CI only
 if ci_registry:
