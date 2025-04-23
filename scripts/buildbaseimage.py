@@ -40,23 +40,23 @@ if not version:
         print(f"Failed to build {name} because it wasn't found in hip.yml")
         sys.exit(1)
 
-dockerfs_type = ""
-dockerfs_version = ""
-if name == "dockerfs":
-    # getting the dockerfs type
-    try:
-        dockerfs_type = get_dockerfs_type(hip_config)
-    except LookupError:
-        print(
-            f"Failed to build {name} because it wasn't found in hip.config.yml")
-        sys.exit(1)
+# getting the dockerfs type
+try:
+    dockerfs_type = get_dockerfs_type(hip_config)
+except LookupError:
+    print(
+        f"Failed to build {name} because it wasn't found in hip.config.yml")
+    sys.exit(1)
 
-    # getting the dockerfs version
-    try:
-        dockerfs_version = get_dockerfs_version(hip_config, dockerfs_type)
-    except LookupError:
-        print(f"Failed to build {name} because it wasn't found in hip.yml")
-        sys.exit(1)
+# getting the dockerfs version
+try:
+    dockerfs_version = get_dockerfs_version(hip_config, dockerfs_type)
+except LookupError:
+    print(f"Failed to build {name} because it wasn't found in hip.yml")
+    sys.exit(1)
+
+if name == "dockerfs":
+    name = dockerfs_type
 
 # get ci_registry from env (default is empty string)
 ci_registry = get_ci_registry()
