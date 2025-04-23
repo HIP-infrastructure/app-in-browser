@@ -36,7 +36,7 @@ if not version:
     try:
         version = get_hip_image_version(hip, name, image_type)
     except LookupError:
-        print(f"Failed to build {name} because it wasn't found in hip.yml")
+        print(f"Failed to build {name} because its version wasn't found in hip.yml")
         sys.exit(1)
 
 # get version of dependencies
@@ -52,14 +52,16 @@ ci_registry = get_ci_registry()
 try:
     ci_registry_image = get_ci_registry_image(hip_config)
 except LookupError:
-    print(f"Failed to build {name} because CI registry image wasn't found")
+    print(f"Failed to build {name} because the CI registry image \
+          wasn't found in the hip.config.yml nor among the environment variables")
     sys.exit(1)
 
 # get ci_commit_branch from env or from hip.config.yml
 try:
     ci_commit_branch = get_ci_commit_branch(hip_config)
 except LookupError:
-    print(f"Failed to build {name} because CI registry image wasn't found")
+    print(f"Failed to build {name} because the CI commit branch \
+          wasn't found in the hip.config.yml nor among the environment variables")
     sys.exit(1)
 
 # create a tag
