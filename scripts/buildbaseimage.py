@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-import os
 import subprocess
 import argparse
-from common import get_ci_commit_branch, get_ci_registry_image, get_hip_image_list
+from common import get_ci_commit_branch, get_ci_registry, get_ci_registry_image, get_hip_image_list, get_tag, is_build_needed
 from common import get_hip_config
 from common import get_hip_image_version
 from common import get_dockerfs_type
@@ -53,32 +52,25 @@ if name == 'dockerfs':
     print(f"Failed to build {name} because it wasn't found in hip.yml")
     exit(1)
 
-# load variables from env
-ci_registry_image = os.getenv('CI_REGISTRY_IMAGE')
-ci_registry = os.getenv('CI_REGISTRY', '')
-ci_commit_branch = os.getenv('CI_COMMIT_BRANCH')
+# get ci_registry from env (default is empty string)
+ci_registry = get_ci_registry()
 
-# get ci_registry_image from hip.config.yml in case it is not defined in env
-if not ci_registry_image:
-  try:
-    ci_registry_image = get_ci_registry_image(hip_config)
-  except:
-    print(f"Failed to build {name} because CI registry image wasn't found in hip.config.yml")
-    exit(1)
+# get ci_registry_image from env or from hip.config.yml
+try:
+  ci_registry_image = get_ci_registry_image(hip_config)
+except LookupError:
+  print(f"Failed to build {name} because CI registry image wasn't found")
+  exit(1)
 
-# get ci_commit_branch from hip.config.yml in case it is not defined in env
-if not ci_commit_branch:
-  try:
-    ci_commit_branch = get_ci_commit_branch(hip_config)
-  except:
-    print(f"Failed to build {name} because CI registry image wasn't found in hip.config.yml")
-    exit(1)
+# get ci_commit_branch from env or from hip.config.yml
+try:
+  ci_commit_branch = get_ci_commit_branch(hip_config)
+except LookupError:
+  print(f"Failed to build {name} because CI registry image wasn't found")
+  exit(1)
 
 # create a tag
-if ci_commit_branch != "master":
-  tag = f"-{ci_commit_branch}"
-else:
-  tag = ''
+tag = get_tag(ci_commit_branch)
 
 # get version of dependencies
 virtualgl_version = hip.get(image_type, {}).get("virtualgl", {})\
@@ -112,14 +104,8 @@ for index, ver in enumerate(version):
   registry_image = f"{ci_registry_image}/{image}"
 
   # check if this specific image:version-tag already exists in the registry
-  is_image_in_registry = is_image_in_registry(registry_image)
-
-  if is_image_in_registry and not args.force:
-    print(f"{image} skipped, already found in registry \n \
-          Use 'force' to overwrite existing images")
+  if not is_build_needed(ci_registry_image, name, ver, tag, args.force):
     sys.exit(0)
-  elif is_image_in_registry and args.force:
-     print(f"Overwriting {image} found on the registry ('force' option used)")
 
   #pull base image and cache from registry during CI only
   if ci_registry:
