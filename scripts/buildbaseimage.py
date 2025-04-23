@@ -50,7 +50,7 @@ except LookupError:
 
 # getting the dockerfs version
 try:
-    dockerfs_version = get_dockerfs_version(hip_config, dockerfs_type)
+    dockerfs_version = get_dockerfs_version(hip, dockerfs_type)
 except LookupError:
     print(f"Failed to build {name} because the Docker FS version wasn't found in hip.yml")
     sys.exit(1)
