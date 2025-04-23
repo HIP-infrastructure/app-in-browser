@@ -33,6 +33,7 @@ def get_hip_image_version(image_list, image_name, image_type):
 
 
 def get_dockerfs_type(config):
+    # config is typically hip.config.yml
     dockerfs_type = config.get("base", {}).get(
         "dockerfs", {}).get("type", "")
     if not dockerfs_type:
@@ -40,8 +41,9 @@ def get_dockerfs_type(config):
     return dockerfs_type
 
 
-def get_dockerfs_version(config, dockerfs_type):
-    dockerfs_version = config.get("base", {}).get(
+def get_dockerfs_version(image_list, dockerfs_type):
+    # image_list is typically hip.yml
+    dockerfs_version = image_list.get("base", {}).get(
         dockerfs_type, {}).get("version", "")
     if not dockerfs_version:
         raise LookupError()
