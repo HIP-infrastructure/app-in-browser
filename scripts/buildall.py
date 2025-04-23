@@ -4,8 +4,7 @@ import argparse
 import os
 import subprocess
 from shutil import copy2
-
-import yaml
+from common import get_hip_image_list
 
 
 parser = argparse.ArgumentParser()
@@ -62,9 +61,7 @@ def build_apps(apps, force):
 
 
 def main():
-    with open("hip.yml", encoding="utf-8") as f:
-        hip = yaml.load(f, Loader=yaml.FullLoader)
-        # print(hip)
+    hip = get_hip_image_list()
 
     # copy hip.config.yml from template if it does not exist
     if not os.path.isfile("hip.config.yml"):
