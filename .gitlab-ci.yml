@@ -1,13 +1,3 @@
-image: docker:27
-variables:
-  # using "docker" as the host is only possible if you alias the service below
-  DOCKER_HOST: tcp://docker:2375
-  # could be wrong here but although Docker defaults to overlay2,
-  # Docker-in-Docker (DIND) does not according to the following GitLab doc:
-  # https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-the-overlayfs-driver
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
-
 spec:
   inputs:
     force-base-images:
@@ -19,6 +9,16 @@ spec:
     force-app-images:
       type: boolean
       default: false
+---
+image: docker:27
+variables:
+  # using "docker" as the host is only possible if you alias the service below
+  DOCKER_HOST: tcp://docker:2375
+  # could be wrong here but although Docker defaults to overlay2,
+  # Docker-in-Docker (DIND) does not according to the following GitLab doc:
+  # https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-the-overlayfs-driver
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
 
 workflow:
   auto_cancel:
