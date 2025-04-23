@@ -8,6 +8,18 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
 
+spec:
+  inputs:
+    force-base-images:
+      type: boolean
+      default: false
+    force-server-images:
+      type: boolean
+      default: false
+    force-app-images:
+      type: boolean
+      default: false
+
 workflow:
   auto_cancel:
     on_new_commit: interruptible
@@ -53,20 +65,33 @@ build:base-images:
   extends: .build-step
   stage: base-images
   script:
-    - /bin/bash -c "python3 scripts/buildall.py --base-images"
+    - |
+      if $[[ inputs.force-base-images ]];
+      then /bin/bash -c "python3 scripts/buildall.py --base-images --force";
+      else /bin/bash -c "python3 scripts/buildall.py --base-images";
+      fi
 
 build:server:
   extends: .build-step
   stage: server
   script:
-    - /bin/bash -c "python3 scripts/buildall.py --server"
+    - |
+      if $[[ inputs.force-server-images ]];
+      then /bin/bash -c "python3 scripts/buildall.py --server --force";
+      else /bin/bash -c "python3 scripts/buildall.py --server";
+      fi
 
 # Splitting them up in batches
 build:app:
   extends: .build-step
   stage: apps
   script:
-    - /bin/bash -c "python3 scripts/buildall.py --apps --apps-scope $APPS_SCOPE"
+    - |
+      if $[[ inputs.force-app-images ]];
+      then /bin/bash -c "python3 scripts/buildall.py --apps --apps-scope $APPS_SCOPE --force";
+      else /bin/bash -c "python3 scripts/buildall.py --apps --apps-scope $APPS_SCOPE";
+      fi
+
   parallel:
     matrix:
       - APPS_SCOPE:
