@@ -101,18 +101,20 @@ for index, ver in enumerate(version):
     update = ""
 
     # special case for matlab-runtime
+    ver_is_build_needed = ver
     if name == "matlab-runtime":
         # get update
         update = hip["base"]["matlab-runtime"]["update"][index]
         image = f"{name}:{ver}_u{update}{tag}"
         if (ver == "R2015a" or ver == "R2018b"):
             dockerfile = f"{dockerfile}.pre2019"
+        ver_is_build_needed = f"{ver}_u{update}"
     else:
         image = f"{name}:{ver}{tag}"
     registry_image = f"{ci_registry_image}/{image}"
 
     # check if this specific image:version-tag already exists in the registry
-    if not is_build_needed(ci_registry_image, name, ver, tag, args.force):
+    if not is_build_needed(ci_registry_image, name, ver_is_build_needed, tag, args.force):
         sys.exit(0)
 
     # pull base image and cache from registry during CI only
