@@ -4,7 +4,7 @@ import argparse
 import subprocess
 import sys
 
-from scripts.common import (get_ci_commit_branch,
+from common import (get_ci_commit_branch,
                             get_ci_registry,
                             get_ci_registry_image,
                             get_hip_config,

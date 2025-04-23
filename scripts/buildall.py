@@ -20,12 +20,17 @@ parser.add_argument(
     help="A from-to list of apps, e.g. 'a-m'. Alternatively 'a' for all apps starting with a",
 )
 parser.add_argument("--dry-run", action="store_true", help="No doing anything")
+parser.add_argument("-f", "--force", default=False, action=argparse.BooleanOptionalAction,
+                    help="overwrite images already found in the registry")
 
-
-def build_base_images(images):
+def build_base_images(images, force):
     for base, params in images.items():
         if params["state"]:
-            ret_val = subprocess.check_call(
+            if force:
+                ret_val = subprocess.check_call(
+                    ["./scripts/buildbaseimage.py --force", base])
+            else:
+                ret_val = subprocess.check_call(
                 ["./scripts/buildbaseimage.py", base])
             assert ret_val == 0, f"Failed building {params['name']}."
         else:
@@ -34,15 +39,21 @@ def build_base_images(images):
             )
 
 
-def build_server():
-    ret_val = subprocess.call("./scripts/buildserver.py")
+def build_server(force):
+    if force:
+        ret_val = subprocess.call("./scripts/buildserver.py --force")
+    else:
+        ret_val = subprocess.call("./scripts/buildserver.py")
     assert ret_val == 0, "Failed building server."
 
 
-def build_apps(apps):
+def build_apps(apps, force):
     for app, params in apps.items():
         if params["state"]:
-            ret_val = subprocess.check_call(["./scripts/buildapp.py", app])
+            if force:
+                ret_val = subprocess.check_call(["./scripts/buildapp.py --force", app])
+            else:
+                ret_val = subprocess.check_call(["./scripts/buildapp.py", app])
             assert ret_val == 0, f"Failed building {params['name']}."
         else:
             print(
@@ -99,13 +110,13 @@ def main():
         return
 
     if has_base_images:
-        build_base_images(base_list)
+        build_base_images(base_list, args.force)
 
     if has_server:
-        build_server()
+        build_server(args.force)
 
     if has_apps:
-        build_apps(app_list)
+        build_apps(app_list, args.force)
 
 
 if __name__ == "__main__":
