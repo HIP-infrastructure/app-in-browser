@@ -15,7 +15,7 @@ from common import (get_ci_commit_branch,
 
 # parse arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("name", default="xpra", required=False, help="name of the server to build")
+parser.add_argument("name", nargs="?", default="xpra", help="name of the server to build")
 parser.add_argument("version", nargs="?", help="version of the app to build")
 parser.add_argument("-f", "--force", default=False, action=argparse.BooleanOptionalAction,
                     help="overwrite images already found in the registry")
