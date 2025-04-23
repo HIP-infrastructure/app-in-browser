@@ -28,7 +28,7 @@ def build_base_images(images):
             assert ret_val == 0, f"Failed building {params['name']}."
         else:
             print(
-                f"Skipping {params['name']} because it is in state {params['state']}."
+                f"Skipping {params['name']} because it is in state 'off'."
             )
 
 
@@ -44,7 +44,7 @@ def build_apps(apps):
             assert ret_val == 0, f"Failed building {params['name']}."
         else:
             print(
-                f"Skipping {params['name']} because it is in state {params['state']}."
+                f"Skipping {params['name']} because it is in state 'off'."
             )
 
 
