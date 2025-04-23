@@ -12,7 +12,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--base-images", action="store_true", help="Build only the base images"
 )
-parser.add_argument("--server", action="store_true", help="Build only the Xpra server")
+parser.add_argument("--server", action="store_true",
+                    help="Build only the Xpra server")
 parser.add_argument("--apps", action="store_true", help="Build only the apps")
 parser.add_argument(
     "--apps-scope",
@@ -24,7 +25,8 @@ parser.add_argument("--dry-run", action="store_true", help="No doing anything")
 def build_base_images(images):
     for base, params in images.items():
         if params["state"]:
-            ret_val = subprocess.check_call(["./scripts/buildbaseimage.py", base])
+            ret_val = subprocess.check_call(
+                ["./scripts/buildbaseimage.py", base])
             assert ret_val == 0, f"Failed building {params['name']}."
         else:
             print(
@@ -49,7 +51,7 @@ def build_apps(apps):
 
 
 def main():
-    with open("hip.yml") as f:
+    with open("hip.yml", encoding="utf-8") as f:
         hip = yaml.load(f, Loader=yaml.FullLoader)
         # print(hip)
 
@@ -83,7 +85,7 @@ def main():
         app_list = {
             k: v
             for k, v in app_list.items()
-            if k != "" and start <= k and k[0 : len(stop)] <= stop
+            if k != "" and start <= k and k[0: len(stop)] <= stop
         }
 
     if args.dry_run:
