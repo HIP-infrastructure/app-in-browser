@@ -28,7 +28,7 @@ def build_base_images(images, force):
         if params["state"]:
             if force:
                 ret_val = subprocess.check_call(
-                    ["./scripts/buildbaseimage.py --force", base])
+                    ["./scripts/buildbaseimage.py", "--force", base])
             else:
                 ret_val = subprocess.check_call(
                 ["./scripts/buildbaseimage.py", base])
@@ -41,9 +41,9 @@ def build_base_images(images, force):
 
 def build_server(force):
     if force:
-        ret_val = subprocess.call("./scripts/buildserver.py --force")
+        ret_val = subprocess.call(["./scripts/buildserver.py", "--force"])
     else:
-        ret_val = subprocess.call("./scripts/buildserver.py")
+        ret_val = subprocess.call(["./scripts/buildserver.py"])
     assert ret_val == 0, "Failed building server."
 
 
@@ -51,7 +51,7 @@ def build_apps(apps, force):
     for app, params in apps.items():
         if params["state"]:
             if force:
-                ret_val = subprocess.check_call(["./scripts/buildapp.py --force", app])
+                ret_val = subprocess.check_call(["./scripts/buildapp.py", "--force", app])
             else:
                 ret_val = subprocess.check_call(["./scripts/buildapp.py", app])
             assert ret_val == 0, f"Failed building {params['name']}."
