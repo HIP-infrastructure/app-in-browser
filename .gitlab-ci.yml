@@ -96,6 +96,6 @@ build:app:
     matrix:
       - APPS_SCOPE:
           - a-b
-          - c-n
-          - m-m
-          - n-z
+          - c-i
+          - j-n
+          - o-z
