@@ -57,7 +57,7 @@ apps:
 
   cuda_app:
     name: "Cuda App"
-    version: latest
+    version: 1.0.0
     url: ""
     description: "Demo App for GPU testing"
     state: off
@@ -78,21 +78,21 @@ apps:
 
   bidstoolbox:
     name: "BIDS Toolbox"
-    version: latest
+    version: 1.0.0
     url: "https://github.com/CHUV-DIP/PyEEGBids"
     description: "Python tool to manage data in BIDS format."
     state: off
 
   brainstorm:
     name: "Brainstorm"
-    version: latest
+    version: R2023a-9.14
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: ready
 
   brainstorm_matlab:
     name: "Brainstorm (Matlab)"
-    version: latest
+    version: R2023a-9.14
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: beta
@@ -106,7 +106,7 @@ apps:
 
   filemanager:
     name: "FileManager"
-    version: latest
+    version: 1.0.0
     url: "https://github.com/lxqt/pcmanfm-qt"
     description: "PCManFM-Qt is a Qt-based file manager which uses GLib for file management. It was started as the Qt port of PCManFM, the file manager of LXDE."
     state: ready
@@ -127,7 +127,7 @@ apps:
 
   gardel:
     name: "GARDEL"
-    version: latest
+    version: R2018b_u0-9.5
     url: "https://meg.univ-amu.fr/wiki/GARDEL:presentation"
     description: "GARDEL is a tool for automatic segmentation and labelization of SEEG contacts."
     state: off
@@ -155,7 +155,7 @@ apps:
 
   libreoffice:
     name: "LibreOffice"
-    version: latest
+    version: 1.0.0
     url: "https://www.libreoffice.org"
     description: "LibreOffice is a free and powerful office suite, and a successor to OpenOffice.org (commonly known as OpenOffice)."
     state: beta
@@ -197,7 +197,7 @@ apps:
 
   mrideface:
     name: "MRI Deface"
-    version: latest
+    version: 1.22
     url: "https://surfer.nmr.mgh.harvard.edu/fswiki/mri_deface"
     description: "This package contains an algorithm for removing identifiable facial features (eyes, nose, and mouth)."
     state: ready
@@ -211,14 +211,14 @@ apps:
 
   niftyreg:
     name: "NiftyReg"
-    version: latest
+    version: 1.5.77
     url: "https://github.com/KCL-BMEIS/niftyreg"
     description: "NiftyReg is a command that allows to perform rigid, affine and non-linear registration of 2D and 3D images stored as Nifti or Analyze (nii or hdr/img)."
     state: beta
 
   orange3:
     name: "Orange3"
-    version: latest
+    version: 3.38.1
     url: "https://github.com/biolab/orange3"
     description: "Open source machine learning and data visualization."
     state: beta
@@ -253,7 +253,7 @@ apps:
 
   terminal_dip:
     name: "Terminal"
-    version: latest
+    version: 1.0.0
     url: "https://wezfurlong.org/wezterm/index.html"
     description: "WezTerm is a powerful cross-platform terminal emulator and multiplexer implemented in Rust"
     state: beta
@@ -274,7 +274,7 @@ apps:
 
   vscode:
     name: "VS Code"
-    version: latest
+    version: 1.97.2
     url: "https://code.visualstudio.com/"
     description: "Visual Studio Code is a lightweight but powerful source code editor which runs on your desktop."
     state: beta
@@ -319,5 +319,5 @@ base:
 server:
   xpra:
     name: "Xpra"
-    version: master
+    version: 6.0-r3585M
     state: ready
