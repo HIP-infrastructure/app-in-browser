@@ -127,8 +127,8 @@ apps:
 
   gardel:
     name: "GARDEL"
-    version: R2018b_u0-9.5
-    url: "https://meg.univ-amu.fr/wiki/GARDEL:presentation"
+    version: 1.0.0
+    url: "https://meg.univ-amu.fr/doku.php?id=epitools:gardel"
     description: "GARDEL is a tool for automatic segmentation and labelization of SEEG contacts."
     state: off
 
