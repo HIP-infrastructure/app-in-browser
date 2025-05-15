@@ -31,6 +31,13 @@ def get_hip_image_version(image_list, image_name, image_type):
         raise LookupError()
     return version
 
+def get_hip_dockerfile_version(image_list, image_name, image_type):
+    check_image_type(image_type)
+    version = image_list.get(image_type, {}).get(
+        image_name, {}).get("dockerfile_version", "")
+    if not version:
+        raise LookupError()
+    return version
 
 def get_dockerfs_type(config):
     # config is typically hip.config.yml
