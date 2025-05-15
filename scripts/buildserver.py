@@ -10,6 +10,7 @@ from common import (get_ci_commit_branch,
                             get_hip_config,
                             get_hip_image_list,
                             get_hip_image_version,
+                            get_hip_dockerfile_version,
                             get_tag,
                             is_build_needed)
 
@@ -17,12 +18,15 @@ from common import (get_ci_commit_branch,
 parser = argparse.ArgumentParser()
 parser.add_argument("name", nargs="?", default="xpra", help="name of the server to build")
 parser.add_argument("version", nargs="?", help="version of the app to build")
+parser.add_argument("dockerfile_version", nargs="?",
+                    help="version of the dockerfile used to build the app")
 parser.add_argument("-f", "--force", default=False, action=argparse.BooleanOptionalAction,
                     help="overwrite images already found in the registry")
 args = parser.parse_args()
 
 name = args.name
 version = args.version
+dockerfile_version = args.dockerfile_version
 image_type = "server"
 
 # loading hip.yaml
@@ -37,6 +41,13 @@ if not version:
         version = get_hip_image_version(hip, name, image_type)
     except LookupError:
         print(f"Failed to build {name} because its version wasn't found in hip.yml")
+        sys.exit(1)
+
+if not dockerfile_version:
+    try:
+        dockerfile_version = get_hip_dockerfile_version(hip, name, image_type)
+    except LookupError:
+        print(f"Failed to build {name} because its dockerfile version wasn't found in hip.yml")
         sys.exit(1)
 
 # get version of dependencies
@@ -96,7 +107,7 @@ subprocess.check_call(["docker", "buildx", "build",
                                    if ci_registry else []),
                                  *(["--progress=plain"] if ci_registry else []),
                                  "-t", registry_image,
-                                 "-f", f"{context}/server/Dockerfile.{version}",
+                                 "-f", f"{context}/server/Dockerfile.{dockerfile_version}",
                                  context])
 
 # push xpra-server to registry during CI only
