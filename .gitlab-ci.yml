@@ -1,19 +1,37 @@
+spec:
+  inputs:
+    force-base-images:
+      type: boolean
+      default: false
+    force-server-images:
+      type: boolean
+      default: false
+    force-app-images:
+      type: boolean
+      default: false
+---
 image: docker:27
 variables:
   # using "docker" as the host is only possible if you alias the service below
   DOCKER_HOST: tcp://docker:2375
-  # could be wrong here but although Docker defaults to overlay2, 
-  # Docker-in-Docker (DIND) does not according to the following GitLab doc: 
+  # could be wrong here but although Docker defaults to overlay2,
+  # Docker-in-Docker (DIND) does not according to the following GitLab doc:
   # https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-the-overlayfs-driver
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
+
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
+
 services:
   - name: docker:27-dind
     alias: docker
-    # in our experience although you'd assume this would be sufficient, this did 
-    # nothing to prevent connection errors without `DOCKER_TLS_CERTDIR` being set 
+    # in our experience although you'd assume this would be sufficient, this did
+    # nothing to prevent connection errors without `DOCKER_TLS_CERTDIR` being set
     # to an empty string, and I would call that beyond mildly infuriating.
     command: ["--tls=false", "--mtu=1450"]
+
 before_script:
   - apk add --no-cache bash
   - apk add --no-cache openssh-client
@@ -33,12 +51,51 @@ before_script:
   - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
 stages:
-  - build
-build-all-job:
-  stage: build
+  - base-images
+  - server
+  - apps
+
+.build-step:
   only:
     - master
     - dev
-  script:
-    - /bin/bash -c "python3 scripts/buildall.py"
   interruptible: true
+
+build:base-images:
+  extends: .build-step
+  stage: base-images
+  script:
+    - |
+      if $[[ inputs.force-base-images ]];
+      then /bin/bash -c "python3 scripts/buildall.py --base-images --force";
+      else /bin/bash -c "python3 scripts/buildall.py --base-images";
+      fi
+
+build:server:
+  extends: .build-step
+  stage: server
+  script:
+    - |
+      if $[[ inputs.force-server-images ]];
+      then /bin/bash -c "python3 scripts/buildall.py --server --force";
+      else /bin/bash -c "python3 scripts/buildall.py --server";
+      fi
+
+# Splitting them up in batches
+build:app:
+  extends: .build-step
+  stage: apps
+  script:
+    - |
+      if $[[ inputs.force-app-images ]];
+      then /bin/bash -c "python3 scripts/buildall.py --apps --apps-scope $APPS_SCOPE --force";
+      else /bin/bash -c "python3 scripts/buildall.py --apps --apps-scope $APPS_SCOPE";
+      fi
+
+  parallel:
+    matrix:
+      - APPS_SCOPE:
+          - a-b
+          - c-i
+          - j-n
+          - o-z

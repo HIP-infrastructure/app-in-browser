@@ -1,79 +1,116 @@
 #!/usr/bin/env python3
 
-import os
-import yaml
+import argparse
 import subprocess
+import sys
 
-#loading hip.yaml
-with open('hip.yml') as f:
-  hip = yaml.load(f, Loader=yaml.FullLoader)
-#loading hip.config.yaml
-with open('hip.config.yml') as f:
-  hip_config = yaml.load(f, Loader=yaml.FullLoader)
+from common import (get_ci_commit_branch,
+                            get_ci_registry,
+                            get_ci_registry_image,
+                            get_hip_config,
+                            get_hip_image_list,
+                            get_hip_image_version,
+                            get_hip_dockerfile_version,
+                            get_tag,
+                            is_build_needed)
 
-#getting version
-if hip['server']['xpra']['version']:
-  xpra_version=hip['server']['xpra']['version']
-else:
-  print(f"Failed to build xpra-server because it wasn't found in hip.yml")
-  exit(1)
+# parse arguments
+parser = argparse.ArgumentParser()
+parser.add_argument("name", nargs="?", default="xpra", help="name of the server to build")
+parser.add_argument("version", nargs="?", help="version of the app to build")
+parser.add_argument("dockerfile_version", nargs="?",
+                    help="version of the dockerfile used to build the app")
+parser.add_argument("-f", "--force", default=False, action=argparse.BooleanOptionalAction,
+                    help="overwrite images already found in the registry")
+args = parser.parse_args()
+
+name = args.name
+version = args.version
+dockerfile_version = args.dockerfile_version
+image_type = "server"
+
+# loading hip.yaml
+hip = get_hip_image_list()
+
+# loading hip.config.yaml
+hip_config = get_hip_config()
+
+# getting version
+if not version:
+    try:
+        version = get_hip_image_version(hip, name, image_type)
+    except LookupError:
+        print(f"Failed to build {name} because its version wasn't found in hip.yml")
+        sys.exit(1)
+
+if not dockerfile_version:
+    try:
+        dockerfile_version = get_hip_dockerfile_version(hip, name, image_type)
+    except LookupError:
+        print(f"Failed to build {name} because its dockerfile version wasn't found in hip.yml")
+        sys.exit(1)
 
 # get version of dependencies
-virtualgl_version = hip['base']['virtualgl']['version']
+virtualgl_version = hip.get("base", {}).get("virtualgl", {})\
+    .get("version", "")
+if not virtualgl_version:
+    raise LookupError()
 
-# load variables from env
-ci_registry_image = os.getenv('CI_REGISTRY_IMAGE')
-ci_registry = os.getenv("CI_REGISTRY", "")
-ci_commit_branch = os.getenv('CI_COMMIT_BRANCH')
+# get ci_registry from env (default is empty string)
+ci_registry = get_ci_registry()
 
-# get ci_registry_image from hip.config.yml in case it is not defined in env
-if not ci_registry_image:
-  if hip_config['backend']['ci']['registry']['image']:
-    ci_registry_image=hip_config['backend']['ci']['registry']['image']
-  else:
-    print(f"Failed to build xpra-server because CI registry image wasn't found in hip.config.yml")
-    exit(1)
+# get ci_registry_image from env or from hip.config.yml
+try:
+    ci_registry_image = get_ci_registry_image(hip_config)
+except LookupError:
+    print(f"Failed to build {name} because the CI registry image \
+          wasn't found in the hip.config.yml nor among the environment variables")
+    sys.exit(1)
 
-# get ci_commit_branch from hip.config.yml in case it is not defined in env
-if not ci_commit_branch:
-  if hip_config['backend']['ci']['commit_branch']:
-    ci_commit_branch=hip_config['backend']['ci']['commit_branch']
-  else:
-    print(f"Failed to build {name} because CI registry image wasn't found in hip.config.yml")
-    exit(1)
+# get ci_commit_branch from env or from hip.config.yml
+try:
+    ci_commit_branch = get_ci_commit_branch(hip_config)
+except LookupError:
+    print(f"Failed to build {name} because the CI commit branch \
+          wasn't found in the hip.config.yml nor among the environment variables")
+    sys.exit(1)
 
 # create a tag
-if ci_commit_branch != "master":
-  tag = f"-{ci_commit_branch}"
-else:
-  tag = ''
+tag = get_tag(ci_commit_branch)
 
 # define some needed variables
+# !!! note that the image name pattern is
+# different compared to the apps and the base
+# image names !!!
 context = './services'
-image = f"xpra-server:{xpra_version}{tag}"
+image = f"{name}-{image_type}:{version}{tag}"
 registry_image = f"{ci_registry_image}/{image}"
 
-#pull xpra-server and cache from registry during CI only
-if ci_registry:
-  try:
-    subprocess.check_call(["docker", "pull", registry_image])
-  except subprocess.CalledProcessError as e:
-    print(f"Failed pulling {registry_image} from registry.")
+# check if this specific image:version-tag already exists in the registry
+if not is_build_needed(ci_registry_image, f"{name}-{image_type}", version, tag, args.force):
+    sys.exit(0)
 
-#build xpra-server with cache from registry during CI only
-subprocess.check_call(["docker", "buildx", "build", \
-                                 "--build-arg", f"CI_REGISTRY_IMAGE={ci_registry_image}", \
-                                 "--build-arg", f"XPRA_VERSION={xpra_version}", \
-                                 "--build-arg", f"TAG={tag}", \
-                                 "--build-arg", f"VIRTUALGL_VERSION={virtualgl_version}", \
-                                 *(["--cache-from", registry_image] if ci_registry else []),
+# pull xpra-server and cache from registry during CI only
+if ci_registry:
+    try:
+        subprocess.check_call(["docker", "pull", registry_image])
+    except subprocess.CalledProcessError as e:
+        print(f"Failed pulling {registry_image} from registry.")
+
+# build xpra-server with cache from registry during CI only
+subprocess.check_call(["docker", "buildx", "build",
+                                 "--build-arg", f"CI_REGISTRY_IMAGE={ci_registry_image}",
+                                 "--build-arg", f"XPRA_VERSION={version}",
+                                 "--build-arg", f"TAG={tag}",
+                                 "--build-arg", f"VIRTUALGL_VERSION={virtualgl_version}",
+                                 *(["--cache-from", registry_image]
+                                   if ci_registry else []),
                                  *(["--progress=plain"] if ci_registry else []),
-                                 "-t", registry_image, \
-                                 "-f", f"{context}/server/Dockerfile.{xpra_version}", \
+                                 "-t", registry_image,
+                                 "-f", f"{context}/server/Dockerfile.{dockerfile_version}",
                                  context])
 
-#push xpra-server to registry during CI only
+# push xpra-server to registry during CI only
 if ci_registry:
-  ret_val = subprocess.check_call(["docker", "push", registry_image])
-  assert ret_val == 0, f"Failed pushing {registry_image} to registry."
-  pass
+    ret_val = subprocess.check_call(["docker", "push", registry_image])
+    assert ret_val == 0, f"Failed pushing {registry_image} to registry."
