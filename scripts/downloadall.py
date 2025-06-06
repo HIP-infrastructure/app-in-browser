@@ -36,7 +36,8 @@ if not hip_config["backend"]["ci"]["registry"]:
 registry_username = hip_config["backend"]["ci"]["registry"].get("username")
 registry_token = hip_config["backend"]["ci"]["registry"].get("token")
 
-# login to registry
+"""
+# login to registry (The registry is public so we comment it out)
 if registry_username and registry_token:
   subprocess.check_call(
     [
@@ -50,7 +51,7 @@ if registry_username and registry_token:
     ],
     stderr=subprocess.DEVNULL,
   )
-
+"""
 ## download base images
 # base_list = hip['base']
 # for base, params in base_list.items():
