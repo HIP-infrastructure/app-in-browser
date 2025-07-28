@@ -48,6 +48,8 @@ elif [ $APP_NAME == "matlab" ] || [ $APP_NAME == "brainstorm_matlab" ] ||[ $APP_
   #case when APP_NAME needs a matlab license
   echo -e $MATLAB_LICENSE | sed -e 's/^"//' -e 's/"$//' > /opt/matlab/R2023a/licenses
 elif [ $APP_NAME == "ciclone" ]; then
+  CARD="none"
+
   NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/ciclone/config
   APP_DATA_DIR=/apps/$APP_NAME/venv/lib/python3.10/site-packages/$APP_NAME/config
   echo "APP_DATA_DIR: $APP_DATA_DIR"
@@ -57,7 +59,7 @@ elif [ $APP_NAME == "ciclone" ]; then
     mkdir -p "${NC_APP_DATA_DIR}"
     # Copy files only if the source directory exists
     if [ -d "${APP_DATA_DIR}" ]; then
-      cp -a "${APP_DATA_DIR}/"* "${NC_APP_DATA_DIR}"
+      cp -r "${APP_DATA_DIR}/"* "${NC_APP_DATA_DIR}"
     else
       echo "Warning: Source directory ${APP_DATA_DIR} does not exist."
     fi
