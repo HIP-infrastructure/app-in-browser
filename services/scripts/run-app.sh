@@ -69,7 +69,7 @@ elif [ $APP_NAME == "ciclone" ]; then
   ln -s "${NC_APP_DATA_DIR}" "${APP_DATA_DIR}"
   # Set ownership and permissions
   chown -R $HIP_USER:$HIP_USER "${APP_DATA_DIR}"
-  APP_CMD_PREFIX="export PATH=/apps/$APP_NAME/venv/bin/:$PATH"
+  APP_CMD_PREFIX="export PATH=/apps/$APP_NAME/venv/bin/:$PATH; [[ -s /home/$HIP_USER/.bash_profile ]] && source /home/$HIP_USER/.bash_profile"
 elif [ $APP_NAME == "bidssearchtool" ]; then
   NC_CONFIG_DIR=/home/$HIP_USER/nextcloud/app_data/bidssearchtool/config
   CONFIG_DIR=/usr/local/lib/python3.10/dist-packages/src
