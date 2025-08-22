@@ -50,7 +50,7 @@ apps:
 
   ciclone:
     name: "CiCLONE"
-    version: 2.0.0-alpha4
+    version: 2.0.0-alpha5
     url: "https://github.com/HIP-infrastructure/ciclone"
     description: "CiCLONE is a software that allows you to perform registration of medical images and electrodes marking."
     state: beta
