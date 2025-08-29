@@ -29,7 +29,7 @@ apps:
 
   bidsbox:
     name: "Bidsbox"
-    version: 1.0.1
+    version: 1.5.0
     url: "https://github.com/HIP-infrastructure/bidsbox"
     description: "Bidsificator is a software that allows you to import multiple data modalities to a BIDS filestructure."
     state: beta
