@@ -70,6 +70,28 @@ elif [ $APP_NAME == "ciclone" ]; then
   # Set ownership and permissions
   chown -R $HIP_USER:$HIP_USER "${APP_DATA_DIR}"
   APP_CMD_PREFIX="export PATH=/apps/$APP_NAME/venv/bin/:$PATH; [[ -s /home/$HIP_USER/.bash_profile ]] && source /home/$HIP_USER/.bash_profile"
+elif [ $APP_NAME == "bidsbox" ]; then
+  APP_CMD_PREFIX="export PATH=/apps/$APP_NAME/venv/bin/:$PATH"
+
+  NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/bidsbox/config
+  APP_DATA_DIR=/apps/$APP_NAME/venv/lib/python3.10/site-packages/bidsificator/config
+  echo "APP_DATA_DIR: $APP_DATA_DIR"
+
+  # Ensure the NC_APP_DATA_DIR exists
+  if [ ! -d "${NC_APP_DATA_DIR}" ]; then
+    mkdir -p "${NC_APP_DATA_DIR}"
+    # Copy files only if the source directory exists
+    if [ -d "${APP_DATA_DIR}" ]; then
+      cp -r "${APP_DATA_DIR}/"* "${NC_APP_DATA_DIR}"
+    else
+      echo "Warning: Source directory ${APP_DATA_DIR} does not exist."
+    fi
+  fi
+  # Remove the existing APP_DATA_DIR and create a symbolic link
+  rm -rf "${APP_DATA_DIR}"
+  ln -s "${NC_APP_DATA_DIR}" "${APP_DATA_DIR}"
+  # Set ownership and permissions
+  chown -R $HIP_USER:$HIP_USER "${APP_DATA_DIR}"
 elif [ $APP_NAME == "bidssearchtool" ]; then
   NC_CONFIG_DIR=/home/$HIP_USER/nextcloud/app_data/bidssearchtool/config
   CONFIG_DIR=/usr/local/lib/python3.10/dist-packages/src
