@@ -51,7 +51,7 @@ apps:
   ciclone:
     name: "CiCLONE"
     version: 2.0.0-alpha6
-    url: "https://github.com/HIP-infrastructure/ciclone"
+    url: "https://github.com/NeuroTech-Platform/CiCLONE"
     description: "CiCLONE is a software that allows you to perform registration of medical images and electrodes marking."
     state: beta
 
@@ -221,6 +221,13 @@ apps:
     version: 3.38.1
     url: "https://github.com/biolab/orange3"
     description: "Open source machine learning and data visualization."
+    state: beta
+
+  ramps:
+    name: "RAMPS"
+    version: 1.0.0
+    url: "https://github.com/cnnp-lab/RAMPS"
+    description: "An automated pipeline that generates 3D masks of pre-operative tissue resected, leveraging existing software including FreeSurfer, SynthStrip, Sythnseg and ANTS to aid in this task."
     state: beta
 
   robex:

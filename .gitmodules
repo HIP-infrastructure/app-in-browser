@@ -118,3 +118,7 @@
 [submodule "services/apps/robex"]
 	path = services/apps/robex
 	url = git@github.com:HIP-infrastructure/robex.git
+[submodule "services/apps/ramps"]
+	path = services/apps/ramps
+	url = git@github.com:HIP-infrastructure/ramps.git
+	branch = dev
