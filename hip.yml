@@ -29,7 +29,7 @@ apps:
 
   bidsbox:
     name: "Bidsbox"
-    version: 1.9.0
+    version: 1.10.0
     url: "https://github.com/HIP-infrastructure/bidsbox"
     description: "Bidsificator is a software that allows you to import multiple data modalities to a BIDS filestructure."
     state: beta
@@ -50,8 +50,8 @@ apps:
 
   ciclone:
     name: "CiCLONE"
-    version: 2.0.0-alpha6
-    url: "https://github.com/HIP-infrastructure/ciclone"
+    version: 2.0.0-alpha7
+    url: "https://github.com/NeuroTech-Platform/CiCLONE"
     description: "CiCLONE is a software that allows you to perform registration of medical images and electrodes marking."
     state: beta
 
@@ -222,6 +222,13 @@ apps:
     url: "https://github.com/biolab/orange3"
     description: "Open source machine learning and data visualization."
     state: beta
+
+  ramps:
+    name: "RAMPS"
+    version: 1.0.0
+    url: "https://github.com/cnnp-lab/RAMPS"
+    description: "An automated pipeline that generates 3D masks of pre-operative tissue resected, leveraging existing software including FreeSurfer, SynthStrip, Sythnseg and ANTS to aid in this task."
+    state: off
 
   robex:
     name: "ROBEX"
