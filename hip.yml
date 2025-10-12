@@ -228,7 +228,7 @@ apps:
     version: 1.0.0
     url: "https://github.com/cnnp-lab/RAMPS"
     description: "An automated pipeline that generates 3D masks of pre-operative tissue resected, leveraging existing software including FreeSurfer, SynthStrip, Sythnseg and ANTS to aid in this task."
-    state: beta
+    state: off
 
   robex:
     name: "ROBEX"
