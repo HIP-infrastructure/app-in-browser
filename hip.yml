@@ -92,7 +92,7 @@ apps:
 
   brainstorm_matlab:
     name: "Brainstorm (Matlab)"
-    version: 250515
+    version: 251201
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: beta
