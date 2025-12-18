@@ -29,7 +29,7 @@ apps:
 
   bidsbox:
     name: "Bidsbox"
-    version: 1.10.0
+    version: 1.11.0
     url: "https://github.com/HIP-infrastructure/bidsbox"
     description: "Bidsificator is a software that allows you to import multiple data modalities to a BIDS filestructure."
     state: beta
@@ -85,14 +85,14 @@ apps:
 
   brainstorm:
     name: "Brainstorm"
-    version: 250515
+    version: 251201
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: ready
 
   brainstorm_matlab:
     name: "Brainstorm (Matlab)"
-    version: 250515
+    version: 251201
     url: "https://neuroimage.usc.edu/brainstorm"
     description: "Brainstorm is a collaborative, open-source application dedicated to the analysis of brain recordings: MEG, EEG, fNIRS, ECoG, depth electrodes and multiunit electrophysiology."
     state: beta
