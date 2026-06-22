@@ -74,7 +74,8 @@ elif [ $APP_NAME == "bidsbox" ]; then
   APP_CMD_PREFIX="export PATH=/apps/$APP_NAME/venv/bin/:$PATH"
 
   NC_APP_DATA_DIR=/home/$HIP_USER/nextcloud/app_data/bidsbox/config
-  APP_DATA_DIR=/apps/$APP_NAME/venv/lib/python3.10/site-packages/bidsificator/config
+  # resolve the actual interpreter dir (3.10/3.12/...) instead of hardcoding it
+  APP_DATA_DIR=$(echo /apps/$APP_NAME/venv/lib/python3.*/site-packages/bidsificator/config)
   echo "APP_DATA_DIR: $APP_DATA_DIR"
 
   # Ensure the NC_APP_DATA_DIR exists
